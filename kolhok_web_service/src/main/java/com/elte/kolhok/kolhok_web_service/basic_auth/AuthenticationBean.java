@@ -1,9 +1,9 @@
-package com.elte.kolhok.kolhok_web_service;
+package com.elte.kolhok.kolhok_web_service.basic_auth;
 
-public class HelloWorldBean {
+public class AuthenticationBean {
     private String message;
 
-    public HelloWorldBean(String message) {
+    public AuthenticationBean(String message) {
         this.message = message;
     }
 

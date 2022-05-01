@@ -1,4 +1,4 @@
-package com.elte.kolhok.kolhok_web_service;
+package com.elte.kolhok.kolhok_web_service.helloworld;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,8 +21,6 @@ public class HelloWorldController {
 
     @GetMapping(path = "/hello-world/path-variable/{name}")
     public HelloWorldBean helloWorldPathVariable(@PathVariable String name) {
-        //if(((int)(Math.random()*100))%100 < 50)
-        //    throw new RuntimeException("Something happened");
         return new HelloWorldBean("Hello World, " + name);
     }
 }
