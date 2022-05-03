@@ -7,6 +7,7 @@ import com.elte.kolhok.kolhok_web_service.jwt.model.JwtResponse;
 import com.elte.kolhok.kolhok_web_service.jwt.service.JwtUserDetailsService;
 import io.jsonwebtoken.impl.DefaultClaims;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-//jwtToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZXRoIiwiZXhwIjoxNjUxNjIzNjU0LCJpYXQiOjE2NTE2MDU2NTR9.BIdr9YCBalGx1QHBNg8DtP6YYFK80E5Kx41V3z2illABzglg5tja3bWBuLQIdoKAOvrzo-yrKCFZyVTb4fGkYw"
 @RestController
 @CrossOrigin("http://localhost:4200/")
 public class JwtAuthenticationController {
@@ -32,6 +32,9 @@ public class JwtAuthenticationController {
 
     @Autowired
     private JwtUserDetailsService userDetailsService;
+
+    @Value("${jwt.http.request.header}")
+    private String headerName;
 
     @PostMapping("${jwt.get.token.uri}")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
@@ -58,7 +61,7 @@ public class JwtAuthenticationController {
     public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
         //DefaultClaims claims = (io.jsonwebtoken.impl.DefaultClaims) request.getAttribute("claims");
         //Map<String, Object> expectedMap = getMapFromIoJsonwebtokenClaims(claims);
-        String username = jwtTokenUtil.getUsernameFromToken(request.getHeader("Authorization").substring(7));
+        String username = jwtTokenUtil.getUsernameFromToken(request.getHeader(headerName).substring(7));
         String token = jwtTokenUtil.doGenerateRefreshToken(new HashMap<String, Object>(), username);
         return ResponseEntity.ok(new JwtResponse(token));
     }
