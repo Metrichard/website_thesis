@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@CrossOrigin("http://localhost:4200/")
+@CrossOrigin(origins = "http://localhost:4200/")
 public class JwtAuthenticationController {
 
     @Autowired
