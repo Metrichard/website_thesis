@@ -1,25 +1,22 @@
-package com.elte.kolhok.kolhok_web_service.jwt.resource;
+package com.elte.kolhok.kolhok_web_service.jwt.model;
 
 import java.io.Serializable;
 
-public class JwtTokenRequest implements Serializable {
-
-    private static final long serialVersionUID = -5616176897013108345L;
+public class JwtRequest implements Serializable {
+    private static final long serialVersionUID = 5926468583005150707L;
 
     private String username;
     private String password;
 
-    public JwtTokenRequest() {
-        super();
-    }
+    public JwtRequest(){}
 
-    public JwtTokenRequest(String username, String password) {
+    public JwtRequest(String username, String password) {
         this.setUsername(username);
         this.setPassword(password);
     }
 
     public String getUsername() {
-        return this.username;
+        return username;
     }
 
     public void setUsername(String username) {
@@ -27,7 +24,7 @@ public class JwtTokenRequest implements Serializable {
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
     public void setPassword(String password) {
