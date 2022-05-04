@@ -59,10 +59,11 @@ public class JwtAuthenticationController {
 
     @GetMapping("${jwt.refresh.token.uri}")
     public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
-        //DefaultClaims claims = (io.jsonwebtoken.impl.DefaultClaims) request.getAttribute("claims");
-        //Map<String, Object> expectedMap = getMapFromIoJsonwebtokenClaims(claims);
-        String username = jwtTokenUtil.getUsernameFromToken(request.getHeader(headerName).substring(7));
-        String token = jwtTokenUtil.doGenerateRefreshToken(new HashMap<String, Object>(), username);
+        // From the HttpRequest get the claims
+        DefaultClaims claims = (io.jsonwebtoken.impl.DefaultClaims) request.getAttribute("claims");
+
+        Map<String, Object> expectedMap = getMapFromIoJsonwebtokenClaims(claims);
+        String token = jwtTokenUtil.doGenerateRefreshToken(expectedMap, expectedMap.get("sub").toString());
         return ResponseEntity.ok(new JwtResponse(token));
     }
 

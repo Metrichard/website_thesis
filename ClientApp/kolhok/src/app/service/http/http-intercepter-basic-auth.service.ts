@@ -23,6 +23,7 @@ export class HttpIntercepterBasicAuthService implements HttpInterceptor{
         }
       });
     }
+    request.headers.keys();
     return next.handle(request);
   }
 }
