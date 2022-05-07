@@ -1,4 +1,4 @@
-package com.elte.kolhok.kolhok_web_service.restfulwebservice.todo;
+package com.elte.kolhok.restfulwebservice.todo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

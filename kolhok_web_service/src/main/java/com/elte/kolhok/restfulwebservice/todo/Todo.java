@@ -1,4 +1,4 @@
-package com.elte.kolhok.kolhok_web_service.restfulwebservice.todo;
+package com.elte.kolhok.restfulwebservice.todo;
 
 import java.util.Date;
 import java.util.Objects;

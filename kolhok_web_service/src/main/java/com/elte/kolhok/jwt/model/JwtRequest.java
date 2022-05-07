@@ -1,4 +1,4 @@
-package com.elte.kolhok.kolhok_web_service.jwt.model;
+package com.elte.kolhok.jwt.model;
 
 import java.io.Serializable;
 

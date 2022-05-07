@@ -1,7 +1,6 @@
-package com.elte.kolhok.kolhok_web_service.restfulwebservice.todo;
+package com.elte.kolhok.restfulwebservice.todo;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.ArrayList;
 import java.util.Date;
