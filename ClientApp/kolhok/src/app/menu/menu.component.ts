@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { JwtAuthenticationService } from '../service/basic-authentication.service';
+import { JwtAuthenticationService } from '../service/authentication.service';
 
 @Component({
   selector: 'app-menu',

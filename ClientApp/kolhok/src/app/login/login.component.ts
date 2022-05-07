@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { JwtAuthenticationService } from '../service/basic-authentication.service';
+import { JwtAuthenticationService } from '../service/authentication.service';
 
 
 @Component({
