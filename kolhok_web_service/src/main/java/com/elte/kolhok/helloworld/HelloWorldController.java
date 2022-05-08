@@ -1,4 +1,4 @@
-package com.elte.kolhok.kolhok_web_service.helloworld;
+package com.elte.kolhok.helloworld;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

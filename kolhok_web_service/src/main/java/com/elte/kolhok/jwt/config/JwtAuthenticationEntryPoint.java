@@ -1,4 +1,4 @@
-package com.elte.kolhok.kolhok_web_service.jwt.config;
+package com.elte.kolhok.jwt.config;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

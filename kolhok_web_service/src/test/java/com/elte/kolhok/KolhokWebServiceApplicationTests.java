@@ -1,4 +1,4 @@
-package com.elte.kolhok.kolhok_web_service;
+package com.elte.kolhok;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
