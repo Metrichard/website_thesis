@@ -1,10 +1,10 @@
-package com.elte.kolhok.jwt.controller;
+package com.elte.kolhok.authentication.controller;
 
 
-import com.elte.kolhok.jwt.config.JwtTokenUtil;
-import com.elte.kolhok.jwt.model.JwtRequest;
-import com.elte.kolhok.jwt.service.JwtUserDetailsService;
-import com.elte.kolhok.jwt.model.JwtResponse;
+import com.elte.kolhok.authentication.config.JwtTokenUtil;
+import com.elte.kolhok.authentication.model.JwtRequest;
+import com.elte.kolhok.authentication.service.JwtUserDetailsService;
+import com.elte.kolhok.authentication.model.JwtResponse;
 import io.jsonwebtoken.impl.DefaultClaims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

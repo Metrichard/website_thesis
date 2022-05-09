@@ -1,4 +1,4 @@
-package com.elte.kolhok.jwt.config;
+package com.elte.kolhok.authentication.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

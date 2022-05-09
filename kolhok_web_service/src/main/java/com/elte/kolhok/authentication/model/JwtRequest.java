@@ -1,4 +1,4 @@
-package com.elte.kolhok.jwt.model;
+package com.elte.kolhok.authentication.model;
 
 import java.io.Serializable;
 

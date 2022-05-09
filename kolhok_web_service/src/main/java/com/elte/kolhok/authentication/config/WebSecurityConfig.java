@@ -1,4 +1,4 @@
-package com.elte.kolhok.jwt.config;
+package com.elte.kolhok.authentication.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

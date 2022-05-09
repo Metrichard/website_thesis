@@ -1,6 +1,6 @@
-package com.elte.kolhok.jwt.config;
+package com.elte.kolhok.authentication.config;
 
-import com.elte.kolhok.jwt.service.JwtUserDetailsService;
+import com.elte.kolhok.authentication.service.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

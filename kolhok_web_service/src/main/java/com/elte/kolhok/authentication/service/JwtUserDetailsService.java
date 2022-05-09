@@ -1,4 +1,4 @@
-package com.elte.kolhok.jwt.service;
+package com.elte.kolhok.authentication.service;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
