@@ -1,0 +1,12 @@
+*{
+    align-content: center;
+    text-align: center;
+}
+
+h1 {
+    font-variant: small-caps;
+}
+
+.document-div{
+    display: block;
+}

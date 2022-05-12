@@ -4,6 +4,7 @@ import com.elte.kolhok.model.Todo;
 import com.elte.kolhok.repository.TodoRepository;
 import com.elte.kolhok.resource.TodoRequest;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @EntityScan("com.elte.kolhok")
+@EnableMongoRepositories
 @CrossOrigin
 public class TodoController {
 

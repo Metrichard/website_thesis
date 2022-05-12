@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @RestController
 @EntityScan("com.elte.kolhok")
-@EnableMongoRepositories("com.elte.kolhok.repository")
+@EnableMongoRepositories
 @CrossOrigin
 public class PostController {
 
