@@ -63,6 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         webSecurity.ignoring().antMatchers(HttpMethod.POST, "${jwt.get.token.uri}")
                 .antMatchers(HttpMethod.OPTIONS, "/**")
                 .and().ignoring()
-                .antMatchers(HttpMethod.GET, "/");
+                .antMatchers(HttpMethod.GET, "/")
+                .and().ignoring()
+                .antMatchers(HttpMethod.GET, "/api/posts");
     }
 }

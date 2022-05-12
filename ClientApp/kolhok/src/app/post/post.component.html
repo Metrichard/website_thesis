@@ -1,0 +1,21 @@
+
+<h1 *ngIf="isNew">Create a new post</h1>
+<h1 *ngIf="!isNew">Edit post</h1>
+
+<div class="container">
+    <div class="alert alert-warning" *ngIf="postForm.invalid && postForm.dirty">A cím és a cikk nem lehet üres</div>
+    <form (ngSubmit)="!postForm.invalid && saveOrUpdate()" #postForm="ngForm">
+        <fieldset class="form-group">
+            <label>Cím</label>
+            <input type="text" name="title" class="form-control" required="required" minlength="5" [(ngModel)]="post.title">
+        </fieldset>
+        <fieldset class="form-group">
+            <label>Cikk szövege</label>
+            <textarea name="text" cols="30" rows="10" class="form-control" required="required" [(ngModel)]="post.text"></textarea>
+        </fieldset>
+
+        <div class="text-muted">{{post.publicationDate | date}}</div>
+        <div class="text-muted">{{post.author}}</div>
+        <button type="submit" class="btn btn-success">Mentés</button>
+    </form>
+</div>

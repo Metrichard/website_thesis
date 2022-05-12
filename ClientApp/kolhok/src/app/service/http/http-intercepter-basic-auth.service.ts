@@ -22,6 +22,12 @@ export class HttpIntercepterBasicAuthService implements HttpInterceptor{
           Authorization: jwtToken
         }
       });
+    }else {
+      request = request.clone({
+        setHeaders: {
+          NotLoggedIn: 'true'
+        }
+      });
     }
     request.headers.keys();
     return next.handle(request);

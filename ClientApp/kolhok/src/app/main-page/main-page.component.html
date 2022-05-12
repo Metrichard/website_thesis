@@ -1,0 +1,18 @@
+<div class="container">
+    <button *ngIf="authService.isUserLoggedIn()" class="btn btn-success" (click)="navigateToAddTodo()">Add</button>
+</div>
+
+<div class="container">
+    <table>
+        <tr class="table-row" *ngFor="let post of posts">
+            <div (click)="navigateToCurrentPost(post.id)">
+                <td class="table-cell">
+                    <h5>{{post.title}}</h5>
+                </td>
+                <td class="table-cell">
+                    {{post.text}}
+                </td>
+            </div>
+        </tr>
+    </table>
+</div>

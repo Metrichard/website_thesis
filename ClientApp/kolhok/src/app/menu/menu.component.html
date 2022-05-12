@@ -1,10 +1,41 @@
 <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div><a href="http://kolhok.elte.hu/" class="navbar-brand">KolHÖK</a></div>
+        <div><a routerLink="/main-page" class="navbar-brand"><img src="../../assets/kolhok-logo.png" width="80%"/></a></div>
 
         <ul class="navbar-nav">
-            <li><a *ngIf="authenticationService.isUserLoggedIn()" routerLink="/welcome/Meth" class="nav-link">Home</a></li>
-            <li><a *ngIf="authenticationService.isUserLoggedIn()" routerLink="/todos" class="nav-link">Todos</a></li>
+            <li>
+                <a routerLink="/main-page" class="nav-link">Fő oldal</a>
+            </li>
+            <li class="dropdown">
+                <a class="nav-link dropbtn">Felvétel</a>
+                <div class="dropdown-content">
+                    <a routerLink="#">Elsősöknek</a>
+                    <a routerLink="#">Felsősöknek</a>
+                    <a routerLink="#">Várólista</a>
+                </div>
+            </li>
+            <li>
+                <a routerLink="app-dormitories" class="nav-link dropbtn">Kollégiumok</a>
+            </li>
+            <li class="dropdown">
+                <a routerLink="#" class="nav-link">Szervezet</a>
+                <div class="dropdown-content">
+                    <a routerLink="#">Kabinet</a>
+                    <a routerLink="#">Elnökség</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <a class="nav-link">Választások</a>
+                <div class="dropdown-content">
+                    <a routerLink="#">2021</a>
+                </div>
+            </li>
+            <li>
+                <a routerLink="#" class="nav-link">Dokumentumok</a>
+            </li>
+            <li class="dropdown">
+                <a routerLink="#" class="nav-link">Kapcsolat</a>
+            </li>
         </ul>
 
         <ul class="navbar-nav navbar-collapse justify-content-end">
