@@ -40,7 +40,7 @@ export class PostComponent implements OnInit {
   }
 
   saveOrUpdate() {
-    if(this.id == ''){
+    if(this.id == '-1'){
       this.post.publicationDate = new Date();
       this.postService.createPost(this.post).subscribe(
         data => { 

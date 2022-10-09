@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.basicAuthService.executeJwtAuthenticationService(this.username, this.password).subscribe(
       data => {
         console.log(data);
-        this.router.navigate(['main-page', this.username]);
+        this.router.navigate(['main-page']);
         this.invalidLogin = false;
       },
       error => {

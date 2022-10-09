@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CalendarComponent } from './calendar/calendar.component';
 import { ErrorComponent } from './error/error.component';
 import { ListTodosComponent } from './list-todos/list-todos.component';
 import { LogOutComponent } from './log-out/log-out.component';
@@ -14,7 +15,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'main-page', component: MainPageComponent},
   { path: 'post/:id', component: PostComponent, canActivate: [RouteGuardService]},
-
+  { path: 'calendar', component: CalendarComponent},
 
   { path: 'todos', component: ListTodosComponent, canActivate: [RouteGuardService]},
   { path: 'logout', component: LogOutComponent, canActivate: [RouteGuardService]},
