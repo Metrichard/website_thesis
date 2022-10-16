@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { API_URL } from 'src/app/app.constants';
-import { Post } from 'src/app/main-page/main-page.component';
+import { API_URL } from '../../app.constants';
+import { Post } from '../../main-page/main-page.component'
 
 @Injectable({
   providedIn: 'root'

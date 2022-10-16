@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { API_URL } from 'src/app/app.constants';
-import { Todo } from 'src/app/list-todos/list-todos.component';
+import { API_URL } from '../../app.constants';
+import { Todo } from '../../list-todos/list-todos.component';
 
 @Injectable({
   providedIn: 'root'
