@@ -21,6 +21,8 @@ import { PostComponent } from './post/post.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DragComponentComponent } from './drag-component/drag-component.component';
 import moment from 'moment';
+import { DormsPageComponent } from './dorms-page/dorms-page.component';
+import { DormPageComponent } from './dorms-page/dorm-page/dorm-page.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import moment from 'moment';
     MainPageComponent,
     PostComponent,
     CalendarComponent,
-    DragComponentComponent
+    DragComponentComponent,
+    DormsPageComponent,
+    DormPageComponent
   ],
   imports: [
     BrowserModule,

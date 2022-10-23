@@ -1,0 +1,16 @@
+<div class="container">
+    <table>
+        <tr class="table-row" *ngFor="let dorm of dorms">
+            <td class="table-cell">
+                <h5>{{dorm.dormName}}</h5>
+            </td>
+            <td class="table-cell">
+                <ul>
+                    <li>{{dorm.dormAddress}}</li>
+                    <li>{{dorm.dormPrincipal}}</li>
+                    <li>{{dorm.dormPrincipalEmailAddress}}</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>

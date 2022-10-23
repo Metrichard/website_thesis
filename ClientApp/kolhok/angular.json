@@ -102,5 +102,8 @@
       }
     }
   },
-  "defaultProject": "kolhok"
+  "defaultProject": "kolhok",
+  "cli": {
+    "analytics": false
+  }
 }

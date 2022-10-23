@@ -19,13 +19,15 @@ export class HttpIntercepterBasicAuthService implements HttpInterceptor{
     if(jwtToken && username) {
       request = request.clone({
         setHeaders: {
-          Authorization: jwtToken
+          Authorization: jwtToken,
+          AccessControlAllowOrigin: '*'
         }
       });
     }else {
       request = request.clone({
         setHeaders: {
-          NotLoggedIn: 'true'
+          NotLoggedIn: 'true',
+          AccessControlAllowOrigin: '*'
         }
       });
     }
