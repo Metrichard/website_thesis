@@ -15,4 +15,16 @@ export class DormDataService {
   retriveAllDormitories() {
     return this.http.get<Dorm[]>(`${API_URL}/api/dorms`);
   }
+
+  updateDorm(id: String, dorm: Dorm) {
+    return this.http.post<Dorm>(`${API_URL}/api/dorm-update`, dorm);
+  }
+
+  createDorm(dorm: Dorm) {
+    return this.http.post<Dorm>(`${API_URL}/api/dorm-create`, dorm);
+  }
+
+  deleteDorm(id: String) {
+    return this.http.delete(`${API_URL}/api/dorm-delete/${id}`);
+  }
 }

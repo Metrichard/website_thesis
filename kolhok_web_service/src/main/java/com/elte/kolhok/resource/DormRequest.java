@@ -1,22 +1,17 @@
-package com.elte.kolhok.model;
+package com.elte.kolhok.resource;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+public class DormRequest {
 
-@Document("dorms")
-public class Dorm {
-
-    @Id
     private String id;
     private String dormName;
     private String dormAddress;
     private String dormPrincipal;
     private String dormPrincipalEmailAddress;
 
-    public Dorm() {
+    public DormRequest() {
     }
 
-    public Dorm(String dormName, String dormAddress, String dormPrincipal, String dormPrincipalEmailAddress) {
+    public DormRequest(String dormName, String dormAddress, String dormPrincipal, String dormPrincipalEmailAddress) {
         this.dormName = dormName;
         this.dormAddress = dormAddress;
         this.dormPrincipal = dormPrincipal;

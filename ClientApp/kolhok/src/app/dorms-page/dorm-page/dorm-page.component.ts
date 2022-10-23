@@ -16,6 +16,7 @@ export class DormPageComponent implements OnInit {
 export class Dorm {
 
   constructor(
+    public id: String,
     public dormName: String,
     public dormAddress: String,
     public dormPrincipal: String,

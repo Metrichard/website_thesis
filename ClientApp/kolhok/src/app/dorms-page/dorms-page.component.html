@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="!authService.isUserLoggedIn()" class="container">
     <table>
         <tr class="table-row" *ngFor="let dorm of dorms">
             <td class="table-cell">
@@ -10,6 +10,65 @@
                     <li>{{dorm.dormPrincipal}}</li>
                     <li>{{dorm.dormPrincipalEmailAddress}}</li>
                 </ul>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div *ngIf="authService.isUserLoggedIn()" class="container">
+    <!-- Editing existing dorms -->
+    <table>
+        <tr class="table-row" *ngFor="let dorm of dorms">
+            <td class="table-cell">
+                <div class="text-muted">{{dorm.id}}</div>
+                <form (ngSubmit)="updateDorm(dorm.id)" #postForm="ngForm">
+                    <fieldset class="form-group">
+                        <label>Kollégium neve</label>
+                        <input type="text" size="100" name="dName" class="form-control" required="required" minlength="1" [(ngModel)]="dorm.dormName">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Kollégium címe</label>
+                        <input type="text" size="100" name="dAddress" class="form-control" required="required" minlength="1" [(ngModel)]="dorm.dormAddress">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Kollégiumi igazgató</label>
+                        <input type="text" size="100" name="dPrincipal" class="form-control" required="required" minlength="1" [(ngModel)]="dorm.dormPrincipal">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Kollégiumi igazgató e-mail címe</label>
+                        <input type="text" size="100" name="dPrincipalEmailAddress" class="form-control" required="required" minlength="1" [(ngModel)]="dorm.dormPrincipalEmailAddress">
+                    </fieldset>
+                    <button type="submit" class="btn btn-success">Mentés</button>
+                    <button type="button" class="btn btn-danger" (click)="deleteById(dorm.id)">Törlés</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <!-- Adding a new dorm to the list -->
+    <button type="button" class="btn btn-secondary" (click)="showAddNewDorm()">+</button>
+    <table *ngIf="isAddingNew">
+        <tr>
+            <td>
+                <div class="text-muted">{{newDorm.id}}</div>
+                <form (ngSubmit)="saveDorm()" #postForm="ngForm">
+                    <fieldset class="form-group">
+                        <label>Kollégium neve</label>
+                        <input type="text" size="100" name="dName" class="form-control" required="required" minlength="1" [(ngModel)]="newDorm.dormName">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Kollégium címe</label>
+                        <input type="text" size="100" name="dAddress" class="form-control" required="required" minlength="1" [(ngModel)]="newDorm.dormAddress">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Kollégiumi igazgató</label>
+                        <input type="text" size="100" name="dPrincipal" class="form-control" required="required" minlength="1" [(ngModel)]="newDorm.dormPrincipal">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Kollégiumi igazgató e-mail címe</label>
+                        <input type="text" size="100" name="dPrincipalEmailAddress" class="form-control" required="required" minlength="1" [(ngModel)]="newDorm.dormPrincipalEmailAddress">
+                    </fieldset>
+                    <button type="submit" class="btn btn-success">Mentés</button>
+                </form>
             </td>
         </tr>
     </table>
