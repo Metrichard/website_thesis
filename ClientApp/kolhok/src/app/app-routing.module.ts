@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ApplicationComponent } from './application/application.component';
+import { NotStorkComponent } from './application/not-stork/not-stork.component';
+import { StorkComponent } from './application/stork/stork.component';
+import { WaitingListComponent } from './application/waiting-list/waiting-list.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DormsPageComponent } from './dorms-page/dorms-page.component';
 import { DragComponentComponent } from './drag-component/drag-component.component';
@@ -20,6 +24,10 @@ const routes: Routes = [
   { path: 'calendar', component: CalendarComponent},
   { path: 'calendar2', component: DragComponentComponent},
   { path: 'dorms', component: DormsPageComponent},
+  { path: 'application-editing', component: ApplicationComponent, canActivate: [RouteGuardService]},
+  { path: 'stork', component: StorkComponent},
+  { path: 'notstork', component: NotStorkComponent},
+  { path: 'waiting-list', component: WaitingListComponent},
 
   { path: 'todos', component: ListTodosComponent, canActivate: [RouteGuardService]},
   { path: 'logout', component: LogOutComponent, canActivate: [RouteGuardService]},

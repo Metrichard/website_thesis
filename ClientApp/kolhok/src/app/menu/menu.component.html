@@ -7,11 +7,11 @@
                 <a routerLink="/main-page" class="nav-link">Fő oldal</a>
             </li>
             <li class="dropdown">
-                <a class="nav-link dropbtn">Felvétel</a>
+                <a class="nav-link dropbtn" (click)="editApplicationPages()">Felvétel</a>
                 <div class="dropdown-content">
-                    <a routerLink="#">Elsősöknek</a>
-                    <a routerLink="#">Felsősöknek</a>
-                    <a routerLink="#">Várólista</a>
+                    <a routerLink="stork">Elsősöknek</a>
+                    <a routerLink="notstork">Felsősöknek</a>
+                    <a routerLink="waiting-list">Várólista</a>
                 </div>
             </li>
             <li>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { JwtAuthenticationService } from '../service/authentication.service';
 
 @Component({
@@ -9,11 +10,18 @@ import { JwtAuthenticationService } from '../service/authentication.service';
 export class MenuComponent implements OnInit {
 
   constructor(
-    public authenticationService: JwtAuthenticationService
+    public authenticationService: JwtAuthenticationService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     
   }
 
+  editApplicationPages(){
+    if(this.authenticationService.isUserLoggedIn()){
+      this.router.navigate(['application-editing']);
+    }
+  }
+  
 }

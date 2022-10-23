@@ -23,6 +23,10 @@ import { DragComponentComponent } from './drag-component/drag-component.componen
 import moment from 'moment';
 import { DormsPageComponent } from './dorms-page/dorms-page.component';
 import { DormPageComponent } from './dorms-page/dorm-page/dorm-page.component';
+import { ApplicationComponent } from './application/application.component';
+import { StorkComponent } from './application/stork/stork.component';
+import { NotStorkComponent } from './application/not-stork/not-stork.component';
+import { WaitingListComponent } from './application/waiting-list/waiting-list.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,11 @@ import { DormPageComponent } from './dorms-page/dorm-page/dorm-page.component';
     CalendarComponent,
     DragComponentComponent,
     DormsPageComponent,
-    DormPageComponent
+    DormPageComponent,
+    ApplicationComponent,
+    StorkComponent,
+    NotStorkComponent,
+    WaitingListComponent
   ],
   imports: [
     BrowserModule,
