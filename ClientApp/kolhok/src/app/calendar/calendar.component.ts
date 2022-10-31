@@ -8,9 +8,6 @@ import { CalendarView } from 'angular-calendar';
 })
 export class CalendarComponent {
 
-  viewDate: Date = new Date();
-
-  view: CalendarView = CalendarView.Month;
-  CalendarView = CalendarView;
+  
 
 }

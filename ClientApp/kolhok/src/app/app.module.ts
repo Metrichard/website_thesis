@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/moment';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
@@ -18,7 +18,6 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { PostComponent } from './post/post.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DragComponentComponent } from './drag-component/drag-component.component';
-import moment from 'moment';
 import { DormsPageComponent } from './dorms-page/dorms-page.component';
 import { DormPageComponent } from './dorms-page/dorm-page/dorm-page.component';
 import { ApplicationComponent } from './application/application.component';
