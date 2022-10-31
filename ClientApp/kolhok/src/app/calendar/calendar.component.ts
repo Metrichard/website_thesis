@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CalendarView } from 'angular-calendar';
+import { CalendarOptions } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-calendar',
@@ -8,6 +8,19 @@ import { CalendarView } from 'angular-calendar';
 })
 export class CalendarComponent {
 
-  
+  events: any = [
+    { title: 'Present', date: '2022-11-01', color: '#FF0000'},
+    { title: 'Test', date: '2022-11-02', color: '#00FF00'},
+    { title: 'Test2', date: '2022-11-03', color: '#0000FF'},
+  ]
+
+  calendarOptions: CalendarOptions = {
+    initialView: 'dayGridMonth',
+    events: this.events
+  };
+
+  constructor() {}
+
+
 
 }

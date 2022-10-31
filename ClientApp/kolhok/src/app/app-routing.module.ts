@@ -6,7 +6,6 @@ import { StorkComponent } from './application/stork/stork.component';
 import { WaitingListComponent } from './application/waiting-list/waiting-list.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DormsPageComponent } from './dorms-page/dorms-page.component';
-import { DragComponentComponent } from './drag-component/drag-component.component';
 import { ErrorComponent } from './error/error.component';
 import { LogOutComponent } from './log-out/log-out.component';
 import { LoginComponent } from './login/login.component';
@@ -20,7 +19,6 @@ const routes: Routes = [
   { path: 'main-page', component: MainPageComponent},
   { path: 'post/:id', component: PostComponent, canActivate: [RouteGuardService]},
   { path: 'calendar', component: CalendarComponent},
-  { path: 'calendar2', component: DragComponentComponent},
   { path: 'dorms', component: DormsPageComponent},
   { path: 'application-editing', component: ApplicationComponent, canActivate: [RouteGuardService]},
   { path: 'stork', component: StorkComponent},

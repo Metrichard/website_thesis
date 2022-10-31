@@ -20,6 +20,7 @@
     "@angular/router": "~13.2.0",
     "@fullcalendar/angular": "^5.11.2",
     "@fullcalendar/daygrid": "^5.11.3",
+    "@fullcalendar/interaction": "^5.11.3",
     "@types/moment": "^2.13.0",
     "angular": "^1.6.10",
     "angular-calendar": "^0.29.0",
