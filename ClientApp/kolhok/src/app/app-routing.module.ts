@@ -8,13 +8,11 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { DormsPageComponent } from './dorms-page/dorms-page.component';
 import { DragComponentComponent } from './drag-component/drag-component.component';
 import { ErrorComponent } from './error/error.component';
-import { ListTodosComponent } from './list-todos/list-todos.component';
 import { LogOutComponent } from './log-out/log-out.component';
 import { LoginComponent } from './login/login.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { PostComponent } from './post/post.component';
 import { RouteGuardService } from './service/route-guard.service';
-import { TodoComponent } from './todo/todo.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent},
@@ -29,9 +27,7 @@ const routes: Routes = [
   { path: 'notstork', component: NotStorkComponent},
   { path: 'waiting-list', component: WaitingListComponent},
 
-  { path: 'todos', component: ListTodosComponent, canActivate: [RouteGuardService]},
   { path: 'logout', component: LogOutComponent, canActivate: [RouteGuardService]},
-  { path: 'todos/:id', component: TodoComponent, canActivate: [RouteGuardService]},
   { path: '**', component: ErrorComponent}
 ];
 
