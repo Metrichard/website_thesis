@@ -67,6 +67,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().ignoring()
                 .antMatchers(HttpMethod.GET, "/api/posts")
                 .and().ignoring()
-                .antMatchers(HttpMethod.GET, "/api/dorms");
+                .antMatchers(HttpMethod.GET, "/api/dorms")
+                .and().ignoring()
+                .antMatchers(HttpMethod.GET, "/api/calendar-get-all");
     }
 }

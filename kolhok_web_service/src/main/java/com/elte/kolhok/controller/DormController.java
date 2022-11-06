@@ -24,9 +24,7 @@ public class DormController {
 
     @GetMapping("api/dorms")
     public ResponseEntity<?> getAllDorms() {
-        var response =ResponseEntity.ok(dormRepository.findAll());
-        var responseBody = response.getBody();
-        return response;
+        return ResponseEntity.ok(dormRepository.findAll());
     }
 
     @PostMapping("/api/dorm-create")
