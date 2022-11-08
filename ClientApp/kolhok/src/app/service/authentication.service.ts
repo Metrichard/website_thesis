@@ -29,7 +29,7 @@ export class JwtAuthenticationService {
   }
 
   getAuthenticatedUser() {
-    return sessionStorage.getItem(AUTHENTICATED_USER)
+    return sessionStorage.getItem(AUTHENTICATED_USER) ?? '';
   }
 
   getJwtToken() {

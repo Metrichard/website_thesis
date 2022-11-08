@@ -29,7 +29,7 @@ public class PostController {
 
     @PostMapping("/api/post-create")
     public ResponseEntity<?> createPost(@RequestBody PostRequest postRequest) {
-        Post post = new Post(postRequest.getAuthor(), postRequest.getTitle(), postRequest.getText(), postRequest.getPublicationDate());
+        Post post = new Post(postRequest.getTitle(), postRequest.getAuthor(), postRequest.getText(), postRequest.getTag(), postRequest.getPinned(),  postRequest.getHidden(), postRequest.getPublicationDate());
 
         return ResponseEntity.status(201).body(postRepository.save(post));
     }
@@ -47,7 +47,7 @@ public class PostController {
             return ResponseEntity.ok(postRepository.save(current));
         }
 
-        return ResponseEntity.status(400).body("Post with id {" + post.get().getId() + "} can not be updated because it does not exist");
+        return ResponseEntity.status(400).body("Post with id {" + postRequest.getId() + "} can not be updated because it does not exist");
     }
 
     @GetMapping("/api/posts/{id}")
@@ -61,7 +61,7 @@ public class PostController {
         return ResponseEntity.status(400).body("The post with id {" + id + "} was not found");
     }
 
-    @DeleteMapping("/api/todos/{id}")
+    @DeleteMapping("/api/post-delete/{id}")
     public ResponseEntity<?> deletePostById(@PathVariable String id) {
         Optional<Post> post = postRepository.findById(id);
 

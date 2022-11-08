@@ -1,2 +1,21 @@
-<full-calendar [options]="calendarOptions"></full-calendar>
+<full-calendar [options]="calendarOptions" [(ngModel)]="calendarOptions"></full-calendar>
 
+<div class="container" *ngIf="authService.isUserLoggedIn()">
+    <form (ngSubmit)="createEvent()" #postForm="ngForm">
+        <fieldset class="form-group">
+            <label>Esemény neve</label>
+            <input type="text" size="100" name="eventName" class="form-control" required="required" minlength="5" [(ngModel)]="newEvent.title">
+        </fieldset>
+        <fieldset class="form-group">
+            <label>Esemény dátuma</label>
+            <input type="text" size="100" name="eventName" class="form-control" placeholder="1970-01-01" pattern="[0-9]{4}-[0-9][0-9]-[0-9][0-9]"
+                required="required" minlength="5" [(ngModel)]="newEvent.date">
+        </fieldset>
+        <fieldset class="form-group">
+            <label>Esemény színe</label>
+            <input type="text" size="100" name="eventName" class="form-control" placeholder="#000000"
+                required="required" minlength="7"  maxlength="7" [(ngModel)]="newEvent.color">
+        </fieldset>
+        <button type="submit" class="btn btn-success">Mentés</button>
+    </form>
+</div>

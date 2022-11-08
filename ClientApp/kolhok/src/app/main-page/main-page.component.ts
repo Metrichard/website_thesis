@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtAuthenticationService } from '../service/authentication.service';
-import { PostDataService } from '../service/data/post-data.service';
+import { PostDataService } from '../service/post/post-data.service';
+import { Post } from '../post-editor/post-editor.component';
 
 @Component({
   selector: 'app-main-page',
@@ -25,11 +26,7 @@ export class MainPageComponent implements OnInit {
   navigateToCurrentPost(id: String) {
     this.router.navigate(['post', id]);
   }
-
-  navigateToAddTodo() {
-    this.router.navigate(['post', -1]);
-  }
-
+  
   refreshPosts() {
     this.postDataService.retrieveAllPosts().subscribe(
       response => {
@@ -38,21 +35,4 @@ export class MainPageComponent implements OnInit {
     )
   }
 
-}
-
-export class Post {
-
-  preViewTextLength : number = 100
-
-  constructor(
-    public id: String,
-    public title: String,
-    public text: String,
-    public publicationDate: Date,
-    public author: String
-  ) {}
-
-  getPreviewText() : String {
-    return this.text.length < this.preViewTextLength ? this.text+'...' : this.text.substring(0,this.preViewTextLength)+'...';
-  }
 }

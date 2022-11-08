@@ -1,21 +1,50 @@
+<div class="container" *ngIf="shouldShow">
+    <button class="btn btn-primary" *ngIf="authService.isUserLoggedIn()" type="button" (click)="editPost()">Edit</button>
 
-<h1 *ngIf="isNew">Create a new post</h1>
-<h1 *ngIf="!isNew">Edit post</h1>
+    <h1>{{post.title}}</h1>
+    <p>
+        {{post.text}}
+    </p>
+    <div class="text-muted">{{post.publicationDate | date}}</div>
+    <div class="text-muted">{{post.author}}</div>
+</div>
 
-<div class="container">
-    <div class="alert alert-warning" *ngIf="postForm.invalid && postForm.dirty">A cím és a cikk nem lehet üres</div>
-    <form (ngSubmit)="!postForm.invalid && saveOrUpdate()" #postForm="ngForm">
-        <fieldset class="form-group">
-            <label>Cím</label>
-            <input type="text" name="title" class="form-control" required="required" minlength="5" [(ngModel)]="post.title">
-        </fieldset>
-        <fieldset class="form-group">
-            <label>Cikk szövege</label>
-            <textarea name="text" cols="30" rows="10" class="form-control" required="required" [(ngModel)]="post.text"></textarea>
-        </fieldset>
+<div *ngIf="authService.isUserLoggedIn() && isEditing">
+    <h1 *ngIf="isNew">Create a new post</h1>
+    <h1 *ngIf="!isNew">Edit post</h1>
+    <button class="btn btn-primary" *ngIf="authService.isUserLoggedIn()" type="button" (click)="editPost()">Quit Editing</button>
+    <div class="container">
+        <div class="alert alert-warning" *ngIf="postForm.invalid && postForm.dirty">A cím és a cikk nem lehet üres</div>
+        <form (ngSubmit)="!postForm.invalid && saveOrUpdate()" #postForm="ngForm">
+            <fieldset class="form-group">
+                <label>Cím</label>
+                <input type="text" name="title" class="form-control" required="required" minlength="5" [(ngModel)]="post.title">
+            </fieldset>
+            <fieldset class="form-group">
+                <label>Cikk szövege</label>
+                <textarea name="text" cols="30" rows="10" class="form-control" required="required" [(ngModel)]="post.text"></textarea>
+            </fieldset>
+            <fieldset class="form-group">
+                <label>Tag</label>
+                <input type="text" name="tag" class="form-control" required="required" [(ngModel)]="post.tag">
+            </fieldset>
+            <fieldset>
+                <div class="form-group form-check">
+                    <input class="form-check-input" type="checkbox" name="isPinned" [(ngModel)]="post.isPinned">
+                    <label class="form-check-label">Is Pinned</label>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form-group form-check">
+                    <input class="form-check-input" type="checkbox" name="isHidden" [(ngModel)]="post.isHidden">
+                    <label class="form-check-label">Is Hidden</label>
+                </div>
+            </fieldset>
 
-        <div class="text-muted">{{post.publicationDate | date}}</div>
-        <div class="text-muted">{{post.author}}</div>
-        <button type="submit" class="btn btn-success">Mentés</button>
-    </form>
+            <div class="text-muted">{{post.publicationDate | date}}</div>
+            <div class="text-muted" [(ngModel)]="post.author">{{authService.getAuthenticatedUser()}}</div>
+            <button type="submit" class="btn btn-success">Mentés</button>
+            <button type="button" class="btn btn-warning float-right" (click)="deletePost(post.id)">Törlés</button>
+        </form>
+    </div>
 </div>

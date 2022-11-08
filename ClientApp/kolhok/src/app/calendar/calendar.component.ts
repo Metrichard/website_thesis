@@ -11,7 +11,9 @@ import { CalendarDataServiceService } from 'app/service/calendar/calendar-data-s
 })
 export class CalendarComponent implements OnInit {
 
-  events?: any;
+  newEvent: DateEvent = new DateEvent('-1','','','');
+
+  events?: any[];
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
@@ -25,7 +27,11 @@ export class CalendarComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    this.initCalendar();
+  }
+
+  initCalendar() {
     this.calendarDataService.retrieveAllEvents().subscribe(
       response => {
         this.events = response
@@ -34,7 +40,15 @@ export class CalendarComponent implements OnInit {
   }
 
   handleDateEvent(arg:any) {
-    alert('date click' + arg.dateStr);
+    //alert('date click' + arg.dateStr);
+  }
+
+  createEvent() {
+    this.calendarDataService.createDateEvent(this.newEvent).subscribe(
+      data => {
+        window.location.reload();
+      }
+    )
   }
 }
 

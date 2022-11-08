@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +26,7 @@ import { ApplicationComponent } from './application/application.component';
 import { StorkComponent } from './application/stork/stork.component';
 import { NotStorkComponent } from './application/not-stork/not-stork.component';
 import { WaitingListComponent } from './application/waiting-list/waiting-list.component';
+import { PostEditorComponent } from './post-editor/post-editor.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -48,7 +49,8 @@ FullCalendarModule.registerPlugins([
     ApplicationComponent,
     StorkComponent,
     NotStorkComponent,
-    WaitingListComponent
+    WaitingListComponent,
+    PostEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +66,9 @@ FullCalendarModule.registerPlugins([
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpIntercepterBasicAuthService, multi: true}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+  ],
 })
 export class AppModule { }

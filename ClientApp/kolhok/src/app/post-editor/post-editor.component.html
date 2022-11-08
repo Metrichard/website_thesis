@@ -1,0 +1,63 @@
+<br>
+<div class="container">
+    <button class="btn btn-primary" (click)="navigateToAddTodo()">Create new post</button>
+</div>
+<br>
+
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <th scope="col">Id</th>
+            <th scope="col" sortable="title" (sort)="onSort($any($event))">Title</th>
+            <th scope="col" sortable="author" (sort)="onSort($any($event))">Author</th>
+            <th scope="col">Contents</th>
+            <th scope="col" sortable="tag" (sort)="onSort($any($event))">Tag</th>
+            <th scope="col">Is Pinned</th>
+            <th scope="col">Is Hidden</th>
+            <th scope="col" sortable="date" (sort)="onSort($any($event))">Publication Date</th>
+            <th scope="col">Action</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let post of posts">
+                <th scope="row">{{post.id.substr(post.id.length-5, 5)}}</th>
+                <td>{{post.title}}</td>
+                <td>{{post.author}}</td>
+                <td>{{post.text.substr(0, 30)}}</td>
+                <td>{{post.tag}}</td>
+                <td>{{post.isPinned ? 'YES' : 'NO'}}</td>
+                <td>{{post.isHidden ? 'YES' : 'NO'}}</td>
+                <td>{{post.publicationDate | date}}</td>
+                <td>
+                    <button type="button" (click)="navigateToPost(post.id)">Edit/See</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+<br>
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <th>Tag id</th>
+            <th>Tag Name</th>
+            <th>Tag description</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tag of tags">
+                <th scope="row">{{tag.id.substring(tag.id.length-5,5)}}</th>
+                <td>{{tag.name}}</td>
+                <td>{{tag.description}}</td>
+                <td><button class="btn btn-warning">Delete</button></td>
+            </tr>
+            <tr>
+                <th>NaN</th>
+                <td><input type="text" name="tagName" maxlength="15" required="required" [(ngModel)]="newTag.name"></td>
+                <td><input type="text" name="tagDescription" maxlength="50" placeholder="If not clear, explain..." [(ngModel)]="newTag.description"></td>
+                <td><button class="btn btn-accept">Save new tag</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

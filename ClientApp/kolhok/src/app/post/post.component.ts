@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Post } from '../main-page/main-page.component';
+import { Post } from '../post-editor/post-editor.component';
 import { JwtAuthenticationService } from '../service/authentication.service';
-import { PostDataService } from '../service/data/post-data.service';
+import { PostDataService } from '../service/post/post-data.service';
 
 @Component({
   selector: 'app-post',
@@ -11,20 +11,26 @@ import { PostDataService } from '../service/data/post-data.service';
 })
 export class PostComponent implements OnInit {
 
+  shouldShow: boolean = true;
+  isEditing: boolean = false;
   id: String = '';
-  post: Post = new Post('', '', '', new Date(), '');
+  post: Post = new Post('', '', '', '', '', false, false, new Date());
   isNew: boolean = false;
 
   constructor(
     private postService: PostDataService,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: JwtAuthenticationService
+    public authService: JwtAuthenticationService
   ) { }
 
   ngOnInit(): void {
 
     this.id = this.route.snapshot.params['id'];
+    if(this.id === '-1'){
+      this.isEditing = true;
+      this.shouldShow = false;
+    }
 
     if(this.id != '') {
       this.isNew = false;
@@ -35,24 +41,36 @@ export class PostComponent implements OnInit {
       )
     }else {
       this.isNew = true;
-      this.post.author = this.authService.getAuthenticatedUser() ?? '';
     }
   }
 
   saveOrUpdate() {
     if(this.id == '-1'){
       this.post.publicationDate = new Date();
+      this.post.author = this.authService.getAuthenticatedUser();
       this.postService.createPost(this.post).subscribe(
         data => { 
-          this.router.navigate(['main-page']);
+          this.router.navigate(['post-editor']);
         }
       )
     }else {
       this.postService.updatePost(this.id, this.post).subscribe(
         data => { 
-          this.router.navigate(['main-page']);
+          this.router.navigate(['post-editor']);
         }
       )
     }
+  }
+
+  deletePost(id: String) {
+    this.postService.deletePost(id).subscribe(
+      result => {}
+    );
+    this.router.navigate(['post-editor']);
+  }
+
+  editPost(){
+    this.isEditing = !this.isEditing;
+    this.shouldShow = !this.shouldShow;
   }
 }

@@ -39,8 +39,11 @@
             <li>
                 <a routerLink="#" class="nav-link">Dokumentumok</a>
             </li>
-            <li class="dropdown">
+            <li>
                 <a routerLink="#" class="nav-link">Kapcsolat</a>
+            </li>
+            <li *ngIf="authenticationService.isUserLoggedIn()">
+                <a routerLink="post-editor" class="nav-link">Poszt szerkesztő</a>
             </li>
         </ul>
 

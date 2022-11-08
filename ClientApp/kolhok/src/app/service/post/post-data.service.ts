@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_URL } from '../../app.constants';
-import { Post } from '../../main-page/main-page.component'
+import { Post } from '../../post-editor/post-editor.component';
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +26,9 @@ export class PostDataService {
 
   updatePost(id: String, post: Post) {
     return this.http.post<Post>(`${API_URL}/api/post-update`, post)
+  }
+
+  deletePost(id: String) {
+    return this.http.delete(`${API_URL}/api/post-delete/${id}`);
   }
 }

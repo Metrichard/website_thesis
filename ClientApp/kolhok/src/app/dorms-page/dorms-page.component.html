@@ -47,8 +47,8 @@
     <!-- Adding a new dorm to the list -->
     <button type="button" class="btn btn-secondary" (click)="showAddNewDorm()">+</button>
     <table *ngIf="isAddingNew">
-        <tr>
-            <td>
+        <tr class="table-row">
+            <td class="table-cell">
                 <div class="text-muted">{{newDorm.id}}</div>
                 <form (ngSubmit)="saveDorm()" #postForm="ngForm">
                     <fieldset class="form-group">

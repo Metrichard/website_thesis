@@ -8,15 +8,21 @@ public class PostRequest {
     private String title;
     private String author;
     private String text;
+    private String tag;
+    private Boolean isPinned;
+    private Boolean isHidden;
     private Date publicationDate;
 
     public PostRequest() {
     }
 
-    public PostRequest(String author, String title, String text, Date publicationDate) {
-        this.author = author;
+    public PostRequest(String title, String author, String text, String tag, Boolean isPinned, Boolean isHidden, Date publicationDate) {
         this.title = title;
+        this.author = author;
         this.text = text;
+        this.tag = tag;
+        this.isPinned = isPinned;
+        this.isHidden = isHidden;
         this.publicationDate = publicationDate;
     }
 
@@ -58,5 +64,29 @@ public class PostRequest {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public Boolean getPinned() {
+        return isPinned;
+    }
+
+    public void setPinned(Boolean pinned) {
+        isPinned = pinned;
+    }
+
+    public Boolean getHidden() {
+        return isHidden;
+    }
+
+    public void setHidden(Boolean hidden) {
+        isHidden = hidden;
     }
 }

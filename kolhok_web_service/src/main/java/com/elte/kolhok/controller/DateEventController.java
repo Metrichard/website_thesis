@@ -22,7 +22,10 @@ public class DateEventController {
 
     @GetMapping("api/calendar-get-all")
     public ResponseEntity<?> getAllDateEvents() {
-        return ResponseEntity.ok(dateEventRepository.findAll());
+        var result = dateEventRepository.findAll();
+
+
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("api/calendar-create")

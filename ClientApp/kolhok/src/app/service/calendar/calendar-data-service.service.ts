@@ -17,7 +17,7 @@ export class CalendarDataServiceService {
   }
 
   createDateEvent(dateEvent: DateEvent) {
-    return this.http.post<DateEvent>(`${API_URL}/api/calendar-create`, DateEvent);
+    return this.http.post<DateEvent>(`${API_URL}/api/calendar-create`, dateEvent);
   }
 
   updateDateEvent(dateEvent: DateEvent) {

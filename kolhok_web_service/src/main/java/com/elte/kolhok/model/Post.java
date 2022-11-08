@@ -13,15 +13,21 @@ public class Post {
     private String title;
     private String author;
     private String text;
+    private String tag;
+    private Boolean isPinned;
+    private Boolean isHidden;
     private Date publicationDate;
 
     public Post() {
     }
 
-    public Post(String author, String title, String text, Date publicationDate) {
-        this.author = author;
+    public Post(String title, String author, String text, String tag, Boolean isPinned, Boolean isHidden, Date publicationDate) {
         this.title = title;
+        this.author = author;
         this.text = text;
+        this.tag = tag;
+        this.isPinned = isPinned;
+        this.isHidden = isHidden;
         this.publicationDate = publicationDate;
     }
 
@@ -31,6 +37,14 @@ public class Post {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {
@@ -49,6 +63,14 @@ public class Post {
         this.text = text;
     }
 
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
     public Date getPublicationDate() {
         return publicationDate;
     }
@@ -57,11 +79,19 @@ public class Post {
         this.publicationDate = publicationDate;
     }
 
-    public String getTitle() {
-        return title;
+    public Boolean getPinned() {
+        return isPinned;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setPinned(Boolean pinned) {
+        isPinned = pinned;
+    }
+
+    public Boolean getHidden() {
+        return isHidden;
+    }
+
+    public void setHidden(Boolean hidden) {
+        isHidden = hidden;
     }
 }
