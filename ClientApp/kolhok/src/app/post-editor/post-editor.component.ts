@@ -106,14 +106,28 @@ export class PostEditorComponent implements OnInit {
     this.router.navigate(['post', id]);
   }
 
+  deletePostRow(id: String) {
+    this.postDataService.deletePost(id).subscribe(_=>{});
+    window.location.reload();
+  }
+
   createNewTag() {
     if(this.newTag.id === '-1') {
       this.tagDataService.createTag(this.newTag).subscribe(
-        response => {
+        _ => {
           window.location.reload();
         }
       )
     }
+  }
+
+  deleteTag(id: String) {
+    if(id !== '-1') {
+      this.tagDataService.deleteTag(id).subscribe(
+        _ => {}
+      )
+      window.location.reload();
+    };
   }
 }
 

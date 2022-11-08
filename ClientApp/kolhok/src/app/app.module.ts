@@ -27,6 +27,7 @@ import { StorkComponent } from './application/stork/stork.component';
 import { NotStorkComponent } from './application/not-stork/not-stork.component';
 import { WaitingListComponent } from './application/waiting-list/waiting-list.component';
 import { PostEditorComponent } from './post-editor/post-editor.component';
+import { MatSelectModule } from '@angular/material/select'
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -58,6 +59,7 @@ FullCalendarModule.registerPlugins([
     FormsModule,
     HttpClientModule,
     FullCalendarModule,
+    MatSelectModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory

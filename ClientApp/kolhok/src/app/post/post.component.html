@@ -26,6 +26,14 @@
             </fieldset>
             <fieldset class="form-group">
                 <label>Tag</label>
+                <mat-form-field appearance="fill">
+                    <mat-label>Tag</mat-label>
+                    <mat-select>
+                        <mat-option *ngFor="let tag of tags" [value]="post.tag">
+                            {{tag.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
                 <input type="text" name="tag" class="form-control" required="required" [(ngModel)]="post.tag">
             </fieldset>
             <fieldset>
@@ -44,7 +52,7 @@
             <div class="text-muted">{{post.publicationDate | date}}</div>
             <div class="text-muted" [(ngModel)]="post.author">{{authService.getAuthenticatedUser()}}</div>
             <button type="submit" class="btn btn-success">Mentés</button>
-            <button type="button" class="btn btn-warning float-right" (click)="deletePost(post.id)">Törlés</button>
+            <button type="button" class="btn btn-danger float-right" (click)="deletePost(post.id)">Törlés</button>
         </form>
     </div>
 </div>

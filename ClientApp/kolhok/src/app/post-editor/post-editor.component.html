@@ -29,7 +29,8 @@
                 <td>{{post.isHidden ? 'YES' : 'NO'}}</td>
                 <td>{{post.publicationDate | date}}</td>
                 <td>
-                    <button type="button" (click)="navigateToPost(post.id)">Edit/See</button>
+                    <button class="btn btn-primary" type="button" (click)="navigateToPost(post.id)">Edit/See</button>
+                    <button class="btn btn-danger" type="button" (click)="deletePostRow(post.id)">Törlés</button>
                 </td>
             </tr>
         </tbody>
@@ -50,13 +51,13 @@
                 <th scope="row">{{tag.id.substring(tag.id.length-5,5)}}</th>
                 <td>{{tag.name}}</td>
                 <td>{{tag.description}}</td>
-                <td><button class="btn btn-warning">Delete</button></td>
+                <td><button class="btn btn-danger" (click)="deleteTag(tag.id)">Törlés</button></td>
             </tr>
             <tr>
-                <th>NaN</th>
-                <td><input type="text" name="tagName" maxlength="15" required="required" [(ngModel)]="newTag.name"></td>
-                <td><input type="text" name="tagDescription" maxlength="50" placeholder="If not clear, explain..." [(ngModel)]="newTag.description"></td>
-                <td><button class="btn btn-accept">Save new tag</button></td>
+                <th>New</th>
+                <td><input class="form-control" type="text" name="tagName" maxlength="15" required="required" [(ngModel)]="newTag.name"></td>
+                <td><input class="form-control" type="text" name="tagDescription" maxlength="50" placeholder="If not clear, explain..." [(ngModel)]="newTag.description"></td>
+                <td><button class="btn btn-success" (click)="createNewTag()">Új tag létrehozása</button></td>
             </tr>
         </tbody>
     </table>

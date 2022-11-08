@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TagDataService } from 'app/service/tag/tag-data-service.service';
 import { Post } from '../post-editor/post-editor.component';
 import { JwtAuthenticationService } from '../service/authentication.service';
 import { PostDataService } from '../service/post/post-data.service';
+import { Tag } from '../post-editor/post-editor.component';
+
 
 @Component({
   selector: 'app-post',
@@ -16,12 +19,14 @@ export class PostComponent implements OnInit {
   id: String = '';
   post: Post = new Post('', '', '', '', '', false, false, new Date());
   isNew: boolean = false;
+  tags: Tag[] = [];
 
   constructor(
     private postService: PostDataService,
     private route: ActivatedRoute,
     private router: Router,
-    public authService: JwtAuthenticationService
+    public authService: JwtAuthenticationService,
+    private tagDataService: TagDataService
   ) { }
 
   ngOnInit(): void {
@@ -42,6 +47,12 @@ export class PostComponent implements OnInit {
     }else {
       this.isNew = true;
     }
+
+    this.tagDataService.getAllTags().subscribe(
+      response => {
+        this.tags = response;
+      }
+    )
   }
 
   saveOrUpdate() {
