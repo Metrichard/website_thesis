@@ -18,39 +18,38 @@
         <form (ngSubmit)="!postForm.invalid && saveOrUpdate()" #postForm="ngForm">
             <fieldset class="form-group">
                 <label>Cím</label>
-                <input type="text" name="title" class="form-control" required="required" minlength="5" [(ngModel)]="post.title">
+                <input type="text" class="form-control" required="required" minlength="5" [(ngModel)]="post.title" name="title">
             </fieldset>
             <fieldset class="form-group">
                 <label>Cikk szövege</label>
-                <textarea name="text" cols="30" rows="10" class="form-control" required="required" [(ngModel)]="post.text"></textarea>
+                <textarea cols="30" rows="10" class="form-control" required="required" [(ngModel)]="post.text" name="text"></textarea>
             </fieldset>
             <fieldset class="form-group">
                 <label>Tag</label>
-                <mat-form-field appearance="fill">
+                <!--<mat-form-field appearance="fill">
                     <mat-label>Tag</mat-label>
                     <mat-select>
                         <mat-option *ngFor="let tag of tags" [value]="post.tag">
                             {{tag.name}}
                         </mat-option>
                     </mat-select>
-                </mat-form-field>
-                <input type="text" name="tag" class="form-control" required="required" [(ngModel)]="post.tag">
+                </mat-form-field> -->
             </fieldset>
             <fieldset>
                 <div class="form-group form-check">
-                    <input class="form-check-input" type="checkbox" name="isPinned" [(ngModel)]="post.isPinned">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="post.isPinned" name="isPinned">
                     <label class="form-check-label">Is Pinned</label>
                 </div>
             </fieldset>
             <fieldset>
                 <div class="form-group form-check">
-                    <input class="form-check-input" type="checkbox" name="isHidden" [(ngModel)]="post.isHidden">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="post.isHidden" name="isHidden">
                     <label class="form-check-label">Is Hidden</label>
                 </div>
             </fieldset>
 
             <div class="text-muted">{{post.publicationDate | date}}</div>
-            <div class="text-muted" [(ngModel)]="post.author">{{authService.getAuthenticatedUser()}}</div>
+            <div class="text-muted"  [(ngModel)]="post.author" [ngModelOptions]="{standalone: true}">{{authService.getAuthenticatedUser()}}</div>
             <button type="submit" class="btn btn-success">Mentés</button>
             <button type="button" class="btn btn-danger float-right" (click)="deletePost(post.id)">Törlés</button>
         </form>
