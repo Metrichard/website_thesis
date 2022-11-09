@@ -3,59 +3,26 @@ import { PostDataService } from 'app/service/post/post-data.service';
 import { Router } from '@angular/router';
 import { JwtAuthenticationService } from 'app/service/authentication.service';
 import { TagDataService } from 'app/service/tag/tag-data-service.service';
-
-export type SortColumn = keyof IPost | '';
-export type SortDirection = 'asc' | 'desc' | '';
-const rotate: { [key: string]: SortDirection } = { asc: 'desc', desc: '', '': 'asc' };
-
-const compare = (v1: String | number | Date | Boolean, v2: String | number | Date | Boolean ) => (v1 < v2 ? -1 : v1 > v2 ? 1 : 0);
-
-export interface IPost {
-  id: String,
-  title: String,
-  author: String,
-  text: String,
-  tag: String,
-  isPinned: Boolean,
-  isHidden: Boolean,
-  publicationDate: Date
-}
-
-export interface SortEvent{
-  column: SortColumn;
-  direction: SortDirection;
-}
-
-@Directive({
-  selector: 'th[sortable]',
-  host: {
-    '[class.asc]': 'direction === "asc"',
-		'[class.desc]': 'direction === "desc"',
-		'(click)': 'rotate()',
-  },
-})
-export class SortableHeader {
-  @Input() sortable: SortColumn = '';
-  @Input() direction: SortDirection = '';
-  @Output() sort = new EventEmitter<SortEvent>();
-
-  rotate() {
-    this.direction = rotate[this.direction];
-    this.sort.emit({ column: this.sortable, direction: this.direction });
-  }
-}
-
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { AfterViewInit, ViewChild } from '@angular/core';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { isThisSecond } from 'date-fns';
 
 @Component({
   selector: 'app-post-editor',
   templateUrl: './post-editor.component.html',
   styleUrls: ['./post-editor.component.css']
 })
-export class PostEditorComponent implements OnInit {
+export class PostEditorComponent implements OnInit, AfterViewInit {
+  
+  posts: Post[] = []
 
+  displayedColumns: string[] = ['id', 'title', 'author', 'text', 'tag', 'isPinned', 'isHidden', 'publicationDate', 'actions'];
+  dataSource = new MatTableDataSource(this.posts)
+  
+  @ViewChild(MatSort) sort: MatSort = new MatSort();
 
-  @ViewChildren(SortableHeader) headers?: QueryList<SortableHeader>;
-  posts: IPost[] = []
   tags: Tag[] = []
   newTag: Tag = new Tag('-1', '', '');
 
@@ -63,13 +30,28 @@ export class PostEditorComponent implements OnInit {
     private postDataService: PostDataService,
     private tagDataService: TagDataService,
     private router: Router,
-    public authService: JwtAuthenticationService
+    public authService: JwtAuthenticationService,
+    private liveAnnouncer: LiveAnnouncer
   ) { }
+
+  ngAfterViewInit(): void {
+      
+  }
+
+  announceSortChange(sortState: Sort) {
+    if(sortState.direction){
+      this.liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    }else {
+      this.liveAnnouncer.announce(`Sorting cleared`);
+    }
+  }
 
   ngOnInit(): void {
     this.postDataService.retrieveAllPosts().subscribe(
       response => {
-        this.posts = response;
+        this.posts = response.map(post => new Post(post.id, post.title, post.author, post.text, post.tag, Boolean(post.isPinned), Boolean(post.isHidden), post.publicationDate))
+        this.dataSource = new MatTableDataSource(this.posts)
+        this.dataSource.sort = this.sort;
       }
     );
     this.tagDataService.getAllTags().subscribe(
@@ -77,25 +59,6 @@ export class PostEditorComponent implements OnInit {
         this.tags = response;
       }
     );
-  }
-
-  onSort({ column, direction } : SortEvent) {
-    if(this.headers !== undefined){
-      this.headers.forEach((header) => {
-        if(header.sortable !== column) {
-          header.direction = '';
-        }
-      });
-
-      if(direction === '' || column === '') {
-        this.posts = this.posts;
-      } else {
-        this.posts = [...this.posts].sort((a, b) => {
-          const res = compare(a[column], b[column]);
-          return direction === 'asc' ? res : -res;
-        });
-      }
-    }
   }
 
   navigateToAddTodo(){
@@ -140,10 +103,7 @@ export class Tag {
   ){}
 }
 
-export class Post implements IPost {
-
-  preViewTextLength : number = 100
-
+export class Post{
   constructor(
     public id: String,
     public title: String,
@@ -154,4 +114,12 @@ export class Post implements IPost {
     public isHidden: Boolean,
     public publicationDate: Date,
   ) {}
+}
+
+export class FileWrapper {
+
+  constructor(
+    id: String,
+    file: FormData
+  ){}
 }

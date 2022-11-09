@@ -2,9 +2,7 @@
     <button class="btn btn-primary" *ngIf="authService.isUserLoggedIn()" type="button" (click)="editPost()">Edit</button>
 
     <h1>{{post.title}}</h1>
-    <p>
-        {{post.text}}
-    </p>
+    <div [innerHTML]="post.text"></div>
     <div class="text-muted">{{post.publicationDate | date}}</div>
     <div class="text-muted">{{post.author}}</div>
 </div>
@@ -18,38 +16,51 @@
         <form (ngSubmit)="!postForm.invalid && saveOrUpdate()" #postForm="ngForm">
             <fieldset class="form-group">
                 <label>Cím</label>
-                <input type="text" class="form-control" required="required" minlength="5" [(ngModel)]="post.title" name="title">
+                <input type="text" class="form-control" required="required" minlength="5" [(ngModel)]="post.title" name="title" ngDefaultControl>
             </fieldset>
             <fieldset class="form-group">
                 <label>Cikk szövege</label>
-                <textarea cols="30" rows="10" class="form-control" required="required" [(ngModel)]="post.text" name="text"></textarea>
+                <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+                <ngx-editor name="wysiwyg-text" [editor]="editor" [(ngModel)]="post.text" [value]="post.text" ngDefaultControl></ngx-editor>
             </fieldset>
             <fieldset class="form-group">
                 <label>Tag</label>
-                <!--<mat-form-field appearance="fill">
-                    <mat-label>Tag</mat-label>
-                    <mat-select>
-                        <mat-option *ngFor="let tag of tags" [value]="post.tag">
+                <mat-form-field appearance="fill">
+                    <mat-label class="text-muted">Tags</mat-label>
+                    <mat-select name="selector">
+                        <mat-option *ngFor="let tag of tags" [value]="post.tag" name="option">
                             {{tag.name}}
                         </mat-option>
                     </mat-select>
-                </mat-form-field> -->
+                </mat-form-field>
             </fieldset>
             <fieldset>
                 <div class="form-group form-check">
-                    <input class="form-check-input" type="checkbox" [(ngModel)]="post.isPinned" name="isPinned">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="post.isPinned" name="isPinned" ngDefaultControl>
                     <label class="form-check-label">Is Pinned</label>
                 </div>
             </fieldset>
             <fieldset>
                 <div class="form-group form-check">
-                    <input class="form-check-input" type="checkbox" [(ngModel)]="post.isHidden" name="isHidden">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="post.isHidden" name="isHidden" ngDefaultControl>
                     <label class="form-check-label">Is Hidden</label>
                 </div>
             </fieldset>
+            <br>
+            <!-- File upload -->
+            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+
+            <div class="file-upload">
+                {{fileName || "No file uploaded yet."}}
+
+                <button mat-mini-fab class="upload-btn" (click)="fileUpload.click()">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+            </div>
+            <br>
 
             <div class="text-muted">{{post.publicationDate | date}}</div>
-            <div class="text-muted"  [(ngModel)]="post.author" [ngModelOptions]="{standalone: true}">{{authService.getAuthenticatedUser()}}</div>
+            <div class="text-muted"  [(ngModel)]="post.author">{{authService.getAuthenticatedUser()}}</div>
             <button type="submit" class="btn btn-success">Mentés</button>
             <button type="button" class="btn btn-danger float-right" (click)="deletePost(post.id)">Törlés</button>
         </form>

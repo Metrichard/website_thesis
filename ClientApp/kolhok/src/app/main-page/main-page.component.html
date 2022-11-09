@@ -6,7 +6,7 @@
                     <h5>{{post.title}}</h5>
                 </td>
                 <td class="table-cell">
-                    {{post.text}}
+                    <div [innerHTML]="post.text"></div>
                 </td>
             </div>
         </tr>

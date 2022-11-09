@@ -9,7 +9,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction'
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { ErrorComponent } from './error/error.component';
 import { MenuComponent } from './menu/menu.component';
@@ -28,6 +28,12 @@ import { NotStorkComponent } from './application/not-stork/not-stork.component';
 import { WaitingListComponent } from './application/waiting-list/waiting-list.component';
 import { PostEditorComponent } from './post-editor/post-editor.component';
 import { MatSelectModule } from '@angular/material/select'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { NgxEditorModule } from 'ngx-editor';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -60,6 +66,13 @@ FullCalendarModule.registerPlugins([
     HttpClientModule,
     FullCalendarModule,
     MatSelectModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    MatButtonModule,
+    NgxEditorModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatSortModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
