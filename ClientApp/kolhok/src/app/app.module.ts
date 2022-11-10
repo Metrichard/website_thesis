@@ -22,10 +22,6 @@ import { PostComponent } from './post/post.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { DormsPageComponent } from './dorms-page/dorms-page.component';
 import { DormPageComponent } from './dorms-page/dorm-page/dorm-page.component';
-import { ApplicationComponent } from './application/application.component';
-import { StorkComponent } from './application/stork/stork.component';
-import { NotStorkComponent } from './application/not-stork/not-stork.component';
-import { WaitingListComponent } from './application/waiting-list/waiting-list.component';
 import { PostEditorComponent } from './post-editor/post-editor.component';
 import { MatSelectModule } from '@angular/material/select'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,6 +30,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgxEditorModule } from 'ngx-editor';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -53,10 +54,6 @@ FullCalendarModule.registerPlugins([
     CalendarComponent,
     DormsPageComponent,
     DormPageComponent,
-    ApplicationComponent,
-    StorkComponent,
-    NotStorkComponent,
-    WaitingListComponent,
     PostEditorComponent
   ],
   imports: [
@@ -73,6 +70,11 @@ FullCalendarModule.registerPlugins([
     ReactiveFormsModule,
     MatTableModule,
     MatSortModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatDividerModule,
+    MatListModule,
+    MatExpansionModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory

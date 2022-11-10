@@ -31,3 +31,20 @@
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+mat-sidenav-container {
+    height: calc(205vh - 110vh);
+}
+
+mat-sidenav {
+    width: 200px;
+    background-color: #EEEEEE;
+}
+
+mat-expansion-panel {
+    background-color: #EEEEEE;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}

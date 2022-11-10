@@ -9,6 +9,8 @@ import { JwtAuthenticationService } from '../service/authentication.service';
 })
 export class MenuComponent implements OnInit {
 
+  opened = false;
+
   constructor(
     public authenticationService: JwtAuthenticationService,
     private router: Router
@@ -24,4 +26,7 @@ export class MenuComponent implements OnInit {
     }
   }
   
+  toggleMenu(){
+    this.opened = !this.opened;
+  }
 }

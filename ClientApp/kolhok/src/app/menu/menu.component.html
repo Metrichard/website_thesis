@@ -1,56 +1,57 @@
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div><a routerLink="/main-page" class="navbar-brand"><img src="../../assets/kolhok-logo.png" width="80%"/></a></div>
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <a routerLink="/main-page" class="navbar-brand"><img src="../../assets/kolhok-logo.png" width="80%"/></a>
+        <button mat-button (click)="toggleMenu()"><mat-icon>menu</mat-icon></button>
+        <span class="spacer"></span>
+        <mat-list>
+            <mat-list-item *ngIf="!authenticationService.isUserLoggedIn()"><a routerLink="/login" class="nav-link"><mat-icon>login</mat-icon></a></mat-list-item>
+            <mat-list-item *ngIf="authenticationService.isUserLoggedIn()"><a routerLink="/logout" class="nav-link"><mat-icon>logout</mat-icon></a></mat-list-item>
+        </mat-list>
 
-        <ul class="navbar-nav">
-            <li>
-                <a routerLink="/main-page" class="nav-link">Fő oldal</a>
-            </li>
-            <li class="dropdown">
-                <a class="nav-link dropbtn" (click)="editApplicationPages()">Felvétel</a>
-                <div class="dropdown-content">
-                    <a routerLink="stork">Elsősöknek</a>
-                    <a routerLink="notstork">Felsősöknek</a>
-                    <a routerLink="waiting-list">Várólista</a>
-                </div>
-            </li>
-            <li>
-                <a routerLink="dorms" class="nav-link dropbtn">Kollégiumok</a>
-            </li>
-            <li class="dropdown">
-                <a routerLink="#" class="nav-link">Szervezet</a>
-                <div class="dropdown-content">
-                    <a routerLink="#">Kabinet</a>
-                    <a routerLink="#">Elnökség</a>
-                </div>
-            </li>
-            <li class="dropdown">
-                <a class="nav-link">Választások</a>
-                <div class="dropdown-content">
-                    <a routerLink="#">2021</a>
-                </div>
-            </li>
-            <li>
-                <a routerLink="calendar" class="nav-link">Naptár</a>
-            </li>
-            <li>
-                <a routerLink="#" class="nav-link">Átláthatóság</a>
-            </li>
-            <li>
-                <a routerLink="#" class="nav-link">Dokumentumok</a>
-            </li>
-            <li>
-                <a routerLink="#" class="nav-link">Kapcsolat</a>
-            </li>
-            <li *ngIf="authenticationService.isUserLoggedIn()">
-                <a routerLink="post-editor" class="nav-link">Poszt szerkesztő</a>
-            </li>
-        </ul>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav [(opened)]="opened" mode="side">
+        <mat-list>
+            <mat-list-item><a routerLink="/main-page" class="nav-link">Fő oldal</a></mat-list-item>
+            
+            <mat-expansion-panel>
+                <mat-expansion-panel-header hideToggle>
+                    <mat-panel-title>Felvétel</mat-panel-title>
+                    <mat-panel-description></mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-list-item><a routerLink="stork">Elsősöknek</a></mat-list-item>
+                <mat-list-item><a routerLink="notstork">Felsősöknek</a></mat-list-item>
+                <mat-list-item><a routerLink="waiting-list">Várólista</a></mat-list-item>
+            </mat-expansion-panel>
 
-        <ul class="navbar-nav navbar-collapse justify-content-end">
-            <li><a *ngIf="!authenticationService.isUserLoggedIn()" routerLink="/login" class="nav-link">Log in</a></li>
-            <li><a *ngIf="authenticationService.isUserLoggedIn()" routerLink="/logout" class="nav-link">Log out</a></li>
-        </ul>
+            <mat-list-item><a routerLink="dorms" class="nav-link">Kollégiumok</a></mat-list-item>
 
-    </nav>
-</header>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header hideToggle>
+                    <mat-panel-title>Szervezet</mat-panel-title>
+                    <mat-panel-description></mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-list-item><a routerLink="#">Kabinet</a></mat-list-item>
+                <mat-list-item><a routerLink="#">Elnökség</a></mat-list-item>
+            </mat-expansion-panel>
+
+            <mat-list-item><a routerLink="#" class="nav-link">Választások</a></mat-list-item>
+            <mat-list-item><a routerLink="calendar" class="nav-link">Naptár</a></mat-list-item>
+            <mat-list-item><a routerLink="#" class="nav-link">Átláthatóság</a></mat-list-item>
+            <mat-list-item><a routerLink="#" class="nav-link">Dokumentumok</a></mat-list-item>
+            <mat-list-item><a routerLink="#" class="nav-link">Kapcsolat</a></mat-list-item>
+        </mat-list>
+        <mat-divider *ngIf="authenticationService.isUserLoggedIn()"></mat-divider>
+        <mat-list *ngIf="authenticationService.isUserLoggedIn()">
+            <mat-list-item><a routerLink="post-editor" class="nav-link">Poszt szerkesztő</a></mat-list-item>
+        </mat-list>
+
+    </mat-sidenav>
+    <mat-sidanav-content>
+        <!-- Contents of the pages -->
+        <div class="container">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidanav-content>
+</mat-sidenav-container>
