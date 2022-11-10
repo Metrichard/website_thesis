@@ -35,6 +35,11 @@ export class CalendarComponent implements OnInit {
     this.calendarDataService.retrieveAllEvents().subscribe(
       response => {
         this.events = response
+        this.calendarOptions = {
+          initialView: 'dayGridMonth',
+          dateClick: this.handleDateEvent.bind(this),
+          events: this.events,
+        };
       }
     )
   }
