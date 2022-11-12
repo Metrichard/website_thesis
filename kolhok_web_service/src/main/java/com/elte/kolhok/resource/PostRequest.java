@@ -12,11 +12,12 @@ public class PostRequest {
     private String isPinned;
     private String isHidden;
     private Date publicationDate;
+    private String[] files;
 
     public PostRequest() {
     }
 
-    public PostRequest(String title, String author, String text, String tag, String isPinned, String isHidden, Date publicationDate) {
+    public PostRequest(String title, String author, String text, String tag, String isPinned, String isHidden, Date publicationDate, String[] files) {
         this.title = title;
         this.author = author;
         this.text = text;
@@ -24,6 +25,7 @@ public class PostRequest {
         this.isPinned = isPinned;
         this.isHidden = isHidden;
         this.publicationDate = publicationDate;
+        this.files = files;
     }
 
     public String getAuthor() {
@@ -74,19 +76,27 @@ public class PostRequest {
         this.tag = tag;
     }
 
-    public String getPinned() {
+    public String getIsPinned() {
         return isPinned;
     }
 
-    public void setPinned(String pinned) {
-        isPinned = pinned;
+    public void setIsPinned(String isPinned) {
+        this.isPinned = isPinned;
     }
 
-    public String getHidden() {
+    public String getIsHidden() {
         return isHidden;
     }
 
-    public void setHidden(String hidden) {
-        isHidden = hidden;
+    public void setIsHidden(String isHidden) {
+        this.isHidden = isHidden;
+    }
+
+    public String[] getFiles() {
+        return files;
+    }
+
+    public void setFiles(String[] files) {
+        this.files = files;
     }
 }

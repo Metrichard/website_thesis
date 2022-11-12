@@ -17,11 +17,12 @@ public class Post {
     private String isPinned;
     private String isHidden;
     private Date publicationDate;
+    private String[] files;
 
     public Post() {
     }
 
-    public Post(String title, String author, String text, String tag, String isPinned, String isHidden, Date publicationDate) {
+    public Post(String title, String author, String text, String tag, String isPinned, String isHidden, Date publicationDate, String[] files) {
         this.title = title;
         this.author = author;
         this.text = text;
@@ -29,6 +30,7 @@ public class Post {
         this.isPinned = isPinned;
         this.isHidden = isHidden;
         this.publicationDate = publicationDate;
+        this.files = files;
     }
 
     public String getId() {
@@ -93,5 +95,13 @@ public class Post {
 
     public void setPublicationDate(Date publicationDate) {
         this.publicationDate = publicationDate;
+    }
+
+    public String[] getFiles() {
+        return files;
+    }
+
+    public void setFiles(String[] files) {
+        this.files = files;
     }
 }

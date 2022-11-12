@@ -2,20 +2,23 @@ package com.elte.kolhok.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.web.multipart.MultipartFile;
 
 @Document("files")
 public class File {
 
     @Id
     private String id;
-    private MultipartFile file;
+    private String fileName;
+    private String fileBytesAsString;
+    private String fileType;
 
     public File() {
     }
 
-    public File(MultipartFile file) {
-        this.file = file;
+    public File(String fileName, String fileBytesAsString, String fileType) {
+        this.fileName = fileName;
+        this.fileBytesAsString = fileBytesAsString;
+        this.fileType = fileType;
     }
 
     public String getId() {
@@ -26,11 +29,27 @@ public class File {
         this.id = id;
     }
 
-    public MultipartFile getFile() {
-        return file;
+    public String getFileBytesAsString() {
+        return fileBytesAsString;
     }
 
-    public void setFile(MultipartFile file) {
-        this.file = file;
+    public void setFileBytesAsString(String fileBytesAsString) {
+        this.fileBytesAsString = fileBytesAsString;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 }

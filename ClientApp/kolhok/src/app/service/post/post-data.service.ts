@@ -14,6 +14,7 @@ export class PostRequest {
     public isPinned: String,
     public isHidden: String,
     public publicationDate: Date,
+    public files: String[]
   ) {}
 }
 
@@ -22,7 +23,7 @@ export class PostRequest {
 })
 export class PostDataService {
 
-  request: PostRequest = new PostRequest('','','','','','','',new Date());
+  request: PostRequest = new PostRequest('','','','','','','',new Date(), []);
 
   constructor(
     private http: HttpClient

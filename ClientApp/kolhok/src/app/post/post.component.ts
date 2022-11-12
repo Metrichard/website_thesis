@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TagDataService } from 'app/service/tag/tag-data-service.service';
-import { FileWrapper, Post } from '../post-editor/post-editor.component';
+import { Post } from '../post-editor/post-editor.component';
 import { JwtAuthenticationService } from '../service/authentication.service';
 import { PostDataService, PostRequest } from '../service/post/post-data.service';
 import { Tag } from '../post-editor/post-editor.component';
 import { FileUploaderService } from 'app/service/file/file-uploader.service';
 import { Editor, Validators, Toolbar } from 'ngx-editor';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-post',
@@ -17,8 +18,8 @@ import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 })
 export class PostComponent implements OnInit, OnDestroy {
 
-  post: Post = new Post('', '', '', '', '', false, false, new Date());
-
+  post: Post = new Post('', '', '', '', '', false, false, new Date(), []);
+  
   editorDoc = this.post.text;
   html = 'Dynamic Data';
 
@@ -53,6 +54,8 @@ export class PostComponent implements OnInit, OnDestroy {
   
   isNew: boolean = false;
   tags: Tag[] = [];
+  selectedTag: string = '';
+  fileNames: String[] = [];
 
   constructor(
     private postService: PostDataService,
@@ -71,11 +74,15 @@ export class PostComponent implements OnInit, OnDestroy {
       this.shouldShow = false;
     }
 
-    if(this.id != '') {
+    if(this.id != '-1') {
       this.isNew = false;
       this.postService.retrivePostById(this.id).subscribe(
         data => {
-          this.post = new Post(data.id, data.title, data.author, data.text, data.tag, Boolean(data.isPinned), Boolean(data.isHidden), data.publicationDate);
+          const isPinned = data.isPinned === 'true' ? true : false;
+          const isHidden = data.isHidden === 'true' ? true : false;
+          this.post = new Post(data.id, data.title, data.author, data.text, data.tag, isPinned, isHidden, data.publicationDate, data.files);
+          this.selectedTag = this.post.tag.toString();
+          this.fileNames = data.files;
         }
       )
     }else {
@@ -85,6 +92,7 @@ export class PostComponent implements OnInit, OnDestroy {
     this.tagDataService.getAllTags().subscribe(
       response => {
         this.tags = response;
+        
       }
     )
   }
@@ -94,20 +102,23 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   saveOrUpdate() {
-
-    console.log(this.html);
-
+    const isPinned = this.post.isPinned ? 'true' : 'false';
+    const isHidden = this.post.isHidden ? 'true' : 'false';
     if(this.id == '-1'){
       this.post.publicationDate = new Date();
       this.post.author = this.authService.getAuthenticatedUser();
-      const request: PostRequest = new PostRequest(this.post.id, this.post.title, this.post.author, this.post.text, this.post.tag, this.post.isPinned.toString(), this.post.isHidden.toString(), this.post.publicationDate);
+      this.post.tag = this.selectedTag;
+      this.post.files = this.fileNames;
+      const request: PostRequest = new PostRequest(this.post.id, this.post.title, this.post.author, this.post.text, this.post.tag, isPinned, isHidden, this.post.publicationDate, this.post.files);
       this.postService.createPost(request).subscribe(
         data => { 
           this.router.navigate(['post-editor']);
         }
       )
     }else {
-      const request: PostRequest = new PostRequest(this.post.id, this.post.title, this.post.author, this.post.text, this.post.tag, this.post.isPinned.toString(), this.post.isHidden.toString(), this.post.publicationDate);
+      this.post.tag = this.selectedTag;
+      this.post.files = this.fileNames;
+      const request: PostRequest = new PostRequest(this.post.id, this.post.title, this.post.author, this.post.text, this.post.tag, isPinned, isHidden, this.post.publicationDate, this.post.files);
       this.postService.updatePost(request).subscribe(
         data => { 
           this.router.navigate(['post-editor']);
@@ -128,15 +139,62 @@ export class PostComponent implements OnInit, OnDestroy {
     this.shouldShow = !this.shouldShow;
   }
 
-  onFileSelected(event : any) {
-    const file: File = event.target.files[0];
+  selectedTagChanged(tag : string) {
+    this.selectedTag = tag;
+  }
 
-    if(file) {
-      this.fileName = file.name;
-      const formData: FormData = new FormData();
-      formData.append('file', file);
-      const fileWrapper = new FileWrapper('', formData);
-      this.fileDataService.uploadFile(fileWrapper).subscribe();
+//all of the file stuff
+  progress: { percentage: number } = { percentage: 0 };
+  files: String[] = [];
+  selectedFile?: File;
+  changeImage = false;
+
+  uploadFile() {
+    
+    if(this.selectedFile !== undefined) {
+      this.progress.percentage = 0;
+      this.fileDataService.uploadFile(this.selectedFile).subscribe( event => {
+        if (event.type === HttpEventType.UploadProgress && event.total !== undefined) {
+          this.progress.percentage = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          alert('File Successfully Uploaded');
+          if(this.fileName !== '') {
+            this.files.push(this.fileName);
+            this.fileNames.push(this.fileName);
+          }
+        }
+        this.selectedFile = undefined;
+      });
     }
+  }
+
+  onFileSelected(event : any) {
+    this.selectedFile = event.target.files[0];
+
+    if(this.selectedFile) {
+      this.fileName = this.selectedFile.name;  
+    }
+    this.uploadFile();
+  }
+
+  deleteFile(name: String) {
+    this.fileDataService.deleteFile(name).subscribe(
+      data => {
+        alert(`${name} successfully deleted.`);
+        
+      }
+    );
+    this.fileNames = this.fileNames.filter(x => x !== name);
+  }
+
+  download(name: string) {
+    let file = null;
+    this.fileDataService.getFile(name).subscribe(
+      (data: Blob) => {
+        const url = window.URL.createObjectURL(data);
+        window.open(url, '_blank');
+        window.URL.revokeObjectURL(url);
+      }
+    );
   }
 }

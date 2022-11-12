@@ -29,7 +29,7 @@ public class PostController {
 
     @PostMapping("/api/post-create")
     public ResponseEntity<?> createPost(@RequestBody PostRequest postRequest) {
-        Post post = new Post(postRequest.getTitle(), postRequest.getAuthor(), postRequest.getText(), postRequest.getTag(), postRequest.getPinned(),  postRequest.getHidden(), postRequest.getPublicationDate());
+        Post post = new Post(postRequest.getTitle(), postRequest.getAuthor(), postRequest.getText(), postRequest.getTag(), postRequest.getIsPinned(),  postRequest.getIsHidden(), postRequest.getPublicationDate(), postRequest.getFiles());
 
         return ResponseEntity.status(201).body(postRepository.save(post));
     }
@@ -44,6 +44,10 @@ public class PostController {
             current.setAuthor(postRequest.getAuthor());
             current.setText(postRequest.getText());
             current.setPublicationDate(postRequest.getPublicationDate());
+            current.setIsPinned(postRequest.getIsPinned());
+            current.setIsHidden(postRequest.getIsHidden());
+            current.setFiles(postRequest.getFiles());
+            current.setTag(postRequest.getTag());
             return ResponseEntity.ok(postRepository.save(current));
         }
 

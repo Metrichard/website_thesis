@@ -49,7 +49,15 @@ export class PostEditorComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.postDataService.retrieveAllPosts().subscribe(
       response => {
-        this.posts = response.map(post => new Post(post.id, post.title, post.author, post.text, post.tag, Boolean(post.isPinned), Boolean(post.isHidden), post.publicationDate))
+        this.posts = response.map(post => new Post(post.id
+          , post.title
+          , post.author
+          , post.text
+          , post.tag
+          , (post.isPinned === 'true' ? true : false)
+          , (post.isHidden === 'true' ? true : false)
+          , post.publicationDate
+          , post.files))
         this.dataSource = new MatTableDataSource(this.posts)
         this.dataSource.sort = this.sort;
       }
@@ -76,11 +84,13 @@ export class PostEditorComponent implements OnInit, AfterViewInit {
 
   createNewTag() {
     if(this.newTag.id === '-1') {
-      this.tagDataService.createTag(this.newTag).subscribe(
-        _ => {
-          window.location.reload();
-        }
-      )
+      if(this.newTag.name !== '') {
+        this.tagDataService.createTag(this.newTag).subscribe(
+          _ => {
+            window.location.reload();
+          }
+        )
+      }
     }
   }
 
@@ -113,6 +123,7 @@ export class Post{
     public isPinned: Boolean,
     public isHidden: Boolean,
     public publicationDate: Date,
+    public files: String[]
   ) {}
 }
 

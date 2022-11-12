@@ -30,7 +30,7 @@ export class MainPageComponent implements OnInit {
   refreshPosts() {
     this.postDataService.retrieveAllPosts().subscribe(
       response => {
-        this.posts = response.map(post => new Post(post.id, post.title, post.author, post.text, post.tag, Boolean(post.isPinned), Boolean(post.isHidden), post.publicationDate))
+        this.posts = response.map(post => new Post(post.id, post.title, post.author, post.text, post.tag, Boolean(post.isPinned), Boolean(post.isHidden), post.publicationDate, post.files))
       }
     )
   }

@@ -3,6 +3,11 @@
 
     <h1>{{post.title}}</h1>
     <div [innerHTML]="post.text"></div>
+
+    <mat-list *ngFor="let file of post.files">
+        <mat-list-item>{{file}}<button mat-button (click)="download(file)"><mat-icon>cloud_download</mat-icon></button></mat-list-item>
+    </mat-list>
+
     <div class="text-muted">{{post.publicationDate | date}}</div>
     <div class="text-muted">{{post.author}}</div>
 </div>
@@ -10,55 +15,58 @@
 <div *ngIf="authService.isUserLoggedIn() && isEditing">
     <h1 *ngIf="isNew">Create a new post</h1>
     <h1 *ngIf="!isNew">Edit post</h1>
-    <button class="btn btn-primary" *ngIf="authService.isUserLoggedIn()" type="button" (click)="editPost()">Quit Editing</button>
+    <button class="btn btn-primary" type="button" (click)="editPost()">Quit Editing</button>
     <div class="container">
         <div class="alert alert-warning" *ngIf="postForm.invalid && postForm.dirty">A cím és a cikk nem lehet üres</div>
         <form (ngSubmit)="!postForm.invalid && saveOrUpdate()" #postForm="ngForm">
             <fieldset class="form-group">
-                <label>Cím</label>
+                <mat-label>Cím</mat-label>
                 <input type="text" class="form-control" required="required" minlength="5" [(ngModel)]="post.title" name="title" ngDefaultControl>
             </fieldset>
             <fieldset class="form-group">
-                <label>Cikk szövege</label>
+                <mat-label>Cikk szövege</mat-label>
                 <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
                 <ngx-editor name="wysiwyg-text" [editor]="editor" [(ngModel)]="post.text" [value]="post.text" ngDefaultControl></ngx-editor>
             </fieldset>
             <fieldset class="form-group">
-                <label>Tag</label>
                 <mat-form-field appearance="fill">
-                    <mat-label class="text-muted">Tags</mat-label>
-                    <mat-select name="selector">
-                        <mat-option *ngFor="let tag of tags" [value]="post.tag" [(ngModel)]="post.tag" name="option">
+                    <mat-label class="text-muted">{{selectedTag}}</mat-label>
+                    <mat-select [(value)]="selectedTag">
+                        <mat-option *ngFor="let tag of tags" [value]="tag.name">
                             {{tag.name}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
             </fieldset>
             <fieldset>
-                <div class="form-group form-check">
-                    <input class="form-check-input" type="checkbox" [(ngModel)]="post.isPinned" name="isPinned" ngDefaultControl>
-                    <label class="form-check-label">Is Pinned</label>
-                </div>
+                <mat-checkbox [checked]="post.isPinned" (change)="post.isPinned = !post.isPinned;">Is Pinned</mat-checkbox>
             </fieldset>
             <fieldset>
-                <div class="form-group form-check">
-                    <input class="form-check-input" type="checkbox" [(ngModel)]="post.isHidden" name="isHidden" ngDefaultControl>
-                    <label class="form-check-label">Is Hidden</label>
-                </div>
+                <mat-checkbox [(ngModel)]="post.isHidden">Is Hidden</mat-checkbox>
             </fieldset>
             <br>
             <!-- File upload -->
             <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
 
             <div class="file-upload">
-                {{fileName || "No file uploaded yet."}}
-
-                <button mat-mini-fab class="upload-btn" (click)="fileUpload.click()">
-                    <mat-icon>attach_file</mat-icon>
-                </button>
+                <mat-label>
+                    {{fileName || "No file uploaded yet."}}
+                    <button mat-mini-fab class="upload-btn" (click)="fileUpload.click()">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+                </mat-label>
             </div>
             <br>
 
+            <mat-list *ngFor="let file of fileNames">
+                <mat-list-item>
+                    <mat-icon>attachment</mat-icon>
+                    <span>{{file}}</span>
+                    <button mat-button (click)="deleteFile(file)"><mat-icon>delete_forever</mat-icon></button>
+                </mat-list-item>
+            </mat-list>
+
+            <br>
             <div class="text-muted">{{post.publicationDate | date}}</div>
             <div class="text-muted"  [(ngModel)]="post.author">{{authService.getAuthenticatedUser()}}</div>
             <button type="submit" class="btn btn-success">Mentés</button>

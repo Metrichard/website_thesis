@@ -1,15 +1,15 @@
 <div *ngIf="!authService.isUserLoggedIn()" class="container">
-    <table>
+    <table class="table">
         <tr class="table-row" *ngFor="let dorm of dorms">
             <td class="table-cell">
-                <h5>{{dorm.dormName}}</h5>
+                <h4>{{dorm.dormName}}</h4>
             </td>
             <td class="table-cell">
-                <ul>
-                    <li>{{dorm.dormAddress}}</li>
-                    <li>{{dorm.dormPrincipal}}</li>
-                    <li>{{dorm.dormPrincipalEmailAddress}}</li>
-                </ul>
+                <mat-list>
+                    <mat-list-item>{{dorm.dormAddress}}</mat-list-item>
+                    <mat-list-item>{{dorm.dormPrincipal}}</mat-list-item>
+                    <mat-list-item>{{dorm.dormPrincipalEmailAddress}}</mat-list-item>
+                </mat-list>
             </td>
         </tr>
     </table>

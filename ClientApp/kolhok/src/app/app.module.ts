@@ -35,6 +35,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -75,6 +77,8 @@ FullCalendarModule.registerPlugins([
     MatDividerModule,
     MatListModule,
     MatExpansionModule,
+    MatFormFieldModule,
+    MatCheckboxModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
