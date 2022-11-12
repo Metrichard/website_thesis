@@ -1,13 +1,11 @@
-import { Component, OnInit, CUSTOM_ELEMENTS_SCHEMA, Directive, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { PostDataService } from 'app/service/post/post-data.service';
 import { Router } from '@angular/router';
 import { JwtAuthenticationService } from 'app/service/authentication.service';
 import { TagDataService } from 'app/service/tag/tag-data-service.service';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, ViewChild } from '@angular/core';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { isThisSecond } from 'date-fns';
 
 @Component({
   selector: 'app-post-editor',
@@ -62,6 +60,7 @@ export class PostEditorComponent implements OnInit, AfterViewInit {
         this.dataSource.sort = this.sort;
       }
     );
+    
     this.tagDataService.getAllTags().subscribe(
       response => {
         this.tags = response;

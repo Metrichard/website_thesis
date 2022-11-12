@@ -37,6 +37,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FileManagerComponent } from './file-manager/file-manager.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -56,7 +57,8 @@ FullCalendarModule.registerPlugins([
     CalendarComponent,
     DormsPageComponent,
     DormPageComponent,
-    PostEditorComponent
+    PostEditorComponent,
+    FileManagerComponent
   ],
   imports: [
     BrowserModule,

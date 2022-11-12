@@ -181,14 +181,12 @@ export class PostComponent implements OnInit, OnDestroy {
     this.fileDataService.deleteFile(name).subscribe(
       data => {
         alert(`${name} successfully deleted.`);
-        
       }
     );
     this.fileNames = this.fileNames.filter(x => x !== name);
   }
 
   download(name: string) {
-    let file = null;
     this.fileDataService.getFile(name).subscribe(
       (data: Blob) => {
         const url = window.URL.createObjectURL(data);

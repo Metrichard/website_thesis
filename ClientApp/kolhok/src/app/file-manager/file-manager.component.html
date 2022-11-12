@@ -1,0 +1,20 @@
+<div class="container">
+    <table class="mat-elevation-z8 table-striped">
+        <thead>
+            <th>File ID</th>
+            <th>File name</th>
+            <th>File download</th>
+            <th>File type</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let file of fileData">
+                <th>{{file.id}}</th>
+                <td>{{file.fileName}}</td>
+                <td><button mat-button><mat-icon>cloud_download</mat-icon></button></td>
+                <td>{{file.fileType}}</td>
+                <td><button mat-button (click)="deleteFile(file.id)"><mat-icon>delete_forever</mat-icon></button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

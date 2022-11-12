@@ -44,7 +44,8 @@
         </mat-list>
         <mat-divider *ngIf="authenticationService.isUserLoggedIn()"></mat-divider>
         <mat-list *ngIf="authenticationService.isUserLoggedIn()">
-            <mat-list-item><a routerLink="post-editor" class="nav-link">Poszt szerkesztő</a></mat-list-item>
+            <mat-list-item><a routerLink="post-editor" class="nav-link">Post Editor</a></mat-list-item>
+            <mat-list-item><a routerLink="file-manager" class="nav-link">File manager system</a></mat-list-item>
         </mat-list>
 
     </mat-sidenav>

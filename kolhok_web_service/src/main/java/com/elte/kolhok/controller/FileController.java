@@ -2,6 +2,7 @@ package com.elte.kolhok.controller;
 
 import com.elte.kolhok.model.File;
 import com.elte.kolhok.repository.FileRepository;
+import com.elte.kolhok.resource.FileDataRequest;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
@@ -52,6 +53,17 @@ public class FileController {
         return ResponseEntity.status(400).body("Could not save file");
     }
 
+    @GetMapping("/api/file-data/")
+    public ResponseEntity<?> getAllFileData() {
+        List<FileDataRequest> fileDataRequests = new ArrayList<>();
+        var files = fileRepository.findAll();
+        for (File f: files) {
+            FileDataRequest d = new FileDataRequest(f.getId(), f.getFileName(), f.getFileType());
+            fileDataRequests.add(d);
+        }
+        return ResponseEntity.status(200).body(fileDataRequests);
+    }
+
     @GetMapping("/api/file-get/{name}")
     public ResponseEntity<?> getFileByName(@PathVariable String name) {
         File result = new File();
@@ -74,7 +86,16 @@ public class FileController {
 
     @GetMapping("/api/file-get-id/{id}")
     public ResponseEntity<?> getFileById(@PathVariable String id) {
-        return ResponseEntity.ok(fileRepository.findById(id));
+        Optional<File> rawFile = fileRepository.findById(id);
+        if(rawFile.isPresent()) {
+            byte[] fileBytes = Base64Utils.decodeFromString(rawFile.get().getFileBytesAsString());
+            ByteArrayResource resource = new ByteArrayResource(fileBytes);
+            return ResponseEntity.ok().headers(this.headers(rawFile.get().getFileName()))
+                    .contentLength(fileBytes.length)
+                    .contentType(ParseFileType(rawFile.get().getFileType()))
+                    .body(resource);
+        }
+        return ResponseEntity.status(400).body("Could not get file with id {" + id + "} because it does not exist.");
     }
 
     private MediaType ParseFileType(String ext) {
@@ -109,7 +130,7 @@ public class FileController {
         return ResponseEntity.ok(name + "successfully deleted.");
     }
 
-    @DeleteMapping("/api/file-delete/{id}")
+    @DeleteMapping("/api/file-delete-id/{id}")
     public ResponseEntity<?> deleteFileById(@PathVariable String id) {
         Optional<File> file = fileRepository.findById(id);
 
