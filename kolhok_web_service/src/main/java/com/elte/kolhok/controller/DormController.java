@@ -27,9 +27,24 @@ public class DormController {
         return ResponseEntity.ok(dormRepository.findAll());
     }
 
+    @GetMapping("api/dorm/{id}")
+    public ResponseEntity<?> getDormById(@PathVariable String id) {
+        Optional<Dorm> dorm = dormRepository.findById(id);
+        return dorm.isPresent() ? ResponseEntity.ok(dorm.get()) : ResponseEntity.status(404).body("dorm with {" + id + "} does not exist.");
+    }
+
     @PostMapping("/api/dorm-create")
     public ResponseEntity<?> createDorm(@RequestBody DormRequest dormRequest) {
-        Dorm dorm = new Dorm(dormRequest.getDormName(), dormRequest.getDormAddress(), dormRequest.getDormPrincipal(), dormRequest.getDormPrincipalEmailAddress());
+        Dorm dorm = new Dorm(dormRequest.getDormName()
+                , dormRequest.getDormAddress()
+                , dormRequest.getDormCapacity()
+                , dormRequest.getDormRoomDescription()
+                , dormRequest.getDormBathroomDescription()
+                , dormRequest.getDormCost()
+                , dormRequest.getDormPrincipal()
+                , dormRequest.getDormPrincipalEmailAddress()
+                , dormRequest.getDormOriginalPage()
+                , dormRequest.getFileName());
 
         return ResponseEntity.status(201).body(dormRepository.save(dorm));
     }
@@ -43,12 +58,18 @@ public class DormController {
             Dorm current = dorm.get();
             current.setDormName(dormRequest.getDormName());
             current.setDormAddress(dormRequest.getDormAddress());
+            current.setDormCapacity(dormRequest.getDormCapacity());
+            current.setDormRoomDescription(dormRequest.getDormRoomDescription());
+            current.setDormBathroomDescription(dormRequest.getDormBathroomDescription());
+            current.setDormCost(dormRequest.getDormCost());
             current.setDormPrincipal(dormRequest.getDormPrincipal());
             current.setDormPrincipalEmailAddress(dormRequest.getDormPrincipalEmailAddress());
+            current.setDormOriginalPage(dormRequest.getDormOriginalPage());
+            current.setFileName(dormRequest.getFileName());
             return ResponseEntity.ok(dormRepository.save(current));
         }
 
-        return ResponseEntity.status(400).body("Dorm with id {" + dorm.get().getId() + "} can not be updated because it does not exist.");
+        return ResponseEntity.status(400).body("Dorm with id {" + dormRequest.getId() + "} can not be updated because it does not exist.");
     }
 
     @DeleteMapping("api/dorm-delete/{id}")

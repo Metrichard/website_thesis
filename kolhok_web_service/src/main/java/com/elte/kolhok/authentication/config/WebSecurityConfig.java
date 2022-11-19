@@ -66,11 +66,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET, "/")
                 .and().ignoring()
                 .antMatchers(HttpMethod.GET, "/api/posts")
+//                .and().ignoring()
+//                .antMatchers(HttpMethod.GET, "/api/posts/{id}")
                 .and().ignoring()
-                .antMatchers(HttpMethod.GET, "/api/posts/{id}")
+                .antMatchers(HttpMethod.GET, "/api/posts-w-tag/{tag}")
                 .and().ignoring()
                 .antMatchers(HttpMethod.GET, "/api/dorms")
                 .and().ignoring()
-                .antMatchers(HttpMethod.GET, "/api/calendar-get-all");
+                .antMatchers(HttpMethod.GET, "/api/calendar-get-all")
+                .and().ignoring()
+                .antMatchers(HttpMethod.GET, "/api/filter-get/{name}")
+                .and().ignoring()
+                .antMatchers(HttpMethod.GET, "/api/file-get/{name}");
     }
 }

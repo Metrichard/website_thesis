@@ -1,1 +1,109 @@
+<br>
+<mat-card *ngIf="!authService.isUserLoggedIn()" class="mat-elevation-z8">
+    <mat-card-header>
+        <img mat-card-avatar [src]=url>
+        <mat-card-title>{{dorm.dormName}}</mat-card-title>
+        <mat-card-subtitle>{{dorm.dormAddress}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]=url alt="kép a kollégiumról" class="main-dorm-image">
+    <mat-card-content>
+        <mat-list role="list">
+            <mat-list-item>
+                <mat-icon matListItemIcon>keyboard_arrow_right</mat-icon>
+                Férőhelyek száma: {{dorm.dormCapacity}} fő
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon matListItemIcon>keyboard_arrow_right</mat-icon>
+                {{dorm.dormRoomDescription}}
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon matListItemIcon>keyboard_arrow_right</mat-icon>
+                {{dorm.dormBathroomDescription}}
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon matListItemIcon>keyboard_arrow_right</mat-icon>
+                Kollégiumi díj: {{dorm.dormCost}} Ft
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon matListItemIcon>keyboard_arrow_right</mat-icon>
+                Kollégiumi vezető: {{dorm.dormPrincipal}}
+            </mat-list-item>
+            <mat-list-item>
+                <mat-icon matListItemIcon>keyboard_arrow_right</mat-icon>
+                E-mail cím: {{dorm.dormPrincipalEmailAddress}}
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+    <mat-card-actions>
+        <a class="button-action" mat-raised-button color="primary" [href]="dorm.dormOriginalPage" target="_blank">A kollégium oldalára</a>
+    </mat-card-actions>
+</mat-card>
+<br>
 
+
+<div class="container" *ngIf="authService.isUserLoggedIn()">
+    <table>
+        <tr class="table-row">
+            <td class="table-cell">
+                <div class="text-muted">{{dorm.id}}</div>
+                <form (ngSubmit)="updateDorm(dorm.id)" #postForm="ngForm">
+                    <fieldset class="form-group">
+                        <label>Kollégium neve</label>
+                        <input type="text" size="100" name="dName" class="form-control" required="required" minlength="1" [(ngModel)]="dorm.dormName">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Címe</label>
+                        <input type="text" size="100" name="dAddress" class="form-control" required="required" minlength="1" [(ngModel)]="dorm.dormAddress">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Kapacitása</label>
+                        <input type="number" name="dCapacity" class="form-control" required="required" [(ngModel)]="dorm.dormCapacity">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Szoba leírás</label>
+                        <input type="text" name="dCapacity" class="form-control" required="required" [(ngModel)]="dorm.dormRoomDescription">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Fürdőszoba leírás</label>
+                        <input type="text" name="dCapacity" class="form-control" required="required" [(ngModel)]="dorm.dormBathroomDescription">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Kollégiumi díj</label>
+                        <input type="number" name="dCapacity" class="form-control" required="required" [(ngModel)]="dorm.dormCost">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Igazgató</label>
+                        <input type="text" size="100" name="dPrincipal" class="form-control" required="required" minlength="1" [(ngModel)]="dorm.dormPrincipal">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label>Kollégiumi igazgató e-mail</label>
+                        <input type="text" size="100" name="dPrincipalEmailAddress" class="form-control" required="required" minlength="1" [(ngModel)]="dorm.dormPrincipalEmailAddress">
+                    </fieldset>
+                    <fieldset>
+                        <label>Kollégium oldala</label>
+                        <input type="url" size="100" name="dDormOriginalPage" class="form-control" required="required" [(ngModel)]="dorm.dormOriginalPage">
+                    </fieldset>
+                    <br>
+                    <fieldset class="form-group">
+                        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+                        <label>Kép</label>
+                        <button *ngIf="fileName!==''" (click)="deleteFile(fileName)">{{fileName}}<mat-icon>delete_forever</mat-icon></button>
+                        <div class="file-upload" *ngIf="fileName===''">
+                            <mat-label>
+                                {{fileName || "No file uploaded yet."}}
+                                <button mat-mini-fab class="upload-btn" (click)="fileUpload.click()">
+                                    <mat-icon>attach_file</mat-icon>
+                                </button>
+                            </mat-label>
+                        </div>
+                        <div class="preview">
+                            <img class="preview" [src]=url alt="">
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="btn btn-success">Mentés</button>
+                    <button type="button" class="btn btn-danger" (click)="deleteById(dorm.id)">Törlés</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>

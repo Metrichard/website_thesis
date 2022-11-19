@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CalendarComponent } from './calendar/calendar.component';
+import { DormPageComponent } from './dorms-page/dorm-page/dorm-page.component';
 import { DormsPageComponent } from './dorms-page/dorms-page.component';
 import { ErrorComponent } from './error/error.component';
 import { FileManagerComponent } from './file-manager/file-manager.component';
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'dorms', component: DormsPageComponent},
   { path: 'post-editor', component: PostEditorComponent, canActivate: [RouteGuardService]},
   { path: 'file-manager', component: FileManagerComponent, canActivate: [RouteGuardService]},
+  { path: 'dorm/:id', component: DormPageComponent, canActivate: [RouteGuardService] },
 
   { path: 'logout', component: LogOutComponent, canActivate: [RouteGuardService]},
   { path: '**', component: ErrorComponent}

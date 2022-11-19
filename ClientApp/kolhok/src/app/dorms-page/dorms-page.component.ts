@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentRef, ComponentFactory } from '@angular/core';
 import { DormDataService } from 'app/service/dorms/dorm-data.service';
-import { DormPageComponent } from './dorm-page/dorm-page.component';
-import { Dorm } from './dorm-page/dorm-page.component';
 import { JwtAuthenticationService } from '../service/authentication.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { DormPageComponent } from './dorm-page/dorm-page.component';
 
 @Component({
   selector: 'app-dorms-page',
@@ -12,48 +11,31 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class DormsPageComponent implements OnInit {
 
-  dorms: Dorm[] = [];
-
-  isAddingNew: boolean = false;
-  newDorm: Dorm = new Dorm('-1', '', '', '', '');
+  @ViewChild('dormsContainer', { read: ViewContainerRef}) entry!: ViewContainerRef;
+  dormComponents: DormPageComponent[] = [];
+  fileName: String = '';
+  url: string = '';
 
   constructor(
     private dormDataService: DormDataService,
     public authService: JwtAuthenticationService,
-    private router: Router
+    private router: Router,
+    private resolver: ComponentFactoryResolver
   ) { }
 
   ngOnInit(): void {
     this.dormDataService.retriveAllDormitories().subscribe(
       response => {
-        this.dorms = response
+        this.entry.clear();
+        response.forEach(dorm => {
+          const factory = this.resolver.resolveComponentFactory(DormPageComponent);
+          const componentRef = this.entry.createComponent(factory);
+          componentRef.instance.dorm = dorm;
+          componentRef.instance.download(dorm.fileName.toString());
+        });
       }
     )
-  }
-
-  updateDorm(id: String){
-    const dorm = this.dorms.find(x => x.id === id);
-    if(dorm !== undefined) {
-      this.dormDataService.updateDorm(id, dorm).subscribe(
-        data => {
-          window.location.reload();
-        }
-      )
-    }
-  }
-
-  saveDorm() {
-    if(this.isAddingNew) {
-      this.dormDataService.createDorm(this.newDorm).subscribe(
-        data => {
-          window.location.reload();
-        }
-      )
-    }
-  }
-
-  showAddNewDorm() {
-    this.isAddingNew = !this.isAddingNew;
+    
   }
 
   deleteById(id: String) {
@@ -63,4 +45,24 @@ export class DormsPageComponent implements OnInit {
       }
     )
   }
+
+  navigateToDormEditPage(id: String) {
+    this.router.navigate(['dorm', id]);
+  }
+}
+
+export class Dorm {
+  constructor(
+    public id: String,
+    public dormName: String,
+    public dormAddress: String,
+    public dormCapacity: String,
+    public dormRoomDescription: String,
+    public dormBathroomDescription: String,
+    public dormCost: String,
+    public dormPrincipal: String,
+    public dormPrincipalEmailAddress: String,
+    public dormOriginalPage: String,
+    public fileName: String
+  ) {}
 }

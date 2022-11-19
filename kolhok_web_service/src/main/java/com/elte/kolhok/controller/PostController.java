@@ -27,6 +27,13 @@ public class PostController {
         return ResponseEntity.ok(postRepository.findAll());
     }
 
+    @GetMapping("/api/posts-w-tag/{tag}")
+    public ResponseEntity<?> getAllPostsBasedOnFilter(@PathVariable String tag) {
+        var posts = postRepository.findAll();
+        var filteredPosts = posts.stream().filter(p -> p.getTag().equals(tag));
+        return ResponseEntity.ok(filteredPosts);
+    }
+
     @PostMapping("/api/post-create")
     public ResponseEntity<?> createPost(@RequestBody PostRequest postRequest) {
         Post post = new Post(postRequest.getTitle(), postRequest.getAuthor(), postRequest.getText(), postRequest.getTag(), postRequest.getIsPinned(),  postRequest.getIsHidden(), postRequest.getPublicationDate(), postRequest.getFiles());

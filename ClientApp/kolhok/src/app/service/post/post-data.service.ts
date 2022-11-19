@@ -30,7 +30,11 @@ export class PostDataService {
   ) { }
 
   retrieveAllPosts() {
-    return this.http.get<PostRequest[]>(`${API_URL}/api/posts`);
+    return this.http.get<PostRequest[]>(`${API_URL}/api/posts/`);
+  }
+
+  retrieveAllPostsWithTag(tag: String = '') {
+    return this.http.get<PostRequest[]>(`${API_URL}/api/posts-w-tag/${tag}`);
   }
 
   retrivePostById(id: String) {

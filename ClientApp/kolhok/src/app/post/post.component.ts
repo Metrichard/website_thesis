@@ -74,7 +74,7 @@ export class PostComponent implements OnInit, OnDestroy {
       this.shouldShow = false;
     }
 
-    if(this.id != '-1') {
+    if(this.id !== '-1') {
       this.isNew = false;
       this.postService.retrivePostById(this.id).subscribe(
         data => {

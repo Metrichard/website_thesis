@@ -10,17 +10,29 @@ public class Dorm {
     private String id;
     private String dormName;
     private String dormAddress;
+    private String dormCapacity;
+    private String dormRoomDescription;
+    private String dormBathroomDescription;
+    private String dormCost;
     private String dormPrincipal;
     private String dormPrincipalEmailAddress;
+    private String dormOriginalPage;
+    private String fileName;
 
     public Dorm() {
     }
 
-    public Dorm(String dormName, String dormAddress, String dormPrincipal, String dormPrincipalEmailAddress) {
+    public Dorm(String dormName, String dormAddress, String dormCapacity, String dormRoomDescription, String dormBathroomDescription, String dormCost, String dormPrincipal, String dormPrincipalEmailAddress, String dormOriginalPage, String fileName) {
         this.dormName = dormName;
         this.dormAddress = dormAddress;
+        this.dormCapacity = dormCapacity;
+        this.dormRoomDescription = dormRoomDescription;
+        this.dormBathroomDescription = dormBathroomDescription;
+        this.dormCost = dormCost;
         this.dormPrincipal = dormPrincipal;
         this.dormPrincipalEmailAddress = dormPrincipalEmailAddress;
+        this.dormOriginalPage = dormOriginalPage;
+        this.fileName = fileName;
     }
 
     public String getId() {
@@ -47,6 +59,38 @@ public class Dorm {
         this.dormAddress = dormAddress;
     }
 
+    public String getDormCapacity() {
+        return dormCapacity;
+    }
+
+    public void setDormCapacity(String dormCapacity) {
+        this.dormCapacity = dormCapacity;
+    }
+
+    public String getDormRoomDescription() {
+        return dormRoomDescription;
+    }
+
+    public void setDormRoomDescription(String dormRoomDescription) {
+        this.dormRoomDescription = dormRoomDescription;
+    }
+
+    public String getDormBathroomDescription() {
+        return dormBathroomDescription;
+    }
+
+    public void setDormBathroomDescription(String dormBathroomDescription) {
+        this.dormBathroomDescription = dormBathroomDescription;
+    }
+
+    public String getDormCost() {
+        return dormCost;
+    }
+
+    public void setDormCost(String dormCost) {
+        this.dormCost = dormCost;
+    }
+
     public String getDormPrincipal() {
         return dormPrincipal;
     }
@@ -61,5 +105,21 @@ public class Dorm {
 
     public void setDormPrincipalEmailAddress(String dormPrincipalEmailAddress) {
         this.dormPrincipalEmailAddress = dormPrincipalEmailAddress;
+    }
+
+    public String getDormOriginalPage() {
+        return dormOriginalPage;
+    }
+
+    public void setDormOriginalPage(String dormOriginalPage) {
+        this.dormOriginalPage = dormOriginalPage;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }
