@@ -9,3 +9,7 @@ mat-card {
     overflow: hidden;
     padding: .5em;
 }
+
+a, a:hover {
+    text-decoration: none;
+}

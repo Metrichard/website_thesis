@@ -56,6 +56,7 @@ export class PostComponent implements OnInit, OnDestroy {
   tags: Tag[] = [];
   selectedTag: string = '';
   fileNames: String[] = [];
+  isOnMainPage = false;
 
   constructor(
     private postService: PostDataService,
@@ -68,6 +69,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+    this.isOnMainPage = this.router.url.endsWith('main-page');
     this.id = this.route.snapshot.params['id'];
     if(this.id === '-1'){
       this.isEditing = true;

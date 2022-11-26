@@ -13,7 +13,7 @@
         </div>
     </mat-card-content>
     <mat-card-footer *ngIf="authService.isUserLoggedIn()">
-        <button mat-button type="button"><mat-icon>delete_forever</mat-icon></button>
+        <button mat-button type="button" (click)="deletePerson(person.id)"><mat-icon>delete_forever</mat-icon></button>
     </mat-card-footer>
 </mat-card>
 <br>

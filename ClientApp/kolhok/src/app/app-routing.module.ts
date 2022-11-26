@@ -11,6 +11,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { PostEditorComponent } from './post-editor/post-editor.component';
 import { PostComponent } from './post/post.component';
+import { PresidencyComponent } from './presidency/presidency.component';
 import { RouteGuardService } from './service/route-guard.service';
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'file-manager', component: FileManagerComponent, canActivate: [RouteGuardService]},
   { path: 'dorm/:id', component: DormPageComponent, canActivate: [RouteGuardService] },
   { path: 'organization', component: OrganizationComponent },
+  { path: 'presidency', component: PresidencyComponent },
 
   { path: 'logout', component: LogOutComponent, canActivate: [RouteGuardService]},
   { path: '**', component: ErrorComponent}

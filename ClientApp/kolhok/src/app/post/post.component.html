@@ -1,20 +1,20 @@
 <br>
-<mat-card *ngIf="shouldShow" class="mat-elevation-z8">
-    <mat-card-header>
-        <mat-card-title>{{post.title}}</mat-card-title>
-        <mat-card-subtitle>{{post.publicationDate | date}}</mat-card-subtitle>
-    </mat-card-header>
+<mat-card *ngIf="shouldShow && isOnMainPage" class="mat-elevation-z8">
+    <a (click)="navigateToCurrentPost(post.id)" class="link-to-post">
+        <mat-card-header>
+            <mat-card-title>{{post.title}}</mat-card-title>
+            <mat-card-subtitle>{{post.publicationDate | date}}</mat-card-subtitle>
+        </mat-card-header>
+    </a>
     <mat-card-content>
         <mat-label [innerHTML]="post.text">{{post.text}}</mat-label>
     </mat-card-content>
     <mat-card-footer>
         <button *ngIf="authService.isUserLoggedIn()" mat-raised-button color="primary" (click)="editPost()"><mat-icon>edit</mat-icon></button>
-        <button *ngIf="!authService.isUserLoggedIn()" mat-raised-button color="primary" (click)="navigateToCurrentPost(post.id)"><mat-icon>remove_red_eye</mat-icon></button>
     </mat-card-footer>
 </mat-card>
 <br>
-<!--
-<div class="container" *ngIf="shouldShow">
+<div class="container" *ngIf="shouldShow && !isOnMainPage">
     <button class="btn btn-primary" *ngIf="authService.isUserLoggedIn()" type="button" (click)="editPost()">Edit</button>
 
     <h1>{{post.title}}</h1>
@@ -27,7 +27,7 @@
     <div class="text-muted">{{post.publicationDate | date}}</div>
     <div class="text-muted">{{post.author}}</div>
 </div>
--->
+<br>
 <div *ngIf="authService.isUserLoggedIn() && isEditing">
     <h1 *ngIf="isNew">Create a new post</h1>
     <h1 *ngIf="!isNew">Edit post</h1>

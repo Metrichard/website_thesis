@@ -44,6 +44,7 @@ import { DormPageComponent } from './dorms-page/dorm-page/dorm-page.component';
 import { FileManagerComponent } from './file-manager/file-manager.component';
 import { PersonComponent } from './organization/person/person.component';
 import { OrganizationComponent } from './organization/organization.component';
+import { PresidencyComponent } from './presidency/presidency.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -67,6 +68,7 @@ FullCalendarModule.registerPlugins([
     DormPageComponent,
     PersonComponent,
     OrganizationComponent,
+    PresidencyComponent,
   ],
   imports: [
     BrowserModule,
