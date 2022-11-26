@@ -2,3 +2,10 @@
     display: none;
     position: absolute;
 }
+
+mat-card {
+    width: 450px;
+    height: 400px;
+    overflow: hidden;
+    padding: .5em;
+}

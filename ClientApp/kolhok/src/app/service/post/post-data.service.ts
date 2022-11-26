@@ -33,20 +33,23 @@ export class PostDataService {
     return this.http.get<PostRequest[]>(`${API_URL}/api/posts/`);
   }
 
-  retrieveAllPostsWithTag(tag: String = '') {
+  retrieveAllPostsWithTag(tag: String) {
+    if(tag === undefined || tag === 'undefined') {
+      tag = '';
+    }
     return this.http.get<PostRequest[]>(`${API_URL}/api/posts-w-tag/${tag}`);
   }
 
   retrivePostById(id: String) {
-      return this.http.get<PostRequest>(`${API_URL}/api/posts/${id}`)
+    return this.http.get<PostRequest>(`${API_URL}/api/posts/${id}`);
   }
 
   createPost(post: PostRequest) {
-    return this.http.post<PostRequest>(`${API_URL}/api/post-create`, post)
+    return this.http.post<PostRequest>(`${API_URL}/api/post-create`, post);
   }
 
   updatePost(post: PostRequest) {
-    return this.http.post<PostRequest>(`${API_URL}/api/post-update`, post)
+    return this.http.post<PostRequest>(`${API_URL}/api/post-update`, post);
   }
 
   deletePost(id: String) {

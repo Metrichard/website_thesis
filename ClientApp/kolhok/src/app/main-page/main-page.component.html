@@ -9,18 +9,6 @@
     </mat-form-field>
     <button mat-button (click)="saveFilter()"><mat-icon>save</mat-icon></button>
 </div>
-
-<div class="container">
-    <table>
-        <tr class="table-row" *ngFor="let post of posts">
-            <div (click)="navigateToCurrentPost(post.id)">
-                <td class="table-cell">
-                    <h5>{{post.title}}</h5>
-                </td>
-                <td class="table-cell">
-                    <div [innerHTML]="post.text"></div>
-                </td>
-            </div>
-        </tr>
-    </table>
-</div>
+<br>
+<ng-container #postContainer>
+</ng-container>

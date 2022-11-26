@@ -31,7 +31,7 @@ public class PostController {
     public ResponseEntity<?> getAllPostsBasedOnFilter(@PathVariable String tag) {
         var posts = postRepository.findAll();
         var filteredPosts = posts.stream().filter(p -> p.getTag().equals(tag));
-        return ResponseEntity.ok(filteredPosts);
+        return ResponseEntity.ok(filteredPosts.toArray());
     }
 
     @PostMapping("/api/post-create")

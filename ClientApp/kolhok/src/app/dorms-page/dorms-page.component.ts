@@ -12,15 +12,11 @@ import { DormPageComponent } from './dorm-page/dorm-page.component';
 export class DormsPageComponent implements OnInit {
 
   @ViewChild('dormsContainer', { read: ViewContainerRef}) entry!: ViewContainerRef;
-  dormComponents: DormPageComponent[] = [];
-  fileName: String = '';
-  url: string = '';
 
   constructor(
     private dormDataService: DormDataService,
     public authService: JwtAuthenticationService,
-    private router: Router,
-    private resolver: ComponentFactoryResolver
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -28,8 +24,7 @@ export class DormsPageComponent implements OnInit {
       response => {
         this.entry.clear();
         response.forEach(dorm => {
-          const factory = this.resolver.resolveComponentFactory(DormPageComponent);
-          const componentRef = this.entry.createComponent(factory);
+          const componentRef = this.entry.createComponent(DormPageComponent);
           componentRef.instance.dorm = dorm;
           componentRef.instance.download(dorm.fileName.toString());
         });

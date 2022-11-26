@@ -22,6 +22,10 @@
     height: 230px;
 }
 
-.{
+mat-card{
     width: 450px;
+}
+
+mat-card-actions {
+    text-align: center;
 }

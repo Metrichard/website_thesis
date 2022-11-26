@@ -28,7 +28,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card'; 
+import { MatCardModule } from '@angular/material/card';
 
 import { MainPageComponent } from './main-page/main-page.component';
 import { PostComponent } from './post/post.component';
@@ -42,6 +42,8 @@ import { FooterComponent } from './footer/footer.component';
 import { LogOutComponent } from './log-out/log-out.component';
 import { DormPageComponent } from './dorms-page/dorm-page/dorm-page.component';
 import { FileManagerComponent } from './file-manager/file-manager.component';
+import { PersonComponent } from './organization/person/person.component';
+import { OrganizationComponent } from './organization/organization.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -63,6 +65,8 @@ FullCalendarModule.registerPlugins([
     PostEditorComponent,
     FileManagerComponent,
     DormPageComponent,
+    PersonComponent,
+    OrganizationComponent,
   ],
   imports: [
     BrowserModule,

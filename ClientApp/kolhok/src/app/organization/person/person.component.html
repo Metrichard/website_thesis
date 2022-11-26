@@ -1,0 +1,55 @@
+<br>
+<mat-card *ngIf="!authService.isUserLoggedIn()" class="mat-elevation-z8">
+    <mat-card-header>
+        <mat-card-title>{{person.name}}</mat-card-title>
+        <mat-card-subtitle>{{person.title}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]=url alt="kép a kabineti tagról" *ngIf="url">
+    <mat-card-content class="card-content">
+        <div *ngFor="let email of splitEmails">
+            <div>
+                <mat-label>{{email}}</mat-label>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-footer *ngIf="authService.isUserLoggedIn()">
+        <button mat-button type="button"><mat-icon>delete_forever</mat-icon></button>
+    </mat-card-footer>
+</mat-card>
+<br>
+<div *ngIf="authService.isUserLoggedIn()" class="container mat-elevation-z8">
+    <br>
+    <form (ngSubmit)="saveOrUpdate(person.id)" #postForm="ngForm">
+        <fieldset class="form-group">
+            <label>Név</label>
+            <input type="text" size="100" name="name" class="form-control" required="required" minlength="1" [(ngModel)]="person.name">
+        </fieldset>
+        <fieldset class="form-group">
+            <label>Title</label>
+            <input type="text" size="100" name="title" class="form-control" required="required" minlength="1" [(ngModel)]="person.title">
+        </fieldset>
+        <fieldset class="form-group">
+            <label>Emails</label>
+            <input type="text" size="100" name="emails" class="form-control" required="required" minlength="1" [(ngModel)]="person.emails">
+        </fieldset>
+        <fieldset class="form-group">
+            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+            <label>Kép</label>
+            <button *ngIf="fileName!==''" (click)="deleteFile(fileName)">{{fileName}}<mat-icon>delete_forever</mat-icon></button>
+            <div class="file-upload">
+                <mat-label>
+                    {{fileName || "No file uploaded yet."}}
+                    <button type="button" mat-mini-fab class="upload-btn" (click)="fileUpload.click()">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+                </mat-label>
+            </div>
+            <div class="preview">
+                <img class="preview" [src]=url alt="">
+            </div>
+        </fieldset>
+        <button type="submit" mat-raised-button color="primary"><mat-icon>save</mat-icon></button>
+        <button type="button" mat-raised-button color="warn" class="float-right" (click)="deletePerson(person.id)"><mat-icon>delete_forever</mat-icon></button>
+    </form>
+    <br>
+</div>

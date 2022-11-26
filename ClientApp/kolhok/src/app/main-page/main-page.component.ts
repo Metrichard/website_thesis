@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { JwtAuthenticationService } from '../service/authentication.service';
 import { PostDataService } from '../service/post/post-data.service';
 import { Post, Tag } from '../post-editor/post-editor.component';
@@ -7,6 +6,7 @@ import { TagDataService } from 'app/service/tag/tag-data-service.service';
 import { FilterDataService } from 'app/service/filters/filter-data.service';
 import { MAIN_PAGE } from 'app/app.constants';
 import { FilterData } from 'app/service/filters/filter-data';
+import { PostComponent } from 'app/post/post.component';
 
 @Component({
   selector: 'app-main-page',
@@ -15,13 +15,15 @@ import { FilterData } from 'app/service/filters/filter-data';
 })
 export class MainPageComponent implements OnInit {
 
+  @ViewChild('postContainer', { read: ViewContainerRef }) entry!: ViewContainerRef;
+  postComponents: PostComponent[] = [];
+
   tags: Tag[] = [];
   posts: Post[] = [];
   selectedTag: String = '';
   filter: FilterData = new FilterData('','','');
 
   constructor(
-    private router: Router,
     public authService: JwtAuthenticationService,
     private postDataService: PostDataService,
     public tagDataService: TagDataService,
@@ -46,32 +48,35 @@ export class MainPageComponent implements OnInit {
   }
 
   saveFilter() {
-    this.filter = new FilterData('', MAIN_PAGE, this.selectedTag)
+    let newFilter = new FilterData('', MAIN_PAGE, this.selectedTag)
     if(this.filter.id === '') {
       this.filterDataService.createFilterDataForPage(this.filter).subscribe(
         data => {
-          this.refreshPosts();
+          window.location.reload();
         }
       );
     }else {
-      this.filterDataService.updateFilterDataForPage(this.filter).subscribe(
+      newFilter.id = this.filter.id;
+      this.filterDataService.updateFilterDataForPage(newFilter).subscribe(
         data => {
-          this.refreshPosts();
+          window.location.reload();
         }
       );
     } 
   }
-
-  navigateToCurrentPost(id: String) {
-    this.router.navigate(['post', id]);
-  }
   
   refreshPosts() {
-    this.postDataService.retrieveAllPostsWithTag(this.filter.tag).subscribe(
-      response => {
-        this.posts = response.map(post => new Post(post.id, post.title, post.author, post.text, post.tag, Boolean(post.isPinned), Boolean(post.isHidden), post.publicationDate, post.files))
-      }
-    )
+    if(this.filter.tag !== undefined) {
+      this.postDataService.retrieveAllPostsWithTag(this.filter.tag).subscribe(
+        response => {
+          let postsArr = response.map(post => new Post(post.id, post.title, post.author, post.text, post.tag, Boolean(post.isPinned), Boolean(post.isHidden), post.publicationDate, post.files));
+          postsArr.forEach( post => {
+            const componentRef = this.entry.createComponent(PostComponent);
+            componentRef.instance.post = post;
+          });
+        }
+      )
+    }
   }
 
 }

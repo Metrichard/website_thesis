@@ -168,6 +168,10 @@ export class PostComponent implements OnInit, OnDestroy {
     }
   }
 
+  navigateToCurrentPost(id: String) {
+    this.router.navigate(['post', id]);
+  }
+
   onFileSelected(event : any) {
     this.selectedFile = event.target.files[0];
 
