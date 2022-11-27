@@ -1,0 +1,66 @@
+<!-- Filter selection part -->
+<div class="container" *ngIf="authService.isUserLoggedIn()">
+    <mat-form-field appearance="fill">
+        <mat-label class="text-muted">{{selectedTag}}</mat-label>
+        <mat-select [(value)]="selectedTag">
+            <mat-option *ngFor="let tag of tags" [value]="tag.name">
+                {{tag.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-button (click)="saveFilter()"><mat-icon>save</mat-icon></button>
+</div>
+<!-- message displaying part -->
+<mat-card *ngIf="!authService.isUserLoggedIn()" class="container centering mat-elevation-z8">
+    <mat-card-header class="title">
+        {{pageData.messageTitle}}
+    </mat-card-header>
+    <mat-card-content>
+        <div>{{pageData.message}}</div>
+    </mat-card-content>
+    <mat-card-footer>
+        <mat-list *ngFor="let file of pageData.fileNames">
+            <mat-list-item>{{file}}<button mat-button (click)="download(file)"><mat-icon>cloud_download</mat-icon></button></mat-list-item>
+        </mat-list>
+    </mat-card-footer>
+</mat-card>
+
+<!-- message editing part -->
+<form *ngIf="authService.isUserLoggedIn()" class="mat-elevation-z8">
+    <fieldset>
+    <label>Title of message</label><br>
+    <input [(ngModel)]="pageData.messageTitle" name="title">
+    </fieldset>
+    <br>
+    <fieldset>
+    <label>Message text</label><br>
+    <input [(ngModel)]="pageData.message" name="message">
+    </fieldset>
+    <!-- File uploading -->
+    <fieldset>
+    <div>
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+        <div class="file-upload">
+            <mat-label>
+                {{fileName || "No file uploaded yet."}}
+                <button type="button" mat-mini-fab class="upload-btn" (click)="fileUpload.click()">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+            </mat-label>
+        </div>
+        <!-- File listing -->
+        <mat-list *ngFor="let file of pageData.fileNames">
+            <mat-list-item>
+                <mat-icon>attachment</mat-icon>
+                <span>{{file}}</span>
+                <button type="button" mat-button (click)="deleteFile(file)"><mat-icon>delete_forever</mat-icon></button>
+            </mat-list-item>
+        </mat-list>
+    </div>
+    </fieldset>
+    <button type="button" mat-button (click)="savePageData()"><mat-icon>save</mat-icon></button>
+</form>
+
+
+<ng-container #postContainer>
+</ng-container>

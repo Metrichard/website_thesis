@@ -8,6 +8,7 @@ mat-card {
     height: 400px;
     overflow: hidden;
     padding: .5em;
+    background-color: ivory;
 }
 
 a, a:hover {

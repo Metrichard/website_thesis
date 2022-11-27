@@ -1,19 +1,19 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { JwtAuthenticationService } from '../service/authentication.service';
-import { PostDataService } from '../service/post/post-data.service';
-import { Post, Tag } from '../post-editor/post-editor.component';
-import { TagDataService } from 'app/service/tag/tag-data-service.service';
-import { FilterDataService } from 'app/service/filters/filter-data.service';
-import { MAIN_PAGE } from 'app/app.constants';
-import { FilterData } from 'app/service/filters/filter-data';
+import { ELECTION_PAGE } from 'app/app.constants';
+import { Post, Tag } from 'app/post-editor/post-editor.component';
 import { PostComponent } from 'app/post/post.component';
+import { JwtAuthenticationService } from 'app/service/authentication.service';
+import { FilterData } from 'app/service/filters/filter-data';
+import { FilterDataService } from 'app/service/filters/filter-data.service';
+import { PostDataService } from 'app/service/post/post-data.service';
+import { TagDataService } from 'app/service/tag/tag-data-service.service';
 
 @Component({
-  selector: 'app-main-page',
-  templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.css']
+  selector: 'app-election',
+  templateUrl: './election.component.html',
+  styleUrls: ['./election.component.css']
 })
-export class MainPageComponent implements OnInit {
+export class ElectionComponent implements OnInit {
 
   @ViewChild('postContainer', { read: ViewContainerRef }) entry!: ViewContainerRef;
 
@@ -29,10 +29,10 @@ export class MainPageComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.filterDataService.getFilterDataForPage(MAIN_PAGE).subscribe(
+    this.filterDataService.getFilterDataForPage(ELECTION_PAGE).subscribe(
       data => {
-        this.selectedTag = data.tag;
-        this.filter = data;
+        this.filter = data ?? new FilterData('','','');
+        this.selectedTag = data === null ? '' : data.tag;
         this.refreshPosts();
       }
     );
@@ -46,7 +46,7 @@ export class MainPageComponent implements OnInit {
   }
 
   saveFilter() {
-    let newFilter = new FilterData('', MAIN_PAGE, this.selectedTag)
+    let newFilter = new FilterData('', ELECTION_PAGE, this.selectedTag)
     if(this.filter.id === '') {
       this.filterDataService.createFilterDataForPage(newFilter).subscribe(
         data => {

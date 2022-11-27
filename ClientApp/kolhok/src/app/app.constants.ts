@@ -1,7 +1,9 @@
 export const API_URL = 'http://localhost:8080';
 
 export const MAIN_PAGE = 'main_page';
-export const APPLICATION_PAGE = 'application_page';
+export const NOT_STORK = 'not-stork';
+export const STORK = 'stork';
+export const WAITING_LIST = 'waiting-list';
 export const DORMS_PAGE = 'dorms_page';
 export const ORGANIZATION_PAGE = 'organization_page';
 export const CABINET_PAGE = 'cabinet_page';

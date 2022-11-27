@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, ComponentRef, ComponentFactory } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { DormDataService } from 'app/service/dorms/dorm-data.service';
 import { JwtAuthenticationService } from '../service/authentication.service';
 import { Router } from '@angular/router';

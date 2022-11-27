@@ -69,7 +69,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.isOnMainPage = this.router.url.endsWith('main-page');
+    
     this.id = this.route.snapshot.params['id'];
     if(this.id === '-1'){
       this.isEditing = true;
@@ -97,6 +97,8 @@ export class PostComponent implements OnInit, OnDestroy {
         
       }
     )
+
+    this.isOnMainPage = !this.router.url.endsWith(this.post.id.toString());
   }
 
   ngOnDestroy() {

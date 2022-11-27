@@ -46,6 +46,11 @@ import { PersonComponent } from './organization/person/person.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { PresidencyComponent } from './presidency/presidency.component';
 import { DocumentStorageComponent } from './document-storage/document-storage.component';
+import { StorkComponent } from './dorm-application-pages/stork/stork.component';
+import { NotStorkComponent } from './dorm-application-pages/not-stork/not-stork.component';
+import { WaitingListComponent } from './dorm-application-pages/waiting-list/waiting-list.component';
+import { ElectionComponent } from './elections/election/election.component';
+import { InformationsComponent } from './informations/informations.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -71,6 +76,11 @@ FullCalendarModule.registerPlugins([
     OrganizationComponent,
     PresidencyComponent,
     DocumentStorageComponent,
+    StorkComponent,
+    NotStorkComponent,
+    WaitingListComponent,
+    ElectionComponent,
+    InformationsComponent,
   ],
   imports: [
     BrowserModule,

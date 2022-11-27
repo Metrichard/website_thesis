@@ -1,0 +1,16 @@
+.file-input {
+    display: none;
+    position: absolute;
+}
+
+.centering {
+    text-align: center;
+    display: block;
+    align-items: center;
+    align-content: center;
+}
+
+.title {
+    font-size: x-large;
+    font-weight: bold;
+}

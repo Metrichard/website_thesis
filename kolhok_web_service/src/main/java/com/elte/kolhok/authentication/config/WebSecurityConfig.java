@@ -89,6 +89,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().ignoring()
                 .antMatchers(HttpMethod.GET, "/api/file-data-filter/")
                 .and().ignoring()
-                .antMatchers(HttpMethod.GET, "/api/file-get-id/{id}");
+                .antMatchers(HttpMethod.GET, "/api/file-get-id/{id}")
+                .and().ignoring()
+                .antMatchers(HttpMethod.GET, "/api/page-data-get/{pageName}");
     }
 }
