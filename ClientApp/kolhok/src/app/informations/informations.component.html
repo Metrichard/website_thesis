@@ -1,0 +1,18 @@
+<div class="container padmarg">
+    <!-- Visible -->
+    <div>
+        <ngx-editor class="for-user" name="wysiwyg-text" [editor]="editor" [(ngModel)]="text" [value]="text" ngDefaultControl></ngx-editor>
+    </div>
+    <!-- Invisible -->
+    <div *ngIf="authService.isUserLoggedIn()">
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+        <ngx-editor name="wysiwyg-text" [editor]="editor" [(ngModel)]="text" [value]="text" ngDefaultControl></ngx-editor>
+        <button mat-button (click)="saveContents()"><mat-icon>save</mat-icon></button>
+    </div>
+
+    <div class="centering">
+        <h2>Diákbizottsági elnökök elérhetősége</h2>
+        <app-presidency>
+        </app-presidency>
+    </div>
+</div>

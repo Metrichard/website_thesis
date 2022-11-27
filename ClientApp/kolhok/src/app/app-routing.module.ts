@@ -10,6 +10,7 @@ import { DormsPageComponent } from './dorms-page/dorms-page.component';
 import { ElectionComponent } from './elections/election/election.component';
 import { ErrorComponent } from './error/error.component';
 import { FileManagerComponent } from './file-manager/file-manager.component';
+import { InformationsComponent } from './informations/informations.component';
 import { LogOutComponent } from './log-out/log-out.component';
 import { LoginComponent } from './login/login.component';
 import { MainPageComponent } from './main-page/main-page.component';
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: 'application/notstork', component: NotStorkComponent},
   { path: 'application/waiting-list', component: WaitingListComponent},
   { path: 'elections', component: ElectionComponent},
+  { path: 'info', component: InformationsComponent },
 
   { path: 'logout', component: LogOutComponent, canActivate: [RouteGuardService]},
   { path: '**', component: ErrorComponent}
