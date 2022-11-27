@@ -1,7 +1,9 @@
 package com.elte.kolhok.controller;
 
 import com.elte.kolhok.model.File;
+import com.elte.kolhok.model.PublicFileObject;
 import com.elte.kolhok.repository.FileRepository;
+import com.elte.kolhok.repository.PublicFileRepository;
 import com.elte.kolhok.resource.FileDataRequest;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.core.io.ByteArrayResource;
@@ -23,13 +25,12 @@ import java.util.Optional;
 @CrossOrigin("*")
 public class FileController {
 
-
-    private List<String> files = new ArrayList<>();
-    //private final Path rootLocation = Paths.get("");
     private final FileRepository fileRepository;
+    private final PublicFileRepository publicFileRepository;
 
-    public FileController(FileRepository fileRepository) {
+    public FileController(FileRepository fileRepository, PublicFileRepository publicFileRepository) {
         this.fileRepository = fileRepository;
+        this.publicFileRepository = publicFileRepository;
     }
 
     @PostMapping("/api/file-upload")
@@ -45,7 +46,6 @@ public class FileController {
             catch(Exception e){
                 throw new RuntimeException("FAIL!");
             }
-            files.add(fileRequest.getOriginalFilename());
             return ResponseEntity.status(HttpStatus.OK).body("Upload successful");
         }catch (Exception e){
             ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("Upload failed");
@@ -62,6 +62,28 @@ public class FileController {
             fileDataRequests.add(d);
         }
         return ResponseEntity.status(200).body(fileDataRequests);
+    }
+
+    @GetMapping("/api/file-data-filter/")
+    public ResponseEntity<?> getAllWithFilter() {
+        Optional<PublicFileObject> object = publicFileRepository.findAll().stream().findFirst();
+        List<FileDataRequest> fileDataRequests = new ArrayList<>();
+        if(object.isPresent()) {
+            List<File> files = fileRepository.findAll();
+            var names = object.get().getFileNames();
+            if(files.size() > 0) {
+                for(var name : names) {
+                    for (File file : files) {
+                        if (file.getFileName().equals(name)) {
+                            FileDataRequest d = new FileDataRequest(file.getId(), file.getFileName(), file.getFileType());
+                            fileDataRequests.add(d);
+                        }
+                    }
+                }
+            }
+            return ResponseEntity.ok(fileDataRequests);
+        }
+        return ResponseEntity.status(400).body("There are no public files to get.");
     }
 
     @GetMapping("/api/file-get/{name}")
@@ -139,5 +161,23 @@ public class FileController {
         }
 
         return ResponseEntity.ok("Successfully deleted.");
+    }
+
+    @PostMapping("/api/public-files")
+    public ResponseEntity<?> overrideWithNew(@RequestBody String[] fileNames) {
+        Optional<PublicFileObject> object = publicFileRepository.findAll().stream().findFirst();
+
+        if(object.isPresent()) {
+            publicFileRepository.deleteById(object.get().getId());
+            PublicFileObject current = object.get();
+            current.setFileNames(fileNames);
+            publicFileRepository.save(current);
+        }
+        else {
+            PublicFileObject current = new PublicFileObject(fileNames);
+            publicFileRepository.save(current);
+        }
+
+        return ResponseEntity.ok("Stored successfully.");
     }
 }

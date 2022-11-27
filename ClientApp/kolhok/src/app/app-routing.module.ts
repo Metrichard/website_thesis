@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CalendarComponent } from './calendar/calendar.component';
+import { DocumentStorageComponent } from './document-storage/document-storage.component';
 import { DormPageComponent } from './dorms-page/dorm-page/dorm-page.component';
 import { DormsPageComponent } from './dorms-page/dorms-page.component';
 import { ErrorComponent } from './error/error.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'dorm/:id', component: DormPageComponent, canActivate: [RouteGuardService] },
   { path: 'organization', component: OrganizationComponent },
   { path: 'presidency', component: PresidencyComponent },
+  { path: 'public-document-storage', component: DocumentStorageComponent },
 
   { path: 'logout', component: LogOutComponent, canActivate: [RouteGuardService]},
   { path: '**', component: ErrorComponent}

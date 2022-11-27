@@ -45,6 +45,7 @@ import { FileManagerComponent } from './file-manager/file-manager.component';
 import { PersonComponent } from './organization/person/person.component';
 import { OrganizationComponent } from './organization/organization.component';
 import { PresidencyComponent } from './presidency/presidency.component';
+import { DocumentStorageComponent } from './document-storage/document-storage.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -69,6 +70,7 @@ FullCalendarModule.registerPlugins([
     PersonComponent,
     OrganizationComponent,
     PresidencyComponent,
+    DocumentStorageComponent,
   ],
   imports: [
     BrowserModule,

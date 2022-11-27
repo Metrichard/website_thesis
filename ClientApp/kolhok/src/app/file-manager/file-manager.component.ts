@@ -37,6 +37,16 @@ export class FileManagerComponent implements OnInit {
     this.fileDataService.deleteFileById(id).subscribe();
     window.location.reload();
   }
+
+  download(id: string) {
+    this.fileDataService.getFileById(id).subscribe(
+      (data: Blob) => {
+        const url = window.URL.createObjectURL(data);
+        window.open(url, '_blank');
+        window.URL.revokeObjectURL(url);
+      }
+    );
+  }
 }
 
 export class FileData {

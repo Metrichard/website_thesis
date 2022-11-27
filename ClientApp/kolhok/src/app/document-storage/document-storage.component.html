@@ -1,1 +1,33 @@
-<p>document-storage works!</p>
+<div class="container">
+    <table class="mat-elevation-z8 table-striped">
+        <thead>
+            <th>File ID</th>
+            <th>File name</th>
+            <th>File download</th>
+            <th>File type</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let file of fileData">
+                <td>{{file.fileName}}</td>
+                <td><button mat-button (click)="download(file.id)"><mat-icon>cloud_download</mat-icon></button></td>
+                <td>{{file.fileType}}</td>
+                <td><button mat-button (click)="deleteFile(file.name)"><mat-icon>delete_forever</mat-icon></button></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <div *ngIf="authService.isUserLoggedIn()">
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+        <label>File</label>
+        <div class="file-upload" *ngIf="fileName===''">
+            <mat-label>
+                {{fileName || "No file uploaded yet."}}
+                <button mat-mini-fab class="upload-btn" (click)="fileUpload.click()">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+            </mat-label>
+        </div>
+    </div>
+</div>

@@ -17,6 +17,10 @@ export class FileUploaderService {
     return this.http.get<FileData[]>(`${API_URL}/api/file-data/`);
   }
 
+  getFileDataWithFilter() {
+    return this.http.get<FileData[]>(`${API_URL}/api/file-data-filter/`);
+  }
+
   uploadFile(file: File) {
     const data: FormData = new FormData();
     data.append('file', file);
@@ -39,10 +43,13 @@ export class FileUploaderService {
 
   getFile(name: String) {
     return this.http.get(`${API_URL}/api/file-get/${name}`, { responseType: 'blob' });
-    //return this.http.get<Blob>(`${API_URL}/api/file-get/${name}`);
   }
 
   deleteFile(name: String) {
     return this.http.delete(`${API_URL}/api/file-delete/${name}`);
+  }
+
+  refreshToPublic(names: String[]) {
+    return this.http.post<String[]>(`${API_URL}/api/public-files`, names);
   }
 }
