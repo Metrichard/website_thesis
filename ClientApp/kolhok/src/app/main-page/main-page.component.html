@@ -10,5 +10,15 @@
     <button mat-button (click)="saveFilter()"><mat-icon>save</mat-icon></button>
 </div>
 <br>
+
+<mat-card class="container" *ngIf="pinnedExists || pinnedPost.title !== ''">
+    <mat-card-header>
+        <mat-label>{{pinnedPost.title}}</mat-label>
+    </mat-card-header>
+    <mat-card-content>
+        <div [innerHTML]="pinnedPost.text"></div>
+    </mat-card-content>
+</mat-card>
+
 <ng-container #postContainer>
 </ng-container>

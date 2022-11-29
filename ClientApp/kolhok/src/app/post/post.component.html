@@ -58,7 +58,7 @@
                 <mat-checkbox [checked]="post.isPinned" (change)="post.isPinned = !post.isPinned;">Is Pinned</mat-checkbox>
             </fieldset>
             <fieldset>
-                <mat-checkbox [(ngModel)]="post.isHidden">Is Hidden</mat-checkbox>
+                <mat-checkbox [checked]="post.isHidden" (change)="post.isHidden = !post.isHidden;">Is Hidden</mat-checkbox>
             </fieldset>
             <br>
             <!-- File upload -->

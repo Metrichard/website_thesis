@@ -17,6 +17,9 @@ export class MainPageComponent implements OnInit {
 
   @ViewChild('postContainer', { read: ViewContainerRef }) entry!: ViewContainerRef;
 
+  pinnedPost: Post = new Post('', '', '', '', '', false, false, new Date(), []);
+  pinnedExists: boolean = true;
+
   tags: Tag[] = [];
   selectedTag: String = '';
   filter: FilterData = new FilterData('','','');
@@ -29,6 +32,17 @@ export class MainPageComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.postDataService.getPinnedPost().subscribe(
+      pinned => {
+        if(pinned.title !== '') {
+          this.pinnedPost = new Post(pinned.id, pinned.title, pinned.author, pinned.text, pinned.tag, Boolean(pinned.isPinned), Boolean(pinned.isHidden), pinned.publicationDate, pinned.files);
+          this.pinnedExists = true;
+        }
+        else {
+          this.pinnedExists = false;
+        }
+      }
+    );
     this.filterDataService.getFilterDataForPage(MAIN_PAGE).subscribe(
       data => {
         this.selectedTag = data.tag;

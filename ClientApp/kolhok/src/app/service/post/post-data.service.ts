@@ -55,4 +55,8 @@ export class PostDataService {
   deletePost(id: String) {
     return this.http.delete(`${API_URL}/api/post-delete/${id}`);
   }
+
+  getPinnedPost() {
+    return this.http.get<Post>(`${API_URL}/api/post-pinned/`);
+  }
 }

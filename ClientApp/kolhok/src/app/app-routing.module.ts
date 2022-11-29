@@ -19,6 +19,7 @@ import { PostEditorComponent } from './post-editor/post-editor.component';
 import { PostComponent } from './post/post.component';
 import { PresidencyComponent } from './presidency/presidency.component';
 import { RouteGuardService } from './service/route-guard.service';
+import { TransparencyComponent } from './transparency/transparency.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent},
@@ -38,7 +39,7 @@ const routes: Routes = [
   { path: 'application/waiting-list', component: WaitingListComponent},
   { path: 'elections', component: ElectionComponent},
   { path: 'info', component: InformationsComponent },
-
+  { path: 'transparency', component: TransparencyComponent },
   { path: 'logout', component: LogOutComponent, canActivate: [RouteGuardService]},
   { path: '**', component: ErrorComponent}
 ];

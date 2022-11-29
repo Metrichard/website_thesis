@@ -1,6 +1,5 @@
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { Router } from '@angular/router';
 import { STORK } from 'app/app.constants';
 import { Post, Tag } from 'app/post-editor/post-editor.component';
 import { PostComponent } from 'app/post/post.component';

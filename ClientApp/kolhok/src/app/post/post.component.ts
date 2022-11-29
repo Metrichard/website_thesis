@@ -76,7 +76,7 @@ export class PostComponent implements OnInit, OnDestroy {
       this.shouldShow = false;
     }
 
-    if(this.id !== '-1') {
+    if(this.id !== '-1' && this.id !== undefined) {
       this.isNew = false;
       this.postService.retrivePostById(this.id).subscribe(
         data => {
@@ -120,6 +120,7 @@ export class PostComponent implements OnInit, OnDestroy {
         }
       )
     }else {
+      this.post.publicationDate = new Date();
       this.post.tag = this.selectedTag;
       this.post.files = this.fileNames;
       const request: PostRequest = new PostRequest(this.post.id, this.post.title, this.post.author, this.post.text, this.post.tag, isPinned, isHidden, this.post.publicationDate, this.post.files);

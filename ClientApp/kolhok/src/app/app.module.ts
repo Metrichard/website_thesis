@@ -51,6 +51,7 @@ import { NotStorkComponent } from './dorm-application-pages/not-stork/not-stork.
 import { WaitingListComponent } from './dorm-application-pages/waiting-list/waiting-list.component';
 import { ElectionComponent } from './elections/election/election.component';
 import { InformationsComponent } from './informations/informations.component';
+import { TransparencyComponent } from './transparency/transparency.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,

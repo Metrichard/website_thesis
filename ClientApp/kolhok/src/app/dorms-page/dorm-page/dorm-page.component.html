@@ -87,11 +87,11 @@
                     <fieldset class="form-group">
                         <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
                         <label>Kép</label>
-                        <button *ngIf="fileName!==''" (click)="deleteFile(fileName)">{{fileName}}<mat-icon>delete_forever</mat-icon></button>
+                        <button type="button" *ngIf="fileName!==''" (click)="deleteFile(fileName)">{{fileName}}<mat-icon>delete_forever</mat-icon></button>
                         <div class="file-upload" *ngIf="fileName===''">
                             <mat-label>
                                 {{fileName || "No file uploaded yet."}}
-                                <button mat-mini-fab class="upload-btn" (click)="fileUpload.click()">
+                                <button type="button" mat-mini-fab class="upload-btn" (click)="fileUpload.click()">
                                     <mat-icon>attach_file</mat-icon>
                                 </button>
                             </mat-label>

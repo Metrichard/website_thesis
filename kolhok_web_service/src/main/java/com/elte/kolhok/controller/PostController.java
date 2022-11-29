@@ -8,6 +8,8 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -30,14 +32,28 @@ public class PostController {
     @GetMapping("/api/posts-w-tag/{tag}")
     public ResponseEntity<?> getAllPostsBasedOnFilter(@PathVariable String tag) {
         var posts = postRepository.findAll();
-        var filteredPosts = posts.stream().filter(p -> p.getTag().equals(tag));
+        var filteredPosts = posts.stream().filter(p -> p.getTag().equals(tag) && !Boolean.parseBoolean(p.getIsPinned()) && !Boolean.parseBoolean(p.getIsHidden()));
         return ResponseEntity.ok(filteredPosts.toArray());
+    }
+
+    @GetMapping("/api/post-pinned/")
+    public ResponseEntity<?> getPinnedPost() {
+        List<Post> posts = postRepository.findAll().stream().toList();
+        Optional<Post> pinned = posts.stream().filter(x -> Boolean.parseBoolean(x.getIsPinned())).findFirst();
+        return pinned.<ResponseEntity<?>>map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.ok(new Post("", "", "", "", "", "", new Date(), new String[0])));
     }
 
     @PostMapping("/api/post-create")
     public ResponseEntity<?> createPost(@RequestBody PostRequest postRequest) {
         Post post = new Post(postRequest.getTitle(), postRequest.getAuthor(), postRequest.getText(), postRequest.getTag(), postRequest.getIsPinned(),  postRequest.getIsHidden(), postRequest.getPublicationDate(), postRequest.getFiles());
 
+        if(Boolean.parseBoolean(post.getIsPinned())) {
+            List<Post> posts = postRepository.findAll();
+            posts.forEach((x) -> {
+                x.setIsPinned("false");
+            });
+            postRepository.saveAll(posts);
+        }
         return ResponseEntity.status(201).body(postRepository.save(post));
     }
 
@@ -46,6 +62,15 @@ public class PostController {
         Optional<Post> post = postRepository.findById(postRequest.getId());
 
         if(post.isPresent()){
+
+            if(Boolean.parseBoolean(post.get().getIsPinned())) {
+                List<Post> posts = postRepository.findAll();
+                posts.forEach((x) -> {
+                    x.setIsPinned("false");
+                });
+                postRepository.saveAll(posts);
+            }
+
             postRepository.deleteById(post.get().getId());
             Post current = post.get();
             current.setAuthor(postRequest.getAuthor());

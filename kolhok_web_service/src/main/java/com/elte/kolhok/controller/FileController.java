@@ -69,18 +69,16 @@ public class FileController {
         Optional<PublicFileObject> object = publicFileRepository.findAll().stream().findFirst();
         List<FileDataRequest> fileDataRequests = new ArrayList<>();
         if(object.isPresent()) {
-            List<File> files = fileRepository.findAll();
+            var filesIter = fileRepository.findAll();
             var names = object.get().getFileNames();
-            if(files.size() > 0) {
-                for(var name : names) {
-                    for (File file : files) {
-                        if (file.getFileName().equals(name)) {
-                            FileDataRequest d = new FileDataRequest(file.getId(), file.getFileName(), file.getFileType());
-                            fileDataRequests.add(d);
-                        }
+            filesIter.forEach(x -> {
+                for (var name : names) {
+                    if(x.getFileName().equals(name)) {
+                        FileDataRequest d = new FileDataRequest(x.getId(), x.getFileName(), x.getFileType());
+                        fileDataRequests.add(d);
                     }
                 }
-            }
+            });
             return ResponseEntity.ok(fileDataRequests);
         }
         return ResponseEntity.status(400).body("There are no public files to get.");
@@ -88,14 +86,7 @@ public class FileController {
 
     @GetMapping("/api/file-get/{name}")
     public ResponseEntity<?> getFileByName(@PathVariable String name) {
-        File result = new File();
-        var files = fileRepository.findAll();
-        for (var f : files) {
-            if (f.getFileName().equals(name)) {
-                result = f;
-                break;
-            }
-        }
+        File result = fileRepository.findByFileName(name);
 
         byte[] fileBytes = Base64Utils.decodeFromString(result.getFileBytesAsString());
         ByteArrayResource resource = new ByteArrayResource(fileBytes);
@@ -142,13 +133,12 @@ public class FileController {
 
     @DeleteMapping("/api/file-delete/{name}")
     public ResponseEntity<?> deleteFileByName(@PathVariable String name) {
-        var files = fileRepository.findAll();
-        for (var f : files) {
-            if (f.getFileName().equals(name)) {
-                fileRepository.deleteById(f.getId());
-                break;
-            }
+        var file = fileRepository.findByFileName(name);
+
+        if(file != null) {
+            fileRepository.deleteById(file.getId());
         }
+
         return ResponseEntity.ok(name + "successfully deleted.");
     }
 
