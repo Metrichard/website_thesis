@@ -10,7 +10,7 @@ export class PostRequest {
     public title: String,
     public author: String,
     public text: String,
-    public tag: String,
+    public tags: String[],
     public isPinned: String,
     public isHidden: String,
     public publicationDate: Date,
@@ -23,7 +23,7 @@ export class PostRequest {
 })
 export class PostDataService {
 
-  request: PostRequest = new PostRequest('','','','','','','',new Date(), []);
+  request: PostRequest = new PostRequest('','','','',[],'','',new Date(), []);
 
   constructor(
     private http: HttpClient

@@ -1,7 +1,20 @@
 <div class="container">
-    <table class="mat-elevation-z8 table-striped">
+    <div *ngIf="authService.isUserLoggedIn()" class="file-uploader">
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+        <mat-label>File upload</mat-label>
+        <div class="file-upload" *ngIf="fileName===''">
+            <mat-label>
+                {{fileName || "No file uploaded yet."}}
+                <button mat-mini-fab class="upload-btn" (click)="fileUpload.click()">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+            </mat-label>
+        </div>
+    </div>
+
+    <table class="mat-elevation-z8 table-striped table-width">
         <thead>
-            <th>File ID</th>
+            <th *ngIf="authService.isUserLoggedIn()">File ID</th>
             <th>File name</th>
             <th>File download</th>
             <th>File type</th>
@@ -16,18 +29,4 @@
             </tr>
         </tbody>
     </table>
-    <br>
-    <br>
-    <div *ngIf="authService.isUserLoggedIn()">
-        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
-        <label>File</label>
-        <div class="file-upload" *ngIf="fileName===''">
-            <mat-label>
-                {{fileName || "No file uploaded yet."}}
-                <button mat-mini-fab class="upload-btn" (click)="fileUpload.click()">
-                    <mat-icon>attach_file</mat-icon>
-                </button>
-            </mat-label>
-        </div>
-    </div>
 </div>

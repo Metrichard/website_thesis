@@ -1,5 +1,6 @@
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { guid } from '@fullcalendar/angular';
 import { API_URL } from 'app/app.constants';
 import { FileWrapper } from 'app/post-editor/post-editor.component';
 import { FileData } from '../../file-manager/file-manager.component';
@@ -19,6 +20,10 @@ export class FileUploaderService {
 
   getFileDataWithFilter() {
     return this.http.get<FileData[]>(`${API_URL}/api/file-data-filter/`);
+  }
+
+  getFileDataWithFilterReports() {
+    return this.http.get<FileData[]>(`${API_URL}/api/file-data-reports/`);
   }
 
   uploadFile(file: File) {
@@ -51,5 +56,9 @@ export class FileUploaderService {
 
   refreshToPublic(names: String[]) {
     return this.http.post<String[]>(`${API_URL}/api/public-files`, names);
+  }
+
+  refreshToPublicReports(names: String[]) {
+    return this.http.post<String[]>(`${API_URL}/api/public-reports`, names);
   }
 }

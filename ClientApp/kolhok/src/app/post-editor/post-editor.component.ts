@@ -16,7 +16,7 @@ export class PostEditorComponent implements OnInit, AfterViewInit {
   
   posts: Post[] = []
 
-  displayedColumns: string[] = ['id', 'title', 'author', 'text', 'tag', 'isPinned', 'isHidden', 'publicationDate', 'actions'];
+  displayedColumns: string[] = ['id', 'title', 'author', 'text', 'tags', 'isPinned', 'isHidden', 'publicationDate', 'actions'];
   dataSource = new MatTableDataSource(this.posts)
   
   @ViewChild(MatSort) sort: MatSort = new MatSort();
@@ -51,7 +51,7 @@ export class PostEditorComponent implements OnInit, AfterViewInit {
           , post.title
           , post.author
           , post.text
-          , post.tag
+          , post.tags
           , (post.isPinned === 'true' ? true : false)
           , (post.isHidden === 'true' ? true : false)
           , post.publicationDate
@@ -118,7 +118,7 @@ export class Post{
     public title: String,
     public author: String,
     public text: String,
-    public tag: String,
+    public tags: String[],
     public isPinned: Boolean,
     public isHidden: Boolean,
     public publicationDate: Date,

@@ -7,6 +7,7 @@ import { FilterDataService } from 'app/service/filters/filter-data.service';
 import { MAIN_PAGE } from 'app/app.constants';
 import { FilterData } from 'app/service/filters/filter-data';
 import { PostComponent } from 'app/post/post.component';
+import { Editor } from 'ngx-editor';
 
 @Component({
   selector: 'app-main-page',
@@ -17,12 +18,14 @@ export class MainPageComponent implements OnInit {
 
   @ViewChild('postContainer', { read: ViewContainerRef }) entry!: ViewContainerRef;
 
-  pinnedPost: Post = new Post('', '', '', '', '', false, false, new Date(), []);
+  pinnedPost: Post = new Post('', '', '', '', [], false, false, new Date(), []);
   pinnedExists: boolean = true;
 
   tags: Tag[] = [];
   selectedTag: String = '';
   filter: FilterData = new FilterData('','','');
+
+  editor: Editor = new Editor();  
 
   constructor(
     public authService: JwtAuthenticationService,
@@ -35,7 +38,7 @@ export class MainPageComponent implements OnInit {
     this.postDataService.getPinnedPost().subscribe(
       pinned => {
         if(pinned.title !== '') {
-          this.pinnedPost = new Post(pinned.id, pinned.title, pinned.author, pinned.text, pinned.tag, Boolean(pinned.isPinned), Boolean(pinned.isHidden), pinned.publicationDate, pinned.files);
+          this.pinnedPost = new Post(pinned.id, pinned.title, pinned.author, pinned.text, pinned.tags, Boolean(pinned.isPinned), Boolean(pinned.isHidden), pinned.publicationDate, pinned.files);
           this.pinnedExists = true;
         }
         else {
@@ -76,12 +79,13 @@ export class MainPageComponent implements OnInit {
       );
     } 
   }
+
   
   refreshPosts() {
     if(this.filter.tag !== undefined) {
       this.postDataService.retrieveAllPostsWithTag(this.filter.tag).subscribe(
         response => {
-          let postsArr = response.map(post => new Post(post.id, post.title, post.author, post.text, post.tag, Boolean(post.isPinned), Boolean(post.isHidden), post.publicationDate, post.files));
+          let postsArr = response.map(post => new Post(post.id, post.title, post.author, post.text, post.tags, Boolean(post.isPinned), Boolean(post.isHidden), post.publicationDate, post.files));
           postsArr.forEach( post => {
             const componentRef = this.entry.createComponent(PostComponent);
             componentRef.instance.post = post;

@@ -1,1 +1,43 @@
-<p>transparency works!</p>
+<mat-tab-group dynamicHeight="true">
+    <mat-tab label="Átkáthatóság" class="tab">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div>
+                <a class="button-action" mat-raised-button color="primary" [href]="documentLocation" target="_blank">Alapszabály</a>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Jegyző könyvek">
+        <div *ngIf="authService.isUserLoggedIn()" class="file-uploader">
+            <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+            <div class="file-upload">
+                <mat-label>
+                    {{fileName || "No file uploaded yet."}}
+                    <button type="button" mat-mini-fab class="upload-btn" (click)="fileUpload.click()">
+                        <mat-icon>attach_file</mat-icon>
+                    </button>
+                </mat-label>
+            </div>
+        </div>
+        <div>
+            <table class="mat-elevation-z8 table-striped table-width table-width">
+                <thead>
+                    <th *ngIf="authService.isUserLoggedIn()">File ID</th>
+                    <th>File name</th>
+                    <th>File download</th>
+                    <th>File type</th>
+                    <th>Action</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let file of fileData">
+                        <td>{{file.fileName}}</td>
+                        <td><button mat-button (click)="download(file.fileName)"><mat-icon>cloud_download</mat-icon></button></td>
+                        <td>{{file.fileType}}</td>
+                        <td><button mat-button (click)="deleteFile(file.fileName)"><mat-icon>delete_forever</mat-icon></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </mat-tab>
+</mat-tab-group>
+
+

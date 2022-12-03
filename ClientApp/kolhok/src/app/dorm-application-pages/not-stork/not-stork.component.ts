@@ -99,7 +99,7 @@ export class NotStorkComponent implements OnInit {
     if(this.filter.tag !== undefined) {
       this.postDataService.retrieveAllPostsWithTag(this.filter.tag).subscribe(
         response => {
-          let postsArr = response.map(post => new Post(post.id, post.title, post.author, post.text, post.tag, Boolean(post.isPinned), Boolean(post.isHidden), post.publicationDate, post.files));
+          let postsArr = response.map(post => new Post(post.id, post.title, post.author, post.text, post.tags, Boolean(post.isPinned), Boolean(post.isHidden), post.publicationDate, post.files));
           postsArr.forEach( post => {
             const componentRef = this.entry.createComponent(PostComponent);
             componentRef.instance.post = post;

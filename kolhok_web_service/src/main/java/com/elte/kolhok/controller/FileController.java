@@ -2,8 +2,10 @@ package com.elte.kolhok.controller;
 
 import com.elte.kolhok.model.File;
 import com.elte.kolhok.model.PublicFileObject;
+import com.elte.kolhok.model.ReportObject;
 import com.elte.kolhok.repository.FileRepository;
 import com.elte.kolhok.repository.PublicFileRepository;
+import com.elte.kolhok.repository.ReportsRepository;
 import com.elte.kolhok.resource.FileDataRequest;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.core.io.ByteArrayResource;
@@ -27,10 +29,12 @@ public class FileController {
 
     private final FileRepository fileRepository;
     private final PublicFileRepository publicFileRepository;
+    private final ReportsRepository reportsRepository;
 
-    public FileController(FileRepository fileRepository, PublicFileRepository publicFileRepository) {
+    public FileController(FileRepository fileRepository, PublicFileRepository publicFileRepository, ReportsRepository reportsRepository) {
         this.fileRepository = fileRepository;
         this.publicFileRepository = publicFileRepository;
+        this.reportsRepository = reportsRepository;
     }
 
     @PostMapping("/api/file-upload")
@@ -62,6 +66,22 @@ public class FileController {
             fileDataRequests.add(d);
         }
         return ResponseEntity.status(200).body(fileDataRequests);
+    }
+    @GetMapping("/api/file-data-reports/")
+    public ResponseEntity<?> getAllReports() {
+        Optional<ReportObject> object = reportsRepository.findAll().stream().findFirst();
+        List<FileDataRequest> fileDataRequests = new ArrayList<>();
+        if(object.isPresent()) {
+            for (String name : object.get().getFileNames()) {
+                File file = fileRepository.findByFileName(name);
+                if(file != null) {
+                    FileDataRequest request = new FileDataRequest(file.getId(), file.getFileName(), file.getFileType());
+                    fileDataRequests.add(request);
+                }
+            }
+            return ResponseEntity.ok(fileDataRequests);
+        }
+        return ResponseEntity.status(400).body("There are no reports to get.");
     }
 
     @GetMapping("/api/file-data-filter/")
@@ -166,6 +186,24 @@ public class FileController {
         else {
             PublicFileObject current = new PublicFileObject(fileNames);
             publicFileRepository.save(current);
+        }
+
+        return ResponseEntity.ok("Stored successfully.");
+    }
+
+    @PostMapping("/api/public-reports")
+    public ResponseEntity<?> overrideWithNewReport(@RequestBody String[] fileNames) {
+        Optional<ReportObject> reportObject = reportsRepository.findAll().stream().findFirst();
+
+        if(reportObject.isPresent()) {
+            reportsRepository.deleteById(reportObject.get().getId());
+            ReportObject current = reportObject.get();
+            current.setFileNames(fileNames);
+            reportsRepository.save(current);
+        }
+        else {
+            ReportObject current = new ReportObject(fileNames);
+            reportsRepository.save(current);
         }
 
         return ResponseEntity.ok("Stored successfully.");

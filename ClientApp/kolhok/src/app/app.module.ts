@@ -29,6 +29,7 @@ import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/mat
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { MainPageComponent } from './main-page/main-page.component';
 import { PostComponent } from './post/post.component';
@@ -82,6 +83,7 @@ FullCalendarModule.registerPlugins([
     WaitingListComponent,
     ElectionComponent,
     InformationsComponent,
+    TransparencyComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,6 +109,7 @@ FullCalendarModule.registerPlugins([
     MatCheckboxModule,
     MatInputModule,
     MatCardModule,
+    MatTabsModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory

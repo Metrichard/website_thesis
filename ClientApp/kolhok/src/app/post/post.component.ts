@@ -18,7 +18,7 @@ import { HttpEventType, HttpResponse } from '@angular/common/http';
 })
 export class PostComponent implements OnInit, OnDestroy {
 
-  post: Post = new Post('', '', '', '', '', false, false, new Date(), []);
+  post: Post = new Post('', '', '', '', [], false, false, new Date(), []);
   
   editorDoc = this.post.text;
   html = 'Dynamic Data';
@@ -82,8 +82,8 @@ export class PostComponent implements OnInit, OnDestroy {
         data => {
           const isPinned = data.isPinned === 'true' ? true : false;
           const isHidden = data.isHidden === 'true' ? true : false;
-          this.post = new Post(data.id, data.title, data.author, data.text, data.tag, isPinned, isHidden, data.publicationDate, data.files);
-          this.selectedTag = this.post.tag.toString();
+          this.post = new Post(data.id, data.title, data.author, data.text, data.tags, isPinned, isHidden, data.publicationDate, data.files);
+          this.selectedTag = '';
           this.fileNames = data.files;
         }
       )
@@ -105,15 +105,26 @@ export class PostComponent implements OnInit, OnDestroy {
     this.editor.destroy()
   }
 
+  addTag() {
+    const alreadyIn: Boolean = (this.post.tags.some(x => x === this.selectedTag));
+    if(this.selectedTag !== '' && !alreadyIn) {
+      this.post.tags.push(this.selectedTag);
+      this.selectedTag = '';
+    }
+  }
+
+  removeTag(tag: String) {
+    this.post.tags = this.post.tags.filter(t => t !== tag);
+  }
+
   saveOrUpdate() {
     const isPinned = this.post.isPinned ? 'true' : 'false';
     const isHidden = this.post.isHidden ? 'true' : 'false';
     if(this.id == '-1'){
       this.post.publicationDate = new Date();
       this.post.author = this.authService.getAuthenticatedUser();
-      this.post.tag = this.selectedTag;
       this.post.files = this.fileNames;
-      const request: PostRequest = new PostRequest(this.post.id, this.post.title, this.post.author, this.post.text, this.post.tag, isPinned, isHidden, this.post.publicationDate, this.post.files);
+      const request: PostRequest = new PostRequest(this.post.id, this.post.title, this.post.author, this.post.text, this.post.tags, isPinned, isHidden, this.post.publicationDate, this.post.files);
       this.postService.createPost(request).subscribe(
         data => { 
           this.router.navigate(['post-editor']);
@@ -121,9 +132,8 @@ export class PostComponent implements OnInit, OnDestroy {
       )
     }else {
       this.post.publicationDate = new Date();
-      this.post.tag = this.selectedTag;
       this.post.files = this.fileNames;
-      const request: PostRequest = new PostRequest(this.post.id, this.post.title, this.post.author, this.post.text, this.post.tag, isPinned, isHidden, this.post.publicationDate, this.post.files);
+      const request: PostRequest = new PostRequest(this.post.id, this.post.title, this.post.author, this.post.text, this.post.tags, isPinned, isHidden, this.post.publicationDate, this.post.files);
       this.postService.updatePost(request).subscribe(
         data => { 
           this.router.navigate(['post-editor']);

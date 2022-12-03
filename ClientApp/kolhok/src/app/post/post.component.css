@@ -14,3 +14,18 @@ mat-card {
 a, a:hover {
     text-decoration: none;
 }
+
+.remove {
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    margin-left: 3px;
+    margin-right: 3px;
+    border: 1px #CCCCCC solid;
+}
+
+ngx-editor {
+    background-color: transparent;
+    border-right: transparent;
+}

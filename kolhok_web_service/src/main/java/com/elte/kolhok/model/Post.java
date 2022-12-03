@@ -13,7 +13,7 @@ public class Post {
     private String title;
     private String author;
     private String text;
-    private String tag;
+    private String[] tags;
     private String isPinned;
     private String isHidden;
     private Date publicationDate;
@@ -22,11 +22,11 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String author, String text, String tag, String isPinned, String isHidden, Date publicationDate, String[] files) {
+    public Post(String title, String author, String text, String[] tags, String isPinned, String isHidden, Date publicationDate, String[] files) {
         this.title = title;
         this.author = author;
         this.text = text;
-        this.tag = tag;
+        this.tags = tags;
         this.isPinned = isPinned;
         this.isHidden = isHidden;
         this.publicationDate = publicationDate;
@@ -65,12 +65,12 @@ public class Post {
         this.text = text;
     }
 
-    public String getTag() {
-        return tag;
+    public String[] getTags() {
+        return tags;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setTags(String[] tags) {
+        this.tags = tags;
     }
 
     public String getIsPinned() {

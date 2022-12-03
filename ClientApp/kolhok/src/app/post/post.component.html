@@ -1,4 +1,5 @@
 <br>
+<!-- Presentation on other pages -->
 <mat-card *ngIf="shouldShow && isOnMainPage" class="mat-elevation-z8">
     <a (click)="navigateToCurrentPost(post.id)" class="link-to-post">
         <mat-card-header>
@@ -7,18 +8,16 @@
         </mat-card-header>
     </a>
     <mat-card-content>
-        <mat-label [innerHTML]="post.text">{{post.text}}</mat-label>
+        <ngx-editor name="wysiwyg-text" [editor]="editor" [(ngModel)]="post.text"  [disabled]="!authService.isUserLoggedIn()" [value]="post.text" ngDefaultControl></ngx-editor>
     </mat-card-content>
-    <mat-card-footer>
-        <button *ngIf="authService.isUserLoggedIn()" mat-raised-button color="primary" (click)="editPost()"><mat-icon>edit</mat-icon></button>
-    </mat-card-footer>
 </mat-card>
 <br>
+<!-- Presentation on own page -->
 <div class="container" *ngIf="shouldShow && !isOnMainPage">
     <button class="btn btn-primary" *ngIf="authService.isUserLoggedIn()" type="button" (click)="editPost()">Edit</button>
 
     <h1>{{post.title}}</h1>
-    <div [innerHTML]="post.text"></div>
+    <ngx-editor name="wysiwyg-text" [editor]="editor" [(ngModel)]="post.text" [disabled]="!authService.isUserLoggedIn()" [value]="post.text" ngDefaultControl></ngx-editor>
 
     <mat-list *ngFor="let file of post.files">
         <mat-list-item>{{file}}<button mat-button (click)="download(file)"><mat-icon>cloud_download</mat-icon></button></mat-list-item>
@@ -28,6 +27,7 @@
     <div class="text-muted">{{post.author}}</div>
 </div>
 <br>
+<!-- Edit representation -->
 <div *ngIf="authService.isUserLoggedIn() && isEditing">
     <h1 *ngIf="isNew">Create a new post</h1>
     <h1 *ngIf="!isNew">Edit post</h1>
@@ -42,7 +42,7 @@
             <fieldset class="form-group">
                 <mat-label>Cikk szövege</mat-label>
                 <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
-                <ngx-editor name="wysiwyg-text" [editor]="editor" [(ngModel)]="post.text" [value]="post.text" ngDefaultControl></ngx-editor>
+                <ngx-editor name="wysiwyg-text" [editor]="editor" [disabled]="!authService.isUserLoggedIn()" [(ngModel)]="post.text" [value]="post.text" ngDefaultControl></ngx-editor>
             </fieldset>
             <fieldset class="form-group">
                 <mat-form-field appearance="fill">
@@ -53,6 +53,10 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
+                <button type="button" mat-button (click)="addTag()"><mat-icon>save</mat-icon></button>
+                <div class="float-right" *ngFor="let tag of post.tags">
+                    <span class="remove"><button type="button" mat-icon-button (click)="removeTag(tag)"><mat-icon>delete_forever</mat-icon></button>{{tag}}</span>
+                </div>
             </fieldset>
             <fieldset>
                 <mat-checkbox [checked]="post.isPinned" (change)="post.isPinned = !post.isPinned;">Is Pinned</mat-checkbox>
