@@ -8,6 +8,7 @@ import { FileUploaderService } from 'app/service/file/file-uploader.service';
 import { PersonDataService } from 'app/service/organization/person-data.service';
 import { PresidencyDataService } from 'app/service/organization/presidency-data.service';
 import { Person } from '../organization.component';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-person',
@@ -92,17 +93,18 @@ export class PersonComponent implements OnInit {
   
   url: any = '';
 
-  uploadFile() {
+  uploadFile(uploadableFile: File) {
     if(this.selectedFile !== undefined) {
       this.progress.percentage = 0;
-      this.fileDataService.uploadFile(this.selectedFile).subscribe(
+      
+      this.fileDataService.uploadFile(uploadableFile).subscribe(
         event => {
           if (event.type === HttpEventType.UploadProgress && event.total !== undefined) {
             this.progress.percentage = Math.round(100 * event.loaded / event.total);
           } else if (event instanceof HttpResponse) {
             alert('File Successfully Uploaded');
             if(this.person.fileName !== '') {
-              this.fileName = this.person.fileName;
+              this.fileName = uploadableFile.name;
             }
           }
           this.selectedFile = undefined;
@@ -115,9 +117,11 @@ export class PersonComponent implements OnInit {
     this.selectedFile = event.target.files[0];
 
     if(this.selectedFile) {
-      this.person.fileName = this.selectedFile.name;  
+      const uploadableFile = new File([this.selectedFile], Guid.create() + '_' + this.selectedFile.name);
+      this.person.fileName = uploadableFile.name;
+      this.uploadFile(uploadableFile);
     }
-    this.uploadFile();
+    
   }
 
   deleteFile(name: String) {

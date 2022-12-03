@@ -9,6 +9,7 @@ import { FileUploaderService } from 'app/service/file/file-uploader.service';
 import { Editor, Validators, Toolbar } from 'ngx-editor';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-post',
@@ -168,14 +169,15 @@ export class PostComponent implements OnInit, OnDestroy {
     
     if(this.selectedFile !== undefined) {
       this.progress.percentage = 0;
-      this.fileDataService.uploadFile(this.selectedFile).subscribe( event => {
+      const uploadableFile = new File([this.selectedFile], Guid.create() + '_' + this.selectedFile.name);
+      this.fileDataService.uploadFile(uploadableFile).subscribe( event => {
         if (event.type === HttpEventType.UploadProgress && event.total !== undefined) {
           this.progress.percentage = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
           alert('File Successfully Uploaded');
           if(this.fileName !== '') {
-            this.files.push(this.fileName);
-            this.fileNames.push(this.fileName);
+            this.files.push(uploadableFile.name);
+            this.fileNames.push(uploadableFile.name);
           }
         }
         this.selectedFile = undefined;

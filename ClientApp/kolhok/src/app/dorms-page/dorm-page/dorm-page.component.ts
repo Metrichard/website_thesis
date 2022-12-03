@@ -7,6 +7,7 @@ import { Dorm } from '../dorms-page.component';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { JwtAuthenticationService } from 'app/service/authentication.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-dorm-page',
@@ -82,17 +83,18 @@ export class DormPageComponent implements OnInit {
   selectedFile?: File;
   changeImage = false;
 
-  uploadFile() {
+  uploadFile(uploadableFile: File) {
     if(this.selectedFile !== undefined) {
       this.progress.percentage = 0;
-      this.fileDataService.uploadFile(this.selectedFile).subscribe(
+      
+      this.fileDataService.uploadFile(uploadableFile).subscribe(
         event => {
           if (event.type === HttpEventType.UploadProgress && event.total !== undefined) {
             this.progress.percentage = Math.round(100 * event.loaded / event.total);
           } else if (event instanceof HttpResponse) {
             alert('File Successfully Uploaded');
             if(this.dorm.fileName !== '') {
-              this.fileName =this.dorm.fileName;
+              this.fileName = uploadableFile.name;
             }
           }
           this.selectedFile = undefined;
@@ -102,11 +104,13 @@ export class DormPageComponent implements OnInit {
 
   onFileSelected(event : any) {
     this.selectedFile = event.target.files[0];
-
+    
     if(this.selectedFile) {
-      this.dorm.fileName = this.selectedFile.name;  
+      const uploadableFile = new File([this.selectedFile], Guid.create() + '_' + this.selectedFile.name);
+      this.dorm.fileName = uploadableFile.name;
+      this.uploadFile(uploadableFile);
     }
-    this.uploadFile();
+    
   }
 
   deleteFile(name: String) {

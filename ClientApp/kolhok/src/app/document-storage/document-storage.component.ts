@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FileData } from 'app/file-manager/file-manager.component';
 import { JwtAuthenticationService } from 'app/service/authentication.service';
 import { FileUploaderService } from 'app/service/file/file-uploader.service';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-document-storage',
@@ -43,13 +44,14 @@ export class DocumentStorageComponent implements OnInit {
     
     if(this.selectedFile !== undefined) {
       this.progress.percentage = 0;
-      this.fileDataService.uploadFile(this.selectedFile).subscribe( event => {
+      const uploadableFile = new File([this.selectedFile], Guid.create() + '_' + this.selectedFile.name);
+      this.fileDataService.uploadFile(uploadableFile).subscribe( event => {
         if (event.type === HttpEventType.UploadProgress && event.total !== undefined) {
           this.progress.percentage = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
           alert('File Successfully Uploaded');
           if(this.fileName !== '') {
-            this.files.push(this.fileName);
+            this.files.push(uploadableFile.name);
             this.fileDataService.refreshToPublic(this.files).subscribe(
               data => {
                 window.location.reload();
