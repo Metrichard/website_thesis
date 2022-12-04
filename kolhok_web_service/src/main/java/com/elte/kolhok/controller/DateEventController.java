@@ -30,7 +30,7 @@ public class DateEventController {
 
     @PostMapping("api/calendar-create")
     public ResponseEntity<?> createDateEvent(@RequestBody DateEventRequest dateEventRequest) {
-        DateEvent dateEvent = new DateEvent(dateEventRequest.getTitle(), dateEventRequest.getDate(), dateEventRequest.getColor());
+        DateEvent dateEvent = new DateEvent(dateEventRequest.getTitle(), dateEventRequest.getDate(), dateEventRequest.getDescription());
 
         return ResponseEntity.status(201).body(dateEventRepository.save(dateEvent));
     }
@@ -44,7 +44,7 @@ public class DateEventController {
             DateEvent current = dateEvent.get();
             current.setTitle(dateEventRequest.getTitle());
             current.setDate(dateEventRequest.getDate());
-            current.setColor(dateEventRequest.getColor());
+            current.setDescription(dateEventRequest.getDescription());
             return ResponseEntity.ok(dateEventRepository.save(current));
         }
 

@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { CalendarOptions } from '@fullcalendar/angular';
+import { CalendarOptions, disableCursor } from '@fullcalendar/angular';
 import { JwtAuthenticationService } from 'app/service/authentication.service';
 import { CalendarDataServiceService } from 'app/service/calendar/calendar-data-service.service';
+import { Editor, Toolbar } from 'ngx-editor';
+import { ModalComponent } from './modal/modal.component';
 
 @Component({
   selector: 'app-calendar',
@@ -11,9 +14,21 @@ import { CalendarDataServiceService } from 'app/service/calendar/calendar-data-s
 })
 export class CalendarComponent implements OnInit {
 
-  newEvent: DateEvent = new DateEvent('-1','','','');
+  @Input() newEvent: DateEvent = new DateEvent('-1','','','');
 
-  events?: any[];
+  events: any[] = [];
+
+  editor: Editor = new Editor();
+  toolbar: Toolbar = [
+    ['bold', 'italic'],
+    ['underline', 'strike'],
+    ['code', 'blockquote'],
+    ['ordered_list', 'bullet_list'],
+    [{heading: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']}],
+    ['link', 'image'],
+    ['text_color', 'background_color'],
+    ['align_left', 'align_center', 'align_right', 'align_justify'],
+  ];
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
@@ -24,7 +39,8 @@ export class CalendarComponent implements OnInit {
   constructor(
     private calendarDataService: CalendarDataServiceService,
     public authService: JwtAuthenticationService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   public ngOnInit(): void {
@@ -44,8 +60,12 @@ export class CalendarComponent implements OnInit {
     )
   }
 
-  handleDateEvent(arg:any) {
-    //alert('date click' + arg.dateStr);
+  handleDateEvent(arg: any) {
+    // const dialogConfig = new MatDialogConfig();
+    // dialogConfig.disableClose = true;
+    // dialogConfig.autoFocus = true;
+
+    // this.dialog.open(ModalComponent, dialogConfig);
   }
 
   createEvent() {
@@ -63,6 +83,6 @@ export class DateEvent {
     public id: String,
     public title: String,
     public date: String,
-    public color: String
+    public description: String
   ){}
 }

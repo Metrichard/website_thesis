@@ -1,21 +1,32 @@
-<full-calendar [options]="calendarOptions" [(ngModel)]="calendarOptions"></full-calendar>
-
-<div class="container" *ngIf="authService.isUserLoggedIn()">
-    <form (ngSubmit)="createEvent()" #postForm="ngForm">
-        <fieldset class="form-group">
-            <label>Esemény neve</label>
-            <input type="text" size="100" name="eventName" class="form-control" required="required" minlength="5" [(ngModel)]="newEvent.title">
-        </fieldset>
-        <fieldset class="form-group">
-            <label>Esemény dátuma</label>
-            <input type="text" size="100" name="eventName" class="form-control" placeholder="1970-01-01" pattern="[0-9]{4}-[0-9][0-9]-[0-9][0-9]"
-                required="required" minlength="5" [(ngModel)]="newEvent.date">
-        </fieldset>
-        <fieldset class="form-group">
-            <label>Esemény színe</label>
-            <input type="text" size="100" name="eventName" class="form-control" placeholder="#000000"
-                required="required" minlength="7"  maxlength="7" [(ngModel)]="newEvent.color">
-        </fieldset>
-        <button type="submit" class="btn btn-success">Mentés</button>
-    </form>
+<div *ngIf="!authService.isUserLoggedIn()">
+    <full-calendar [options]="calendarOptions" [(ngModel)]="calendarOptions"></full-calendar>
 </div>
+
+<mat-tab-group *ngIf="authService.isUserLoggedIn()">
+    <mat-tab label="Calendar">
+        <full-calendar [options]="calendarOptions" [(ngModel)]="calendarOptions"></full-calendar>
+    </mat-tab>
+    <mat-tab label="Create event" >
+        <div class="container creator-container">
+            <mat-form-field>
+                <mat-label>Title of event</mat-label>
+                <input matInput [value]="newEvent.title">
+            </mat-form-field>
+            <br>
+            <mat-form-field appearance="fill">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" [value]="newEvent.date">
+                <mat-hint>YYYY-MM-DD</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <br>
+            <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+            <ngx-editor name="wysiwyg-text" [editor]="editor" [disabled]="!authService.isUserLoggedIn()" [(ngModel)]="newEvent.description" [value]="newEvent.description" ngDefaultControl></ngx-editor>
+            <br>
+            <button type="button" mat-button (click)="createEvent()"><mat-icon>save</mat-icon></button>
+        </div>
+    </mat-tab>
+</mat-tab-group>
+
+

@@ -30,6 +30,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog'; 
 
 import { MainPageComponent } from './main-page/main-page.component';
 import { PostComponent } from './post/post.component';
@@ -54,6 +57,7 @@ import { ElectionComponent } from './elections/election/election.component';
 import { InformationsComponent } from './informations/informations.component';
 import { TransparencyComponent } from './transparency/transparency.component';
 import { UserManagerComponent } from './user-manager/user-manager.component';
+import { ModalComponent } from './calendar/modal/modal.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -86,6 +90,7 @@ FullCalendarModule.registerPlugins([
     InformationsComponent,
     TransparencyComponent,
     UserManagerComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,6 +117,9 @@ FullCalendarModule.registerPlugins([
     MatInputModule,
     MatCardModule,
     MatTabsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
@@ -119,12 +127,23 @@ FullCalendarModule.registerPlugins([
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpIntercepterBasicAuthService, multi: true },
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } }
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
+    { provide: MAT_DATE_FORMATS, useValue: { 
+      parse: { 
+        dateInput: [ '1', 'LL' ], 
+      }, display: {
+        dateInput: 'L',
+        monthYearLabel: 'YYYY-MM-DD',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'YYYY-MM-DD',
+        }, 
+      }, 
+    },
   ],
   bootstrap: [AppComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA,
   ],
-  entryComponents: [DormPageComponent],
+  entryComponents: [DormPageComponent, PersonComponent, ModalComponent],
 })
 export class AppModule { }

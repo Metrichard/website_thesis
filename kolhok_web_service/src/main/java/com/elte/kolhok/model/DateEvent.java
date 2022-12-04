@@ -11,7 +11,7 @@ public class DateEvent {
     private String id;
     private String title;
     private String date;
-    private String color;
+    private String description;
 
     public DateEvent() {
     }
@@ -19,7 +19,7 @@ public class DateEvent {
     public DateEvent(String title, String date, String color) {
         this.title = title;
         this.date = date;
-        this.color = color;
+        this.description = color;
     }
 
     public String getId() {
@@ -46,11 +46,11 @@ public class DateEvent {
         this.date = date;
     }
 
-    public String getColor() {
-        return color;
+    public String getDescription() {
+        return description;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
