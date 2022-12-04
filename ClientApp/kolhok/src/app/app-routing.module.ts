@@ -20,6 +20,7 @@ import { PostComponent } from './post/post.component';
 import { PresidencyComponent } from './presidency/presidency.component';
 import { RouteGuardService } from './service/route-guard.service';
 import { TransparencyComponent } from './transparency/transparency.component';
+import { UserManagerComponent } from './user-manager/user-manager.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent},
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: 'elections', component: ElectionComponent},
   { path: 'info', component: InformationsComponent },
   { path: 'transparency', component: TransparencyComponent },
+  { path: 'user-manager', component: UserManagerComponent, canActivate: [RouteGuardService] },
   { path: 'logout', component: LogOutComponent, canActivate: [RouteGuardService]},
   { path: '**', component: ErrorComponent}
 ];

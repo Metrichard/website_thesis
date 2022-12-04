@@ -53,6 +53,7 @@ import { WaitingListComponent } from './dorm-application-pages/waiting-list/wait
 import { ElectionComponent } from './elections/election/election.component';
 import { InformationsComponent } from './informations/informations.component';
 import { TransparencyComponent } from './transparency/transparency.component';
+import { UserManagerComponent } from './user-manager/user-manager.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -84,6 +85,7 @@ FullCalendarModule.registerPlugins([
     ElectionComponent,
     InformationsComponent,
     TransparencyComponent,
+    UserManagerComponent,
   ],
   imports: [
     BrowserModule,
