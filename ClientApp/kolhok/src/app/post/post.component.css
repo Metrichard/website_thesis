@@ -4,8 +4,9 @@
 }
 
 mat-card {
-    width: 450px;
-    height: 400px;
+    width: 90%;
+    height: 150px;
+    margin: auto;
     overflow: hidden;
     padding: .5em;
     background-color: ivory;

@@ -8,9 +8,21 @@
     display: block;
     align-items: center;
     align-content: center;
+    height: fit-content;
 }
 
 .title {
     font-size: x-large;
     font-weight: bold;
+}
+
+.message-container{
+    padding: 2em;
+    margin: 2em;
+}
+
+.downloadable-file{
+    border: 1px #CCCCCC solid;
+    padding: 2px;
+    width: fit-content;
 }

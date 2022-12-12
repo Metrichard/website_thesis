@@ -15,13 +15,13 @@
     <mat-card-header class="title">
         {{pageData.messageTitle}}
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content class="message-container"> 
         <div>{{pageData.message}}</div>
     </mat-card-content>
     <mat-card-footer>
-        <mat-list *ngFor="let file of pageData.fileNames">
-            <mat-list-item>{{file}}<button mat-button (click)="download(file)"><mat-icon>cloud_download</mat-icon></button></mat-list-item>
-        </mat-list>
+        <div *ngFor="let file of pageData.fileNames">
+            <div class="downloadable-file">{{file}}<button mat-button (click)="download(file)"><mat-icon>cloud_download</mat-icon></button></div>
+        </div>
     </mat-card-footer>
 </mat-card>
 

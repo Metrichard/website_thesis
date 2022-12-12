@@ -11,3 +11,7 @@
     width: 100%;
     height: 100%;
 }
+
+.pinned-post {
+    height: 300px;
+}

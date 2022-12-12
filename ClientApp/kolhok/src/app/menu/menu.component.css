@@ -48,3 +48,25 @@ mat-expansion-panel {
 .spacer {
     flex: 1 1 auto;
 }
+
+.menu-bar {
+    background-color: #0D86A2;
+}
+
+.menu-side-bar {
+    background-color: #0D86A2;
+}
+
+.menu-extension-bar {
+    background-color: #37A8CC;
+}
+
+.menu-text {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.decor-off {
+    text-decoration: none;
+    color: #FFFFFF;
+}
