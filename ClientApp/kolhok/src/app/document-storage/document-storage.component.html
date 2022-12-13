@@ -17,14 +17,15 @@
             <th *ngIf="authService.isUserLoggedIn()">File ID</th>
             <th>File name</th>
             <th>File download</th>
-            <th>File type</th>
+            <th *ngIf="authService.isUserLoggedIn()">File type</th>
             <th *ngIf="authService.isUserLoggedIn()">Action</th>
         </thead>
         <tbody>
             <tr *ngFor="let file of fileData">
+                <td *ngIf="authService.isUserLoggedIn()">{{file.id}}</td>
                 <td>{{file.fileName}}</td>
                 <td><button mat-button (click)="download(file.id)"><mat-icon>cloud_download</mat-icon></button></td>
-                <td>{{file.fileType}}</td>
+                <td *ngIf="authService.isUserLoggedIn()">{{file.fileType}}</td>
                 <td *ngIf="authService.isUserLoggedIn()"><button mat-button (click)="deleteFile(file.name)"><mat-icon>delete_forever</mat-icon></button></td>
             </tr>
         </tbody>

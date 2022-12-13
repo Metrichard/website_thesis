@@ -1,21 +1,21 @@
 <div *ngIf="!authService.isUserLoggedIn()">
-    <full-calendar [options]="calendarOptions" [(ngModel)]="calendarOptions"></full-calendar>
+    <full-calendar [options]="calendarOptions" (onEventClick)="handleDateEvent($event)"></full-calendar>
 </div>
 
 <mat-tab-group *ngIf="authService.isUserLoggedIn()">
     <mat-tab label="Calendar">
-        <full-calendar [options]="calendarOptions" [(ngModel)]="calendarOptions"></full-calendar>
+        <full-calendar [options]="calendarOptions" (eventClick)="handleDateEvent($event)"></full-calendar>
     </mat-tab>
     <mat-tab label="Create event" >
         <div class="container creator-container">
             <mat-form-field>
                 <mat-label>Title of event</mat-label>
-                <input matInput [value]="newEvent.title">
+                <input matInput [(ngModel)]="newEvent.title" [value]="newEvent.title">
             </mat-form-field>
             <br>
             <mat-form-field appearance="fill">
                 <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker" [value]="newEvent.date">
+                <input matInput [matDatepicker]="picker" [(ngModel)]="newEvent.date" [value]="newEvent.date">
                 <mat-hint>YYYY-MM-DD</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>

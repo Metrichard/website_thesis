@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { CalendarOptions, disableCursor } from '@fullcalendar/angular';
+import { CalendarOptions, disableCursor, EventClickArg } from '@fullcalendar/angular';
 import { JwtAuthenticationService } from 'app/service/authentication.service';
 import { CalendarDataServiceService } from 'app/service/calendar/calendar-data-service.service';
 import { Editor, Toolbar } from 'ngx-editor';
@@ -50,22 +50,30 @@ export class CalendarComponent implements OnInit {
   initCalendar() {
     this.calendarDataService.retrieveAllEvents().subscribe(
       response => {
-        this.events = response
+        this.events = response;
         this.calendarOptions = {
           initialView: 'dayGridMonth',
-          dateClick: this.handleDateEvent.bind(this),
           events: this.events,
+          editable: true,
+          eventClick: (calEvent: EventClickArg) => {
+            const eventClickedId = calEvent.event._def.publicId;
+            const data = this.events.find(x => x.id === eventClickedId)
+            this.dialog.open(ModalComponent,{ data: {
+              id: data.id,
+              title: data.title,
+              date: data.date,
+              description: data.description
+            }});
+          },
+
         };
       }
     )
   }
 
-  handleDateEvent(arg: any) {
-    // const dialogConfig = new MatDialogConfig();
-    // dialogConfig.disableClose = true;
-    // dialogConfig.autoFocus = true;
-
-    // this.dialog.open(ModalComponent, dialogConfig);
+  handleDateEvent(event: any) {
+    const data = new DateEvent('', 'Not real', '2022-12-14', '')
+    this.dialog.open(ModalComponent, { data })
   }
 
   createEvent() {

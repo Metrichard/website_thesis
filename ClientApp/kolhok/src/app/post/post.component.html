@@ -20,7 +20,7 @@
     <ngx-editor name="wysiwyg-text" [editor]="editor" [(ngModel)]="post.text" [disabled]="!authService.isUserLoggedIn()" [value]="post.text" ngDefaultControl></ngx-editor>
 
     <mat-list *ngFor="let file of post.files">
-        <mat-list-item>{{file}}<button mat-button (click)="download(file)"><mat-icon>cloud_download</mat-icon></button></mat-list-item>
+        <mat-list-item class="file-container"><button mat-button (click)="download(file)">{{file}}<mat-icon>cloud_download</mat-icon></button></mat-list-item>
     </mat-list>
 
     <div class="text-muted">{{post.publicationDate | date}}</div>
