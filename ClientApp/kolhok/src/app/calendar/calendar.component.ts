@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { CalendarOptions, disableCursor, EventClickArg } from '@fullcalendar/angular';
+import { CalendarOptions, disableCursor, EventClickArg, EventDropArg } from '@fullcalendar/angular';
+import { EventDragStopArg } from '@fullcalendar/interaction';
 import { JwtAuthenticationService } from 'app/service/authentication.service';
 import { CalendarDataServiceService } from 'app/service/calendar/calendar-data-service.service';
 import { Editor, Toolbar } from 'ngx-editor';
@@ -54,7 +55,13 @@ export class CalendarComponent implements OnInit {
         this.calendarOptions = {
           initialView: 'dayGridMonth',
           events: this.events,
-          editable: true,
+          defaultAllDay: false,
+          editable: this.authService.isUserLoggedIn(),
+          headerToolbar: {
+            left: 'dayGridMonth,dayGridWeek',
+            center: 'title',
+            right: 'prev,next today',
+          },
           eventClick: (calEvent: EventClickArg) => {
             const eventClickedId = calEvent.event._def.publicId;
             const data = this.events.find(x => x.id === eventClickedId)
@@ -65,7 +72,14 @@ export class CalendarComponent implements OnInit {
               description: data.description
             }});
           },
-
+          eventDrop: (arg: EventDropArg) => {
+              const eventClickedId = arg.event._def.publicId;
+              const data = this.events.find(x => x.id === eventClickedId);
+              data.date = arg.event._instance!.range.start;
+              this.calendarDataService.updateDateEvent(data).subscribe(
+                _ => {}
+              );
+          },
         };
       }
     )

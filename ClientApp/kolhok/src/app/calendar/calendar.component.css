@@ -1,7 +1,12 @@
 .creator-container{
-    margin: 20px;
+    margin: 30px;
 }
 
 .editor-width {
     width: 50%;
+}
+
+.spacer-style {
+    margin: 15px;
+    padding: 5px;
 }

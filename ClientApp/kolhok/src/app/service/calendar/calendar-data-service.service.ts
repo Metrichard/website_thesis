@@ -21,7 +21,7 @@ export class CalendarDataServiceService {
   }
 
   updateDateEvent(dateEvent: DateEvent) {
-    return this.http.post<DateEvent>(`${API_URL}/api/calendar-update`, dateEvent);
+    return this.http.patch<DateEvent>(`${API_URL}/api/calendar-update`, dateEvent);
   }
 
   deleteDateEvent(id: String) {

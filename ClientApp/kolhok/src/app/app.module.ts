@@ -31,7 +31,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog'; 
 
 import { MainPageComponent } from './main-page/main-page.component';
@@ -128,17 +128,7 @@ FullCalendarModule.registerPlugins([
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpIntercepterBasicAuthService, multi: true },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
-    { provide: MAT_DATE_FORMATS, useValue: { 
-      parse: { 
-        dateInput: [ '1', 'LL' ], 
-      }, display: {
-        dateInput: 'L',
-        monthYearLabel: 'YYYY-MM-DD',
-        dateA11yLabel: 'LL',
-        monthYearA11yLabel: 'YYYY-MM-DD',
-        }, 
-      }, 
-    },
+    { provide: MAT_DATE_LOCALE, useValue: 'hu' },
   ],
   bootstrap: [AppComponent],
   schemas: [
