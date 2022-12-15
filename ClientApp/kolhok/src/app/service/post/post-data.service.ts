@@ -49,7 +49,7 @@ export class PostDataService {
   }
 
   updatePost(post: PostRequest) {
-    return this.http.post<PostRequest>(`${API_URL}/api/post-update`, post);
+    return this.http.patch<PostRequest>(`${API_URL}/api/post-update`, post);
   }
 
   deletePost(id: String) {

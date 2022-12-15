@@ -41,7 +41,7 @@ public class PageDataController {
         return ResponseEntity.ok(pageDataRepository.save(pageData));
     }
 
-    @PostMapping("/api/page-data-update")
+    @PatchMapping("/api/page-data-update")
     public ResponseEntity<?> updatePageData(@RequestBody PageDataRequest pageDataRequest) {
         Optional<PageData> pageData = pageDataRepository.findById(pageDataRequest.getId());
 

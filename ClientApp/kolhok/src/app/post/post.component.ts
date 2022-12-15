@@ -121,13 +121,13 @@ export class PostComponent implements OnInit, OnDestroy {
   saveOrUpdate() {
     const isPinned = this.post.isPinned ? 'true' : 'false';
     const isHidden = this.post.isHidden ? 'true' : 'false';
-    if(this.id == '-1'){
+    if(this.isNew){
       this.post.publicationDate = new Date();
       this.post.author = this.authService.getAuthenticatedUser();
       this.post.files = this.fileNames;
       const request: PostRequest = new PostRequest(this.post.id, this.post.title, this.post.author, this.post.text, this.post.tags, isPinned, isHidden, this.post.publicationDate, this.post.files);
       this.postService.createPost(request).subscribe(
-        data => { 
+        _ => { 
           this.router.navigate(['post-editor']);
         }
       )
@@ -136,7 +136,7 @@ export class PostComponent implements OnInit, OnDestroy {
       this.post.files = this.fileNames;
       const request: PostRequest = new PostRequest(this.post.id, this.post.title, this.post.author, this.post.text, this.post.tags, isPinned, isHidden, this.post.publicationDate, this.post.files);
       this.postService.updatePost(request).subscribe(
-        data => { 
+        _ => { 
           this.router.navigate(['post-editor']);
         }
       )
@@ -145,7 +145,7 @@ export class PostComponent implements OnInit, OnDestroy {
 
   deletePost(id: String) {
     this.postService.deletePost(id).subscribe(
-      result => {}
+      _ => {}
     );
     this.router.navigate(['post-editor']);
   }

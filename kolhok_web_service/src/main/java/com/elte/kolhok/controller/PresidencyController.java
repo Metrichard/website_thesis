@@ -37,7 +37,7 @@ public class PresidencyController {
         return ResponseEntity.status(201).body(presidencyRepository.save(person));
     }
 
-    @PostMapping("/api/pres-person-update")
+    @PatchMapping("/api/pres-person-update")
     public ResponseEntity<?> updatePerson(@RequestBody PersonRequest personRequest) {
         Optional<PersPerson> person = presidencyRepository.findById(personRequest.getId());
         if(person.isPresent()) {

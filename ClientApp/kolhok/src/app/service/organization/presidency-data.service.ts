@@ -25,7 +25,7 @@ export class PresidencyDataService {
   }
 
   updatePerson(person: Person) {
-    return this.http.post<Person>(`${API_URL}/api/pres-person-update`, person);
+    return this.http.patch<Person>(`${API_URL}/api/pres-person-update`, person);
   }
 
   deletePerson(id: String) {

@@ -17,20 +17,18 @@ export class LoginComponent implements OnInit {
   
   constructor(
     private router: Router,
-    private basicAuthService: JwtAuthenticationService) { }
+    private authService: JwtAuthenticationService) { }
 
   ngOnInit(): void {
   }
 
   handleAuthLogin() : void {
-    this.basicAuthService.executeJwtAuthenticationService(this.username, this.password).subscribe(
+    this.authService.executeJwtAuthenticationService(this.username, this.password).subscribe(
       data => {
-        console.log(data);
         this.router.navigate(['main-page']);
         this.invalidLogin = false;
       },
       error => {
-        console.log(error)
         this.invalidLogin = true;
       }
     )

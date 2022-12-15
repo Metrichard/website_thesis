@@ -29,6 +29,6 @@ export class PersonDataService {
   }
 
   updatePerson(person: Person) {
-    return this.http.post<Person>(`${API_URL}/api/person-update`, person);
+    return this.http.patch<Person>(`${API_URL}/api/person-update`, person);
   }
 }

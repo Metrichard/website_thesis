@@ -35,7 +35,7 @@ public class DateEventController {
         return ResponseEntity.status(201).body(dateEventRepository.save(dateEvent));
     }
 
-    @PostMapping("api/calendar-update")
+    @PatchMapping("api/calendar-update")
     public ResponseEntity<?> updateDateEvent(@RequestBody DateEventRequest dateEventRequest){
         Optional<DateEvent> dateEvent = dateEventRepository.findById(dateEventRequest.getId());
 

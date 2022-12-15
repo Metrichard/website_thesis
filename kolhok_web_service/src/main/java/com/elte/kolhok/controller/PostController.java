@@ -53,7 +53,14 @@ public class PostController {
 
     @PostMapping("/api/post-create")
     public ResponseEntity<?> createPost(@RequestBody PostRequest postRequest) {
-        Post post = new Post(postRequest.getTitle(), postRequest.getAuthor(), postRequest.getText(), postRequest.getTags(), postRequest.getIsPinned(),  postRequest.getIsHidden(), postRequest.getPublicationDate(), postRequest.getFiles());
+        Post post = new Post(postRequest.getTitle(),
+                postRequest.getAuthor(),
+                postRequest.getText(),
+                postRequest.getTags(),
+                postRequest.getIsPinned(),
+                postRequest.getIsHidden(),
+                postRequest.getPublicationDate(),
+                postRequest.getFiles());
 
         if(Boolean.parseBoolean(post.getIsPinned())) {
             List<Post> posts = postRepository.findAll();
@@ -65,7 +72,7 @@ public class PostController {
         return ResponseEntity.status(201).body(postRepository.save(post));
     }
 
-    @PostMapping("/api/post-update")
+    @PatchMapping("/api/patch-update")
     public ResponseEntity<?> updatePost(@RequestBody PostRequest postRequest) {
         Optional<Post> post = postRepository.findById(postRequest.getId());
 

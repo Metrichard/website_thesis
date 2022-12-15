@@ -17,7 +17,7 @@ export class PageDataService {
   }
 
   updatePageData(pageData: PageData) {
-    return this.http.post<PageData>(`${API_URL}/api/page-data-update`, pageData);
+    return this.http.patch<PageData>(`${API_URL}/api/page-data-update`, pageData);
   }
 
   getPageData(pageName: String) {

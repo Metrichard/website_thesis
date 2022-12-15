@@ -37,7 +37,7 @@ public class PeopleController {
         return ResponseEntity.status(201).body(peopleRepository.save(person));
     }
 
-    @PostMapping("/api/person-update")
+    @PatchMapping("/api/person-update")
     public ResponseEntity<?> updatePerson(@RequestBody PersonRequest personRequest) {
         Optional<Person> person = peopleRepository.findById(personRequest.getId());
         if(person.isPresent()) {

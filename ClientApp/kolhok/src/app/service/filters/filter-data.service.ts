@@ -21,6 +21,6 @@ export class FilterDataService {
   }
 
   updateFilterDataForPage(filterData: FilterData) {
-    return this.http.post(`${API_URL}/api/filter-update/`, filterData);
+    return this.http.patch(`${API_URL}/api/filter-update/`, filterData);
   }
 }

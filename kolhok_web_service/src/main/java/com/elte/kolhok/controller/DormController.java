@@ -49,7 +49,7 @@ public class DormController {
         return ResponseEntity.status(201).body(dormRepository.save(dorm));
     }
 
-    @PostMapping("/api/dorm-update")
+    @PatchMapping("/api/dorm-update")
     public ResponseEntity<?> updateDorm(@RequestBody DormRequest dormRequest) {
         Optional<Dorm> dorm = dormRepository.findById(dormRequest.getId());
 

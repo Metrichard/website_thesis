@@ -31,7 +31,7 @@ public class FilterDataController {
         return ResponseEntity.ok(filterDataRepository.save(filterData));
     }
 
-    @PostMapping("/api/filter-update")
+    @PatchMapping("/api/filter-update")
     public ResponseEntity<?> updateFilterForPage(@RequestBody FilterDataRequest filterDataRequest) {
         Optional<FilterData> filterData = filterDataRepository.findById(filterDataRequest.getId());
         if (filterData.isPresent()) {

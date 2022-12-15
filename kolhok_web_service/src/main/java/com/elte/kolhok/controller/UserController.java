@@ -23,7 +23,6 @@ public class UserController {
         User user = new User(userRequest.getUsername(), userRequest.getPassword());
         return ResponseEntity.ok(userRepository.save(user));
     }
-
     @GetMapping("/api/get-all-users")
     public ResponseEntity<?> getAllUsers() {
         return ResponseEntity.status(200).body(userRepository.findAll());

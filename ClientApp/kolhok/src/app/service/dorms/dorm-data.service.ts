@@ -22,7 +22,7 @@ export class DormDataService {
   }
 
   updateDorm(id: String, dorm: Dorm) {
-    return this.http.post<Dorm>(`${API_URL}/api/dorm-update`, dorm);
+    return this.http.patch<Dorm>(`${API_URL}/api/dorm-update`, dorm);
   }
 
   createDorm(dorm: Dorm) {
