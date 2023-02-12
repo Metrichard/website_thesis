@@ -15,20 +15,15 @@
                 <input matInput [(ngModel)]="newEvent.title" [value]="newEvent.title">
             </mat-form-field>
             <mat-form-field appearance="fill" class="spacer-style">
-                <mat-label>Enter a date range</mat-label>
-                <mat-date-range-input [rangePicker]="picker">
-                  <input matStartDate placeholder="Start date">
-                  <input matEndDate placeholder="End date">
-                </mat-date-range-input>
-                <mat-hint>YYYY/MM/DD – YYYY/MM/DD</mat-hint>
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="newEvent.date" [value]="newEvent.date">
+                <mat-hint>MM/DD/YYYY</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
-            <ngx-editor-menu [editor]="editor" [toolbar]="toolbar" class="spacer-style"></ngx-editor-menu>
-            <ngx-editor name="wysiwyg-text" [editor]="editor" [disabled]="!authService.isUserLoggedIn()" [(ngModel)]="newEvent.description" [value]="newEvent.description" ngDefaultControl class="spacer-style"></ngx-editor>
+            <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+            <ngx-editor name="wysiwyg-text" [editor]="editor" [disabled]="!authService.isUserLoggedIn()" [(ngModel)]="newEvent.description" [value]="newEvent.description" ngDefaultControl></ngx-editor>
             <button type="button" mat-button (click)="createEvent()" class="spacer-style"><mat-icon>save</mat-icon></button>
         </div>
     </mat-tab>
 </mat-tab-group>
-
-

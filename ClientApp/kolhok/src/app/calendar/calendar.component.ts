@@ -33,14 +33,12 @@ export class CalendarComponent implements OnInit {
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
-    dateClick: this.handleDateEvent.bind(this),
     events: this.events,
   };
 
   constructor(
     private calendarDataService: CalendarDataServiceService,
     public authService: JwtAuthenticationService,
-    private router: Router,
     private dialog: MatDialog
   ) {}
 
@@ -52,6 +50,7 @@ export class CalendarComponent implements OnInit {
     this.calendarDataService.retrieveAllEvents().subscribe(
       response => {
         this.events = response;
+
         this.calendarOptions = {
           initialView: 'dayGridMonth',
           events: this.events,
@@ -64,7 +63,7 @@ export class CalendarComponent implements OnInit {
           },
           eventClick: (calEvent: EventClickArg) => {
             const eventClickedId = calEvent.event._def.publicId;
-            const data = this.events.find(x => x.id === eventClickedId)
+            const data = this.events.find(x => x.id === eventClickedId);
             this.dialog.open(ModalComponent,{ data: {
               id: data.id,
               title: data.title,
@@ -85,13 +84,7 @@ export class CalendarComponent implements OnInit {
     )
   }
 
-  handleDateEvent(event: any) {
-    const data = new DateEvent('', 'Not real', '2022-12-14', '')
-    this.dialog.open(ModalComponent, { data })
-  }
-
   createEvent() {
-    console.log("asd");
     this.calendarDataService.createDateEvent(this.newEvent).subscribe(
       data => {
         window.location.reload();
