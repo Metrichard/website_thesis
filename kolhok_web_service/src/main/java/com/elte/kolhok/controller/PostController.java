@@ -88,6 +88,7 @@ public class PostController {
 
             postRepository.deleteById(post.get().getId());
             Post current = post.get();
+            current.setTitle(postRequest.getTitle());
             current.setAuthor(postRequest.getAuthor());
             current.setText(postRequest.getText());
             current.setPublicationDate(postRequest.getPublicationDate());

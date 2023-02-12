@@ -8,6 +8,7 @@ import { MAIN_PAGE } from 'app/app.constants';
 import { FilterData } from 'app/service/filters/filter-data';
 import { PostComponent } from 'app/post/post.component';
 import { Editor } from 'ngx-editor';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
@@ -31,7 +32,8 @@ export class MainPageComponent implements OnInit {
     public authService: JwtAuthenticationService,
     private postDataService: PostDataService,
     public tagDataService: TagDataService,
-    public filterDataService: FilterDataService
+    public filterDataService: FilterDataService,
+    private router: Router
     ) { }
 
   ngOnInit(): void {
@@ -60,6 +62,10 @@ export class MainPageComponent implements OnInit {
         }
       );
     }
+  }
+
+  navigateToPinned(id: String) {
+    this.router.navigate(['post', id]);
   }
 
   saveFilter() {

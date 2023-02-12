@@ -1,0 +1,33 @@
+<div class="container">
+    <div *ngIf="authService.isUserLoggedIn()" class="file-uploader">
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+        <mat-label>File upload</mat-label>
+        <div class="file-upload" *ngIf="fileName===''">
+            <mat-label>
+                {{fileName || "No file uploaded yet."}}
+                <button mat-mini-fab class="upload-btn" (click)="fileUpload.click()">
+                    <mat-icon>attach_file</mat-icon>
+                </button>
+            </mat-label>
+        </div>
+    </div>
+
+    <table class="mat-elevation-z8 table-striped table-width">
+        <thead>
+            <th *ngIf="authService.isUserLoggedIn()">File ID</th>
+            <th>File name</th>
+            <th>File download</th>
+            <th *ngIf="authService.isUserLoggedIn()">File type</th>
+            <th *ngIf="authService.isUserLoggedIn()">Action</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let file of fileData">
+                <td *ngIf="authService.isUserLoggedIn()">{{file.id}}</td>
+                <td>{{file.fileName}}</td>
+                <td><button mat-button (click)="download(file.id)"><mat-icon>cloud_download</mat-icon></button></td>
+                <td *ngIf="authService.isUserLoggedIn()">{{file.fileType}}</td>
+                <td *ngIf="authService.isUserLoggedIn()"><button mat-button (click)="deleteFile(file.name)"><mat-icon>delete_forever</mat-icon></button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

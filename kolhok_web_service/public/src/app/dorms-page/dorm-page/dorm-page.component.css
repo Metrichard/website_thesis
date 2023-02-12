@@ -1,0 +1,31 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.file-input {
+    display: none;
+    position: absolute;
+}
+
+.preview {
+    width: 128px;
+    height: 128px;
+    float: right;
+    background-color: darkgray;
+    border: 1px;
+}
+
+.main-dorm-image {
+    width: 450px;
+    height: 230px;
+}
+
+mat-card{
+    width: 450px;
+}
+
+mat-card-actions {
+    text-align: center;
+}

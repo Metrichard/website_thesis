@@ -91,6 +91,7 @@ export class CalendarComponent implements OnInit {
   }
 
   createEvent() {
+    console.log("asd");
     this.calendarDataService.createDateEvent(this.newEvent).subscribe(
       data => {
         window.location.reload();

@@ -1,0 +1,14 @@
+.file-input {
+    display: none;
+    position: absolute;
+}
+
+.table-width {
+    width: 100%;
+}
+
+.file-uploader {
+    margin: 20px;
+    padding: 10px;
+    border: solid #CCCCCC 1px;
+}
