@@ -11,6 +11,7 @@ import { ElectionComponent } from './elections/election/election.component';
 import { ErrorComponent } from './error/error.component';
 import { FileManagerComponent } from './file-manager/file-manager.component';
 import { InformationsComponent } from './informations/informations.component';
+import { LanguageEditorComponent } from './language-editor/language-editor.component';
 import { LogOutComponent } from './log-out/log-out.component';
 import { LoginComponent } from './login/login.component';
 import { MainPageComponent } from './main-page/main-page.component';
@@ -43,6 +44,7 @@ const routes: Routes = [
   { path: 'transparency', component: TransparencyComponent },
   { path: 'user-manager', component: UserManagerComponent, canActivate: [RouteGuardService] },
   { path: 'logout', component: LogOutComponent, canActivate: [RouteGuardService]},
+  { path: 'language-editor', component: LanguageEditorComponent, canActivate: [RouteGuardService]},
   { path: '**', component: ErrorComponent}
 ];
 

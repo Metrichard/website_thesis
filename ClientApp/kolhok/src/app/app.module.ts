@@ -58,6 +58,8 @@ import { InformationsComponent } from './informations/informations.component';
 import { TransparencyComponent } from './transparency/transparency.component';
 import { UserManagerComponent } from './user-manager/user-manager.component';
 import { ModalComponent } from './calendar/modal/modal.component';
+import { LanguageEditorComponent } from './language-editor/language-editor.component';
+
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -91,6 +93,7 @@ FullCalendarModule.registerPlugins([
     TransparencyComponent,
     UserManagerComponent,
     ModalComponent,
+    LanguageEditorComponent,
   ],
   imports: [
     BrowserModule,
