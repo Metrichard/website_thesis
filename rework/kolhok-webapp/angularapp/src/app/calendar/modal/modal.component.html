@@ -1,0 +1,7 @@
+<div class="container">
+    <mat-label><h1>{{data.title}}</h1></mat-label>
+    <ngx-editor-menu *ngIf="authService.isUserLoggedIn()" [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+    <ngx-editor name="wysiwyg-text" [editor]="editor" [disabled]="!authService.isUserLoggedIn()" [(ngModel)]="data.description" [value]="data.description" ngDefaultControl></ngx-editor>
+    <button class="float-left button-container" mat-raised-button *ngIf="authService.isUserLoggedIn()" (click)="updateDateEvent()" color="primary"><mat-icon>save</mat-icon></button>
+    <button class="float-right button-container" mat-raised-button *ngIf="authService.isUserLoggedIn()" (click)="deleteCurrentEvent()" color="warn"><mat-icon>delete_forever</mat-icon></button>
+</div>

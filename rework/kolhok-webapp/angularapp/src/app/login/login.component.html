@@ -1,0 +1,17 @@
+<div class="login-panel-container">
+    <mat-card class="login-panel">
+        <mat-card-header>
+            <mat-label><h1>Log in</h1></mat-label>
+            <div class="alert alert-warning" *ngIf="invalidLogin">{{errorMessage}}</div>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-list>
+                <mat-list-item><mat-label>User name</mat-label></mat-list-item>
+                <mat-list-item><input type="text" name="username" [(ngModel)]="username"/></mat-list-item>
+                <mat-list-item><mat-label>Password</mat-label></mat-list-item>
+                <mat-list-item><input type="password" name="password" [(ngModel)]="password"/></mat-list-item>
+                <mat-list-item><button (click)=handleAuthLogin() class="btn btn-success">Login</button></mat-list-item>
+            </mat-list>
+        </mat-card-content>
+    </mat-card>
+</div>

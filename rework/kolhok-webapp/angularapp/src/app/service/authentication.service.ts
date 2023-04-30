@@ -16,8 +16,8 @@ export class JwtAuthenticationService {
   ) { }
 
   executeJwtAuthenticationService(username: string, password: string) {
-    const loginObject = {username: username, password: password};
-    return this.http.post<any>(`${API_URL}/login`, {loginObject}).pipe(
+    const loginObject = {Username: username, Password: password};
+    return this.http.post<any>(`${API_URL}/login`, loginObject).pipe(
       map(
         data => {
           sessionStorage.setItem(AUTHENTICATED_USER, username)

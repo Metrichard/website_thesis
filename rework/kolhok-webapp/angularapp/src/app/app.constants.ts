@@ -1,4 +1,3 @@
-//export const API_URL = 'http://localhost:8080';
 export const API_URL = 'https://localhost:7076';
 
 export const MAIN_PAGE = 'main_page';

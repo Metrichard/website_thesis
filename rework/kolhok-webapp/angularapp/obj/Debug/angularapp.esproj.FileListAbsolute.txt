@@ -1,0 +1,2 @@
+D:\Github\website_thesis\rework\kolhok-webapp\angularapp\obj\Debug\angularapp.esproj.SuggestedBindingRedirects.cache
+D:\Github\website_thesis\rework\kolhok-webapp\angularapp\obj\Debug\angularapp.esproj.CoreCompileInputs.cache

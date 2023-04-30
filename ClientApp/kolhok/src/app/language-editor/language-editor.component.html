@@ -1,0 +1,29 @@
+<mat-tab-group dynamicHeight="true">
+    <mat-tab label="Possible languages" class="tab">
+
+    </mat-tab>
+    <mat-tab label="Existing languages" class="tab">
+        <mat-tab-group>
+            <ng-container *ngFor="let piece of languages">
+                <mat-tab label="language">
+                    hello
+                </mat-tab>
+            </ng-container>
+        </mat-tab-group>
+    </mat-tab>
+    <mat-tab label="Create language pack">
+        <form [formGroup]="form" class="centerer" (ngSubmit)="createTextPiece()">
+            <ng-container *ngFor="let field of newText.textLanguageMap.keys()">
+                <mat-form-field appearance="fill">
+                    <mat-label class="padder">{{field}}</mat-label>
+                    <input matInput class="padder" formControlName="field" placeholder="asdasd" [(ngModel)]="newText.textLanguageMap.get(field).value">
+                    <mat-error>{{field}} is required</mat-error>
+                </mat-form-field>
+                <span class="spacer"></span>
+            </ng-container>
+            <div mat-dialog-actions align="end">
+                <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Create</button>
+            </div>
+        </form>
+    </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,24 @@
+.centerer {
+    padding: 15px;
+    text-align: center;
+}
+
+.padder {
+    padding: 5px;
+}
+
+.spacer {
+    display: block;
+    height: 1px;
+    margin: 10px 0;
+}
+
+.stretch-left {
+    float: left;
+    clear: left;
+}
+
+.stretch-right {
+    float: right;
+    clear: right;
+}

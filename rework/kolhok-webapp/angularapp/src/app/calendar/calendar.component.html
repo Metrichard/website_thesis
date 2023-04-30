@@ -1,0 +1,29 @@
+<div *ngIf="!authService.isUserLoggedIn()">
+    <full-calendar [options]="calendarOptions" (onEventClick)="handleDateEvent($event)"></full-calendar>
+</div>
+
+<mat-tab-group *ngIf="authService.isUserLoggedIn()">
+    <mat-tab label="Calendar">
+        <div class="creator-container">
+            <full-calendar [options]="calendarOptions" (eventClick)="handleDateEvent($event)"></full-calendar>
+        </div>
+    </mat-tab>
+    <mat-tab label="Create event" >
+        <div class="creator-container">
+            <mat-form-field class="spacer-style">
+                <mat-label>Title of event</mat-label>
+                <input matInput [(ngModel)]="newEvent.title" [value]="newEvent.title">
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="spacer-style">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" [(ngModel)]="newEvent.date" [value]="newEvent.date">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+            <ngx-editor name="wysiwyg-text" [editor]="editor" [disabled]="!authService.isUserLoggedIn()" [(ngModel)]="newEvent.description" [value]="newEvent.description" ngDefaultControl></ngx-editor>
+            <button type="button" mat-button (click)="createEvent()" class="spacer-style"><mat-icon>save</mat-icon></button>
+        </div>
+    </mat-tab>
+</mat-tab-group>

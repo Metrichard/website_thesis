@@ -1,0 +1,20 @@
+div {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.file-input {
+    display: none;
+    position: absolute;
+}
+
+.file-uploader {
+    margin: 20px;
+    padding: 10px;
+    border: solid #CCCCCC 1px;
+}
+
+
+.table-width {
+    width: 100%;
+}

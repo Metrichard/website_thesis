@@ -1,0 +1,5 @@
+<div class="contents">
+    <ng-container #dormsContainer>
+    </ng-container>
+</div>
+<button *ngIf="authService.isUserLoggedIn()" mat-button (click)="navigateToDormEditPage('-1')"><mat-icon>fiber_new</mat-icon></button>

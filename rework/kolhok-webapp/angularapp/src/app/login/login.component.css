@@ -1,0 +1,12 @@
+.login-panel {
+    width: 350px;
+    height: 350px;
+    position: absolute;
+    left: calc(50% - 175px);
+    top: calc(50% - 250px);
+}
+
+.login-panel-container {
+    width: 100%;
+    height: 100%;
+}

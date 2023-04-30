@@ -1,0 +1,11 @@
+.table-style {
+    width: 100%;
+}
+
+.register-container {
+    margin: 20px;
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+    margin: auto;
+}
