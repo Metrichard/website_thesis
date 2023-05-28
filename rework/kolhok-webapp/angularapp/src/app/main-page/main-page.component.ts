@@ -40,7 +40,7 @@ export class MainPageComponent implements OnInit {
     this.postDataService.getPinnedPost().subscribe(
       pinned => {
         if(pinned.title !== '') {
-          this.pinnedPost = new Post(pinned.id, pinned.title, pinned.author, pinned.text, pinned.tags, Boolean(pinned.isPinned), Boolean(pinned.isHidden), pinned.publicationDate, pinned.lastEditDate, pinned.files);
+          this.pinnedPost = new Post(pinned.postId, pinned.title, pinned.author, pinned.text, pinned.tags, Boolean(pinned.isPinned), Boolean(pinned.isHidden), pinned.publicationDate, pinned.lastEditDate, pinned.attachedFiles);
           this.pinnedExists = true;
         }
         else {
@@ -91,7 +91,7 @@ export class MainPageComponent implements OnInit {
     if(this.filter.tag !== undefined) {
       this.postDataService.retrieveAllPostsWithTag(this.filter.tag).subscribe(
         response => {
-          let postsArr = response.map(post => new Post(post.id, post.title, post.author, post.text, post.tags, Boolean(post.isPinned), Boolean(post.isHidden), post.publicationDate, post.lastEditDate, post.files));
+          let postsArr = response.map(post => new Post(post.postId, post.title, post.author, post.text, post.tags, Boolean(post.isPinned), Boolean(post.isHidden), post.publicationDate, post.lastEditDate, post.attachedFiles));
           postsArr.forEach( post => {
             const componentRef = this.entry.createComponent(PostComponent);
             componentRef.instance.post = post;

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace webapi.Controllers.PostModul
 {
@@ -21,7 +22,7 @@ namespace webapi.Controllers.PostModul
         }
 
         [HttpGet("posts-w-tag/{tag}")]
-        public async Task<List<PostModel>> GetAllPostsBasedOnFilter(string tag)
+        public async Task<List<PostModel>> GetAllPostsBasedOnFilter([FromRoute] string tag)
         {
             return await _postService.GetFilteredPostsAsync(tag);
         }
@@ -33,27 +34,57 @@ namespace webapi.Controllers.PostModul
         }
 
         [HttpPost("post-create")]
-        public async Task CreatePost([FromBody] PostModel post)
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> CreatePost([FromBody] PostRequest newPost)
         {
+            PostModel post = new PostModel() 
+            {
+                PostId = newPost.PostId,
+                Title = newPost.Title,
+                Author = newPost.Author,
+                Text = newPost.Text,
+                Tags = newPost.Tags,
+                IsPinned = newPost.IsPinned,
+                IsHidden = newPost.IsHidden,
+                PublicationDate = newPost.PublicationDate,
+                LastEditDate = newPost.LastEditDate,
+                AttachedFiles = newPost.AttachedFiles,
+            };
             await _postService.CreateAsync(post);
-            Ok("Post created successfully");
+            return Ok("Post created successfully");
         }
 
         [HttpPatch("post-update")]
-        public async Task UpdatePost([FromQuery] PostModel post)
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdatePost([FromBody] PostRequest newPost)
         {
+            PostModel post = new()
+            {
+                PostId = newPost.PostId,
+                Title = newPost.Title,
+                Author = newPost.Author,
+                Text = newPost.Text,
+                Tags = newPost.Tags,
+                IsPinned = newPost.IsPinned,
+                IsHidden = newPost.IsHidden,
+                PublicationDate = newPost.PublicationDate,
+                LastEditDate = newPost.LastEditDate,
+                AttachedFiles = newPost.AttachedFiles,
+            };
             await _postService.UpdateAsync(post.PostId, post);
-            Ok("Post updated successfully");
+            return Ok("Post updated successfully");
         }
 
         [HttpGet("posts/{id}")]
-        public async Task<PostModel?> GetPostById(string id)
+        public async Task<PostModel?> GetPostById([FromRoute] string id)
         {
             return await _postService.GetAsync(id);
         }
 
         [HttpDelete("post-delete/{id}")]
-        public async Task DeletePostById(string id)
+        public async Task DeletePostById([FromRoute] string id)
         {
             await _postService.RemoveAsync(id);
             Ok("Post deleted successfully");

@@ -14,5 +14,6 @@
         public string? FilesCollectionName { get; set; } = null;
         public string? DormsCollectionName { get; set; } = null;
         public string? DateEventCollectionName { get; set; } = null;
+        public string? PageDataCollectionName { get; set; } = null;
     }
 }

@@ -13,6 +13,7 @@ using webapi.Database.Configuration;
 using Microsoft.AspNetCore.Identity;
 using webapi.Controllers.PostModul;
 using webapi.Controllers.TagModul;
+using webapi.Controllers.PageModul;
 
 var builder = WebApplication.CreateBuilder(args);
 const string specificOrigins = "allowAnyOrigin";
@@ -53,6 +54,8 @@ builder.Services.AddAuthorization();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddSingleton<PostService>();
 builder.Services.AddSingleton<TagService>();
+builder.Services.AddSingleton<PageDataService>();
+
 
 var app = builder.Build();
 

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TagDataService } from 'app/service/tag/tag-data-service.service';
 import { Post } from '../post-editor/post-editor.component';
 import { JwtAuthenticationService } from '../service/authentication.service';
-import { PostDataService, PostRequest } from '../service/post/post-data.service';
+import { PostDataService } from '../service/post/post-data.service';
 import { Tag } from '../post-editor/post-editor.component';
 import { FileUploaderService } from 'app/service/file/file-uploader.service';
 import { Editor, Validators, Toolbar } from 'ngx-editor';
@@ -81,11 +81,11 @@ export class PostComponent implements OnInit, OnDestroy {
       this.isNew = false;
       this.postService.retrivePostById(this.id).subscribe(
         data => {
-          const isPinned = data.isPinned === 'true' ? true : false;
-          const isHidden = data.isHidden === 'true' ? true : false;
-          this.post = new Post(data.id, data.title, data.author, data.text, data.tags, isPinned, isHidden, data.publicationDate, data.lastEditDate, data.files);
+          const isPinned = data.isPinned;
+          const isHidden = data.isHidden;
+          this.post = new Post(data.postId, data.title, data.author, data.text, data.tags, isPinned, isHidden, data.publicationDate, data.lastEditDate, data.attachedFiles);
           this.selectedTag = '';
-          this.fileNames = data.files;
+          this.fileNames = data.attachedFiles;
         }
       )
     }else {
@@ -99,7 +99,7 @@ export class PostComponent implements OnInit, OnDestroy {
       }
     )
 
-    this.isOnMainPage = !this.router.url.endsWith(this.post.id.toString());
+    this.isOnMainPage = !this.router.url.endsWith(this.post.postId.toString());
   }
 
   ngOnDestroy() {
@@ -119,23 +119,20 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   saveOrUpdate() {
-    const isPinned = this.post.isPinned ? 'true' : 'false';
-    const isHidden = this.post.isHidden ? 'true' : 'false';
     if(this.isNew){
       this.post.publicationDate = new Date();
       this.post.author = this.authService.getAuthenticatedUser();
-      this.post.files = this.fileNames;
-      const request: PostRequest = new PostRequest(this.post.id, this.post.title, this.post.author, this.post.text, this.post.tags, isPinned, isHidden, this.post.publicationDate, new Date(), this.post.files);
-      this.postService.createPost(request).subscribe(
+      this.post.attachedFiles = this.fileNames;
+      this.post.lastEditDate = new Date();
+      this.postService.createPost(this.post).subscribe(
         _ => { 
           this.router.navigate(['post-editor']);
         }
       )
     }else {
-      this.post.publicationDate = new Date();
-      this.post.files = this.fileNames;
-      const request: PostRequest = new PostRequest(this.post.id, this.post.title, this.post.author, this.post.text, this.post.tags, isPinned, isHidden, this.post.publicationDate, new Date(), this.post.files);
-      this.postService.updatePost(request).subscribe(
+      this.post.attachedFiles = this.fileNames;
+      this.post.lastEditDate = new Date();
+      this.postService.updatePost(this.post).subscribe(
         _ => { 
           this.router.navigate(['post-editor']);
         }

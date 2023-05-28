@@ -12,7 +12,7 @@
                     <th mat-header-cell *matHeaderCellDef>
                         Id
                     </th>
-                    <td mat-cell *matCellDef="let post">{{post.id.substr(post.id.length-5, 5)}}</td>
+                    <td mat-cell *matCellDef="let post">{{post.postId ? post.postId.substr(post.postId.length-5, 5) : "NaN"}}</td>
                 </ng-container>
             
                 <!-- Title column -->
@@ -68,11 +68,11 @@
                 </ng-container>
             
                 <!-- Publication Date column -->
-                <ng-container matColumnDef="publicationDate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by publicationDate">
+                <ng-container matColumnDef="lastEditDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by lastEditDate">
                         Modification Date
                     </th>
-                    <td mat-cell *matCellDef="let post">{{post.publicationDate | date}}</td>
+                    <td mat-cell *matCellDef="let post">{{post.lastEditDate | date}}</td>
                 </ng-container>
             
                 <ng-container matColumnDef="actions">
@@ -80,8 +80,8 @@
                         Actions
                     </th>
                     <td mat-cell *matCellDef="let post">
-                        <button class="btn btn-primary" type="button" (click)="navigateToPost(post.id)">Edit</button>
-                        <button class="btn btn-danger" type="button" (click)="deletePostRow(post.id)">Delete</button>
+                        <button class="btn btn-primary" type="button" (click)="navigateToPost(post.postId)">Edit</button>
+                        <button class="btn btn-danger" type="button" (click)="deletePostRow(post.postId)">Delete</button>
                     </td>
                     
                 </ng-container>
@@ -106,10 +106,10 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let tag of tags">
-                            <th scope="row">{{tag.id.substring(tag.id.length-5,5)}}</th>
+                            <th scope="row">{{tag.tagId ? tag.tagId.substring(tag.tagId.length-5,5) : "NaN"}}</th>
                             <td>{{tag.name}}</td>
                             <td>{{tag.description}}</td>
-                            <td><button class="btn btn-danger" (click)="deleteTag(tag.id)">Törlés</button></td>
+                            <td><button class="btn btn-danger" (click)="deleteTag(tag.tagId)">Törlés</button></td>
                         </tr>
                         <tr>
                             <th>New</th>

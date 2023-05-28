@@ -16,13 +16,13 @@ export class PostEditorComponent implements OnInit, AfterViewInit {
   
   posts: Post[] = []
 
-  displayedColumns: string[] = ['id', 'title', 'author', 'text', 'tags', 'isPinned', 'isHidden', 'publicationDate', 'actions'];
+  displayedColumns: string[] = ['id', 'title', 'author', 'text', 'tags', 'isPinned', 'isHidden', 'lastEditDate', 'actions'];
   dataSource = new MatTableDataSource(this.posts)
   
   @ViewChild(MatSort) sort: MatSort = new MatSort();
 
   tags: Tag[] = []
-  newTag: Tag = new Tag('-1', '', '');
+  newTag: Tag = new Tag('', '', '');
 
   constructor(
     private postDataService: PostDataService,
@@ -47,16 +47,16 @@ export class PostEditorComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.postDataService.retrieveAllPosts().subscribe(
       response => {
-        this.posts = response.map(post => new Post(post.id
+        this.posts = response.map(post => new Post(post.postId
           , post.title
           , post.author
           , post.text
           , post.tags
-          , (post.isPinned === 'true' ? true : false)
-          , (post.isHidden === 'true' ? true : false)
+          , post.isPinned
+          , post.isHidden
           , post.publicationDate
           , post.lastEditDate
-          , post.files))
+          , post.attachedFiles))
         this.dataSource = new MatTableDataSource(this.posts)
         this.dataSource.sort = this.sort;
       }
@@ -83,10 +83,11 @@ export class PostEditorComponent implements OnInit, AfterViewInit {
   }
 
   createNewTag() {
-    if(this.newTag.id === '-1') {
+    if(this.newTag.tagId === '') {
       if(this.newTag.name !== '') {
         this.tagDataService.createTag(this.newTag).subscribe(
-          _ => {
+          data => {
+            console.log(data);
             window.location.reload();
           }
         )
@@ -107,7 +108,7 @@ export class PostEditorComponent implements OnInit, AfterViewInit {
 export class Tag {
 
   constructor(
-    public id: String,
+    public tagId: String,
     public name: String,
     public description: String
   ){}
@@ -115,7 +116,7 @@ export class Tag {
 
 export class Post{
   constructor(
-    public id: String,
+    public postId: String,
     public title: String,
     public author: String,
     public text: String,
@@ -124,7 +125,7 @@ export class Post{
     public isHidden: Boolean,
     public publicationDate: Date,
     public lastEditDate: Date,
-    public files: String[]
+    public attachedFiles: String[]
   ) {}
 }
 

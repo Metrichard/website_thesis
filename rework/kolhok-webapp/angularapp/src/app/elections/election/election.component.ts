@@ -67,7 +67,7 @@ export class ElectionComponent implements OnInit {
     if(this.filter.tag !== undefined) {
       this.postDataService.retrieveAllPostsWithTag(this.filter.tag).subscribe(
         response => {
-          let postsArr = response.map(post => new Post(post.id, post.title, post.author, post.text, post.tags, Boolean(post.isPinned), Boolean(post.isHidden), post.publicationDate, post.lastEditDate, post.files));
+          let postsArr = response.map(post => new Post(post.postId, post.title, post.author, post.text, post.tags, post.isPinned, post.isHidden, post.publicationDate, post.lastEditDate, post.attachedFiles));
           postsArr.forEach( post => {
             const componentRef = this.entry.createComponent(PostComponent);
             componentRef.instance.post = post;

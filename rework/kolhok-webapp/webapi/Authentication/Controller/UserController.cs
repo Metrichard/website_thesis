@@ -79,7 +79,7 @@ namespace webapi.Authentication.Controller
 
         [HttpDelete("delete/{id}")]
         [Authorize(Roles = "admin")]
-        public async Task<ActionResult> Delete(String id)
+        public async Task<ActionResult> Delete([FromRoute] String id)
         {
             await _userService.RemoveAsync(id);
             return Ok("User successfully deleted");
